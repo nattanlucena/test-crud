@@ -15,7 +15,7 @@ import * as utils from '../../utils/Utils';
  * @param response - HTTP response
  */
 module.exports.getUsers = function (request, response) {
-    utils.logInfo("HTTP Request :: getUsers function");
+    utils.logInfo('HTTP Request :: getUsers function');
 
     model.fetch((err, users) => {
         if (err) {
@@ -33,7 +33,7 @@ module.exports.getUsers = function (request, response) {
  * @param response - HTTP response
  */
 module.exports.saveUser = function (request, response) {
-    utils.logInfo("HTTP Request :: saveUser function");
+    utils.logInfo('HTTP Request :: saveUser function');
 
     model.save(request.body, (err, user) => {
         if (err) {
@@ -51,8 +51,7 @@ module.exports.saveUser = function (request, response) {
  * @param response - HTTP response
  */
 module.exports.findById = function (request, response) {
-    utils.logInfo("HTTP Request :: findById function");
-
+    utils.logInfo('HTTP Request :: findById function');
 
     let id = request.params.id;
     let query = {_id: id};
@@ -73,7 +72,7 @@ module.exports.findById = function (request, response) {
  * @param response - HTTP response
  */
 module.exports.findByEmail = function (request, response) {
-    utils.logInfo("HTTP Request :: findByEmail function");
+    utils.logInfo('HTTP Request :: findByEmail function');
 
     let email = request.params.email;
     let query = {email: email};
@@ -94,7 +93,7 @@ module.exports.findByEmail = function (request, response) {
  * @param response - HTTP response
  */
 module.exports.updateUser = function (request, response) {
-    utils.logInfo("HTTP Request :: updateUser function");
+    utils.logInfo('HTTP Request :: updateUser function');
 
     model.update(request.params.email, request.body, (err, updated) => {
         if (err) {
@@ -112,10 +111,10 @@ module.exports.updateUser = function (request, response) {
  * @param response - HTTP response
  */
 module.exports.removeUser = function (request, response) {
-    utils.logInfo("HTTP Request :: remove function");
+    utils.logInfo('HTTP Request :: remove function');
 
-    var id = request.params.id;
-    var query = {_id: id};
+    let id = request.params.id;
+    let query = {_id: id};
     model.remove(query, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
@@ -123,21 +122,21 @@ module.exports.removeUser = function (request, response) {
             //Returns an empty json and http response status code 204
             return response.status(204).json({});
         } else {
-            return response.status(404).json({message: "User not found!"});
+            return response.status(404).json({message: 'User not found!'});
         }
     })
+};
 
-}
 /**
  * Remove an user by their email
  * @param request - HTTP request
  * @param response - HTTP response
 */
 module.exports.removeUserEmail = function (request, response) {
-    utils.logInfo("HTTP Request :: removeByEmail function");
+    utils.logInfo('HTTP Request :: removeByEmail function');
 
-    var email = request.params.email;
-    var query = {email: email};
+    let email = request.params.email;
+    let query = {email: email};
     model.remove(query, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
@@ -145,8 +144,7 @@ module.exports.removeUserEmail = function (request, response) {
             //Returns an empty json and http response status code 204
             return response.status(204).json({});
         } else {
-            return response.status(404).json({message: "User not found!"});
+            return response.status(404).json({message: 'User not found!'});
         }
-    })
-
-}
+    });
+};

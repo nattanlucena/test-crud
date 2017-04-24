@@ -53,9 +53,9 @@ module.exports.saveUser = function (request, response) {
 module.exports.findById = function (request, response) {
     utils.logInfo("HTTP Request :: findById function");
 
-    var id = request.params.id;
-    var query = {_id: id};
-    model.findById(query, (err, user) => {
+    let id = request.params.id;
+    let query = {_id: id};
+    model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
@@ -73,9 +73,9 @@ module.exports.findById = function (request, response) {
 module.exports.findByEmail = function (request, response) {
     utils.logInfo("HTTP Request :: findByEmail function");
 
-    var email = request.params.email;
-    var query = {email: email};
-    model.findById(query, (err, user) => {
+    let email = request.params.email;
+    let query = {email: email};
+    model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
@@ -111,7 +111,7 @@ module.exports.updateUser = function (request, response) {
 module.exports.removeUser = function (request, response) {
     utils.logInfo("HTTP Request :: removeByEmail function");
 
-    var id = request.params.id;
+    let id = request.params.id;
     model.remove(id, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))

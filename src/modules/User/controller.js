@@ -53,8 +53,8 @@ module.exports.saveUser = function (request, response) {
 module.exports.findById = function (request, response) {
     utils.logInfo("HTTP Request :: findById function");
 
-    var id = request.params.id;
-    var query = {_id: id};
+    let id = request.params.id;
+    let query = {_id: id};
     model.findById(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
@@ -73,8 +73,8 @@ module.exports.findById = function (request, response) {
 module.exports.findByEmail = function (request, response) {
     utils.logInfo("HTTP Request :: findByEmail function");
 
-    var email = request.params.email;
-    var query = {email: email};
+    let email = request.params.email;
+    let query = {email: email};
     model.findById(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))

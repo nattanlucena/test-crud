@@ -4,7 +4,8 @@
   "scripts": {
     "build": "babel bin -d dist --presets es2015,stage-2",
     "serve": "node dist/app.js",
-    "start": "nodemon bin/app.js --exec babel-node "
+    "start": "nodemon bin/app.js --exec babel-node ",
+    "test:server": "node_modules/.bin/mocha --compilers js:babel-core/register src/modules/**/*.spec.js"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -27,6 +28,9 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1"
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0",
+    "supertest": "^3.0.0"
   }
 }

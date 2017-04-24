@@ -53,8 +53,10 @@ module.exports.saveUser = function (request, response) {
 module.exports.findById = function (request, response) {
     utils.logInfo("HTTP Request :: findById function");
 
+
     let id = request.params.id;
     let query = {_id: id};
+
     model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
@@ -75,11 +77,12 @@ module.exports.findByEmail = function (request, response) {
 
     let email = request.params.email;
     let query = {email: email};
+
     model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json({data: user});
+            return response.json({retorno: user});
         }
     });
 };
@@ -109,10 +112,33 @@ module.exports.updateUser = function (request, response) {
  * @param response - HTTP response
  */
 module.exports.removeUser = function (request, response) {
+    utils.logInfo("HTTP Request :: remove function");
+
+    var id = request.params.id;
+    var query = {_id: id};
+    model.remove(query, (err, result) => {
+        if (err) {
+            return response.status(500).json(utils.handleError(err))
+        } else if (result){
+            //Returns an empty json and http response status code 204
+            return response.status(204).json({});
+        } else {
+            return response.status(404).json({message: "User not found!"});
+        }
+    })
+
+}
+/**
+ * Remove an user by their email
+ * @param request - HTTP request
+ * @param response - HTTP response
+*/
+module.exports.removeUserEmail = function (request, response) {
     utils.logInfo("HTTP Request :: removeByEmail function");
 
-    let id = request.params.id;
-    model.remove(id, (err, result) => {
+    var email = request.params.email;
+    var query = {email: email};
+    model.remove(query, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else if (result){

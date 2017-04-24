@@ -10,7 +10,8 @@ module.exports = {
     save: save,
     findOne: findOne,
     update: update,
-    remove: remove
+    remove: remove,
+   // removeEmail: removeEmail
 };
 
 /**
@@ -101,6 +102,10 @@ function update(userId, data, callback) {
  * @param id
  * @param callback
  */
-function remove(id, callback) {
-    UserDBCollection.findOneAndRemove({id: id}, callback);
+function remove(query, callback) {
+    UserDBCollection.findOneAndRemove(query, callback);
 }
+
+/**    function removeEmail(query, callback) {
+    UserDBCollection.findOneAndRemove(query, callback);
+}*/

@@ -55,7 +55,7 @@ module.exports.findById = function (request, response) {
 
     var id = request.params.id;
     var query = {_id: id};
-    model.findById(query, (err, user) => {
+    model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
@@ -74,12 +74,13 @@ module.exports.findByEmail = function (request, response) {
     utils.logInfo("HTTP Request :: findByEmail function");
 
     var email = request.params.email;
+    utils.logInfo("HTTP Request :: findByEmail function parametro email: " + email);
     var query = {email: email};
-    model.findById(query, (err, user) => {
+    model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json({data: user});
+            return response.json({retorno: user});
         }
     });
 };
@@ -109,10 +110,29 @@ module.exports.updateUser = function (request, response) {
  * @param response - HTTP response
  */
 module.exports.removeUser = function (request, response) {
-    utils.logInfo("HTTP Request :: removeByEmail function");
+    utils.logInfo("HTTP Request :: remove function");
 
     var id = request.params.id;
-    model.remove(id, (err, result) => {
+    var query = {_id: id};
+    model.remove(query, (err, result) => {
+        if (err) {
+            return response.status(500).json(utils.handleError(err))
+        } else if (result){
+            //Returns an empty json and http response status code 204
+            return response.status(204).json({});
+        } else {
+            return response.status(404).json({message: "User not found!"});
+        }
+    })
+
+}
+
+module.exports.removeUserEmail = function (request, response) {
+    utils.logInfo("HTTP Request :: removeByEmail function");
+
+    var email = request.params.email;
+    var query = {email: email};
+    model.remove(query, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else if (result){

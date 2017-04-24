@@ -1,5 +1,5 @@
-var fs = require('fs');
-var dotenv = require('dotenv');
+import fs from 'fs';
+import dotenv from 'dotenv';
 import Logger from './logConfig';
 import bunyan from 'bunyan';
 
@@ -7,7 +7,7 @@ const logger = Logger.logger;
 
 const envConfig = dotenv.parse(fs.readFileSync('.env'));
 
-for( var key in envConfig) {
+for (let key in envConfig) {
     if (envConfig.hasOwnProperty(key)) {
         process.env[key] = envConfig[key];
     }

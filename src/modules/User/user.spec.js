@@ -9,7 +9,6 @@ let expect = chai.expect;
 const API_BASE_PATH = '/api/users/';
 
 
-
 describe('Users', function () {
 
     it('#Test server is on', function (done) {
@@ -27,7 +26,7 @@ describe('Users', function () {
             });
     });
 
-    it('#Test get all users function', function (done) {
+    it('#Test get all users', function (done) {
         request(server)
             .get(API_BASE_PATH)
             .expect(200)
@@ -57,7 +56,6 @@ describe('Users', function () {
                     console.log(err);
                     done();
                 } else {
-                    // console.log(res.body.user.name);
                     expect(res.body.user.email).to.equal("user1@gmail.com");
                     done();
                 }

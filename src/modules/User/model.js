@@ -71,13 +71,13 @@ function findOne(query, callback) {
  * @param callback
  */
 function update(userId, data, callback) {
-    var query = {email: userId};
-    var options = {
+    let query = {email: userId};
+    let options = {
         new: true, //return the modified document
         runValidators: true, //run the unique validator plugin
         context: 'query'
     };
-    var updateFields = {};
+    let updateFields = {};
 
     if(data.name) {
         updateFields.name = data.name;

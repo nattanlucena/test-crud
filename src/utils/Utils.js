@@ -40,8 +40,9 @@ module.exports.handleError = function (error) {
  * @param error
  */
 module.exports.logError = function (error) {
-    //logger.error(error);
-    Log.error(error);
+    if (process.env.TEST !== "true") {
+        Log.error(error);
+    }
 };
 
 /**
@@ -49,5 +50,7 @@ module.exports.logError = function (error) {
  * @param message
  */
 module.exports.logInfo = function (message) {
-    Log.info(message);
+    if (process.env.TEST !== "true") {
+        Log.info(message);
+    }
 };

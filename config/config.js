@@ -5,14 +5,15 @@ import bunyan from 'bunyan';
 
 const logger = Logger.logger;
 
-const envConfig = dotenv.parse(fs.readFileSync('.env'));
+let envConfig = process.env.NODE_ENV === 'production'
+    ? dotenv.parse(fs.readFileSync('prod.env'))
+    : dotenv.parse(fs.readFileSync('dev.env'));
 
 for (let key in envConfig) {
     if (envConfig.hasOwnProperty(key)) {
         process.env[key] = envConfig[key];
     }
 }
-
 const config = {
 
     PORT: process.env.PORT || 3000,

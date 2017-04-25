@@ -31,10 +31,10 @@ function setUserRoutes(app) {
     app.put(USER_BASE_PATH + ':email', controller.updateUser);
 
     //route for delete an user, given an id
-    app.delete(USER_BASE_PATH + 'id/:id', controller.removeUser);
+    app.delete(USER_BASE_PATH + 'id/:id', controller.removeUserById);
 
     //route for delete an user, given an email address
-    app.delete(USER_BASE_PATH + 'email/:email', controller.removeUserEmail);
+    app.delete(USER_BASE_PATH + 'email/:email', controller.removeUserByEmail);
 
 }
 

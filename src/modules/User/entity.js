@@ -35,12 +35,12 @@ class User {
         this.validateEmail();
     }
 
-    setPassword(value) {
-        this.password = value;
+    setPassword(pass) {
+        this.password = pass;
     }
 
-    setIsActive(value) {
-        this.isActive = value;
+    setIsActive(active) {
+        this.isActive = active;
     }
 
     /**
@@ -48,12 +48,12 @@ class User {
      * @returns {*}
      */
     getDatabaseDoc() {
-        let _ = this;
+        let self = this;
         return new UserDBCollection({
-            name: _.name,
-            email: _.email,
-            password: _.password,
-            is_active: _.isActive,
+            name: self.name,
+            email: self.email,
+            password: self.password,
+            is_active: self.isActive,
             updated_at: Date.now()
         });
     }

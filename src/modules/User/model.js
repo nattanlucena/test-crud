@@ -10,8 +10,7 @@ module.exports = {
     save: save,
     findOne: findOne,
     update: update,
-    remove: remove,
-   // removeEmail: removeEmail
+    remove: remove
 };
 
 /**
@@ -21,13 +20,7 @@ module.exports = {
  * @param callback - First param: err, in case of error; Second param: records from DB
  */
 function fetch(callback) {
-    UserDBCollection.find({}, {__v:0, created_at:0}).exec()
-        .then((users) => {
-            return callback(null, users);
-        })
-        .catch((err) => {
-            return callback(err);
-        });
+    UserDBCollection.find({}, {__v:0, created_at:0}, callback);
 }
 
 /**
@@ -97,15 +90,11 @@ function update(userId, data, callback) {
 }
 
 /**
- * Delete an user, given your id
+ * Delete an user
  *
- * @param id
+ * @param query
  * @param callback
  */
 function remove(query, callback) {
     UserDBCollection.findOneAndRemove(query, callback);
 }
-
-/**    function removeEmail(query, callback) {
-    UserDBCollection.findOneAndRemove(query, callback);
-}*/

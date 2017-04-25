@@ -6,6 +6,7 @@
  */
 import * as model from './model';
 import * as utils from '../../utils/Utils';
+import * as constants from '../../utils/Constants';
 
 
 /**
@@ -54,8 +55,7 @@ module.exports.findById = function (request, response) {
     utils.logInfo('HTTP Request :: findById function');
 
     let id = request.params.id;
-    let query = {_id: id};
-
+    let query = { _id: id };
     model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
@@ -76,7 +76,6 @@ module.exports.findByEmail = function (request, response) {
 
     let email = request.params.email;
     let query = {email: email};
-
     model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
@@ -110,11 +109,11 @@ module.exports.updateUser = function (request, response) {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.removeUser = function (request, response) {
+module.exports.removeUserById = function (request, response) {
     utils.logInfo('HTTP Request :: remove function');
 
     let id = request.params.id;
-    let query = {_id: id};
+    let query = { _id: id };
     model.remove(query, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
@@ -124,19 +123,20 @@ module.exports.removeUser = function (request, response) {
         } else {
             return response.status(404).json({message: 'User not found!'});
         }
-    })
+    });
 };
 
 /**
- * Remove an user by their email
+ * Remove an user by their email address
+ *
  * @param request - HTTP request
  * @param response - HTTP response
 */
-module.exports.removeUserEmail = function (request, response) {
-    utils.logInfo('HTTP Request :: removeByEmail function');
+module.exports.removeUserByEmail = function (request, response) {
+    utils.logInfo('HTTP Request :: removeUserByEmail function');
 
     let email = request.params.email;
-    let query = {email: email};
+    let query = { email: email };
     model.remove(query, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
@@ -144,7 +144,7 @@ module.exports.removeUserEmail = function (request, response) {
             //Returns an empty json and http response status code 204
             return response.status(204).json({});
         } else {
-            return response.status(404).json({message: 'User not found!'});
+            return response.status(404).json({message: constants.user.USER_NOT_FOUND});
         }
     });
 };

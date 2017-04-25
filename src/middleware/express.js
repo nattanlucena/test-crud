@@ -1,3 +1,4 @@
+'use strict';
 /*
     Module dependencies
  */
@@ -5,23 +6,24 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cors from 'cors';
-import * as pathUtils from '../utils/PathUtils';
 import path from 'path';
-import * as config from '../../config/config';
 import mongoose from 'mongoose';
+import * as pathUtils from '../utils/PathUtils';
+import * as config from '../../config/config';
 
 const API_BASE_PATH = config.API_BASE_PATH;
 const DB_URI = config.DB_HOST + config.DB_NAME;
+
+let app = express();
 
 
 /**
  * Initialize application middleware.
  *
  * @method initMiddleware
- * @param {Object} app The express application
  * @private
  */
-function initMiddleware(app) {
+function initMiddleware() {
     app.set('showStackError', true);
 
     app.use(bodyParser.json());
@@ -36,10 +38,9 @@ function initMiddleware(app) {
  * Configure CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests.
  *
  * @method initCrossDomain
- * @param {Object} app The express application
  * @private
  */
-function initCrossDomain(app) {
+function initCrossDomain() {
     // setup CORS
     app.use(cors());
     app.use((req, res, next) => {
@@ -60,11 +61,9 @@ function initCrossDomain(app) {
  * Configure client routes
  *
  * @method initClientRoutes
- * @param {Object} app - Express application
  * @private
  */
-function initClientRoutes(app) {
-    "use strict";
+function initClientRoutes() {
 
     app.get(API_BASE_PATH, (req, res) => {
         res.statusCode = 200;
@@ -83,11 +82,9 @@ function initClientRoutes(app) {
  * Configure API routes
  *
  * @method initApiRoutes
- * @param {Object} app - Express application
  * @private
  */
-function initApiRoutes(app) {
-    "use strict";
+function initApiRoutes() {
     // Globbing routing files
     pathUtils.getGlobbedPaths(path.join(__dirname, '../modules/**/routes.js')).forEach((routePath) => {
         require(path.resolve(routePath))(app);
@@ -101,7 +98,6 @@ function initApiRoutes(app) {
  * @private
  */
 function initDatabase() {
-    "use strict";
     mongoose.Promise = global.Promise;
 
     mongoose.connect(DB_URI);
@@ -138,19 +134,17 @@ function initDatabase() {
  * @returns {Object} express app object
  */
 function init() {
-    "use strict";
-    var app = express();
 
     //
-    initMiddleware(app);
+    initMiddleware();
     //
     initDatabase();
     //
-    initClientRoutes(app);
+    initClientRoutes();
     //
-    initCrossDomain(app);
+    initCrossDomain();
     //
-    initApiRoutes(app);
+    initApiRoutes();
 
     return app;
 }

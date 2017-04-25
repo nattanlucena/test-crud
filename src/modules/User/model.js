@@ -10,7 +10,8 @@ module.exports = {
     save: save,
     findOne: findOne,
     update: update,
-    remove: remove
+    remove: remove,
+   // removeEmail: removeEmail
 };
 
 /**
@@ -71,13 +72,13 @@ function findOne(query, callback) {
  * @param callback
  */
 function update(userId, data, callback) {
-    var query = {email: userId};
-    var options = {
+    let query = {email: userId};
+    let options = {
         new: true, //return the modified document
         runValidators: true, //run the unique validator plugin
         context: 'query'
     };
-    var updateFields = {};
+    let updateFields = {};
 
     if(data.name) {
         updateFields.name = data.name;
@@ -101,6 +102,10 @@ function update(userId, data, callback) {
  * @param id
  * @param callback
  */
-function remove(id, callback) {
-    UserDBCollection.findOneAndRemove({id: id}, callback);
+function remove(query, callback) {
+    UserDBCollection.findOneAndRemove(query, callback);
 }
+
+/**    function removeEmail(query, callback) {
+    UserDBCollection.findOneAndRemove(query, callback);
+}*/

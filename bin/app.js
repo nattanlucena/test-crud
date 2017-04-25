@@ -21,4 +21,4 @@ server.listen(PORT, () => {
     utils.logInfo(INITIALIZE_MESSAGE);
 });
 
-module.exports = server;
+export default server;

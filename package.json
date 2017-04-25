@@ -4,7 +4,9 @@
   "scripts": {
     "build": "babel bin -d dist --presets es2015,stage-2",
     "serve": "node dist/app.js",
-    "start": "nodemon bin/app.js --exec babel-node "
+    "start": "NODE_ENV=development sh ./scripts/start.sh",
+    "test:server": "./scripts/tests-api.sh",
+    "production": "NODE_ENV=production ./scripts/start.sh"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -18,6 +20,7 @@
     "joi": "^10.4.1",
     "lodash": "^4.17.4",
     "method-override": "^2.3.8",
+    "mocha": "^3.3.0",
     "moment": "^2.18.1",
     "mongoose": "^4.9.5",
     "mongoose-unique-validator": "^1.0.5",
@@ -27,6 +30,9 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1"
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0",
+    "supertest": "^3.0.0"
   }
 }

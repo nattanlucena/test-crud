@@ -19,10 +19,10 @@ function setUserRoutes(app) {
     app.get(USER_BASE_PATH, controller.getUsers);
 
     //route for get an user, given an ID
-    app.get(USER_BASE_PATH + ':id', controller.findById);
+    app.get(USER_BASE_PATH + 'id/:id', controller.findById);
 
     //route for get an user, given an email address
-    app.get(USER_BASE_PATH + ':email', controller.findByEmail);
+    app.get(USER_BASE_PATH + 'email/:email', controller.findByEmail);
 
     //route for create a new user
     app.post(USER_BASE_PATH, controller.saveUser);
@@ -30,8 +30,11 @@ function setUserRoutes(app) {
     //route for update an user
     app.put(USER_BASE_PATH + ':email', controller.updateUser);
 
-    //route for delete an user
-    app.delete(USER_BASE_PATH + ':email', controller.removeUser);
+    //route for delete an user, given an id
+    app.delete(USER_BASE_PATH + 'id/:id', controller.removeUser);
+
+    //route for delete an user, given an email address
+    app.delete(USER_BASE_PATH + 'email/:email', controller.removeUserEmail);
 
 }
 

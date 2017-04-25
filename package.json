@@ -21,6 +21,7 @@
     "lodash": "^4.17.4",
     "method-override": "^2.3.8",
     "mocha": "^3.3.0",
+    "mocha-mongoose": "^1.2.0",
     "moment": "^2.18.1",
     "mongoose": "^4.9.5",
     "mongoose-unique-validator": "^1.0.5",

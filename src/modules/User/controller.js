@@ -94,7 +94,9 @@ module.exports.findByEmail = function (request, response) {
 module.exports.updateUser = function (request, response) {
     utils.logInfo('HTTP Request :: updateUser function');
 
-    model.update(request.params.email, request.body, (err, updated) => {
+    let email = request.params.email;
+    let query = { email: email };
+    model.update(query, request.body, (err, updated) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {

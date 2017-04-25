@@ -60,12 +60,11 @@ function findOne(query, callback) {
 /**
  * Updates an user, given an id
  *
- * @param userId - User Id to be used to find the record
+ * @param query
  * @param data - User fields to update
  * @param callback
  */
-function update(userId, data, callback) {
-    let query = {email: userId};
+function update(query, data, callback) {
     let options = {
         new: true, //return the modified document
         runValidators: true, //run the unique validator plugin

@@ -21,7 +21,7 @@ module.exports.getUsers = function (request, response) {
         if (err) {
             return response.status(500).json(utils.handleError(err));
         } else {
-            return response.json({users: users});
+            return response.json({data: users});
         }
     });
 };
@@ -39,7 +39,7 @@ module.exports.saveUser = function (request, response) {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.status(201).json({user: user});
+            return response.status(201).json({data: user});
         }
     });
 };
@@ -81,7 +81,7 @@ module.exports.findByEmail = function (request, response) {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json({retorno: user});
+            return response.json({data: user});
         }
     });
 };

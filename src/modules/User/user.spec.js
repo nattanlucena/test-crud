@@ -35,7 +35,7 @@ describe('Users', function () {
                     console.log(err);
                     done();
                 } else {
-                    expect(res.body.users).to.be.an('array');
+                    expect(res.body.data).to.be.an('array');
                     done();
                 }
             });
@@ -56,7 +56,68 @@ describe('Users', function () {
                     console.log(err);
                     done();
                 } else {
-                    expect(res.body.user.email).to.equal("user1@gmail.com");
+                    expect(res.body.data.email).to.equal("user1@gmail.com");
+                    done();
+                }
+            });
+    });
+
+    it('#Test save a repeat email user', function (done) {
+        let user = {
+            "name": "user1",
+            "email": "user1@gmail.com",
+            "password": "123456"
+        };
+        request(server)
+            .post(API_BASE_PATH)
+            .send(user)
+            .expect(500)
+            .end((err, res) => {
+                if (err) {
+                    console.log(err);
+                    done();
+                } else {
+                    expect(res.body.error).to.be.an('object');
+                    expect(res.body.error.email).to.equal('Error, expected email to be unique.');
+                    done();
+                }
+            });
+    });
+
+    it('#Test update a user', function (done) {
+        let user = {
+            "name": "user2",
+            "email": "user2@gmail.com",
+            "password": "123456"
+        };
+        request(server)
+            .put(API_BASE_PATH + 'user1@gmail.com')
+            .send(user)
+            .expect(200)
+            .end((err, res) => {
+                if (err) {
+                    console.log(err);
+                    done();
+                } else {
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body.data.email).to.equal('user2@gmail.com');
+                    expect(res.body.data.name).to.equal('user2');
+                    done();
+                }
+            });
+    });
+
+    it('#Test search users by email', function (done) {
+        request(server)
+            .get(API_BASE_PATH + 'email/user2@gmail.com')
+            .expect(200)
+            .end((err, res) => {
+                if (err) {
+                    console.log(err);
+                    done();
+                } else {
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body.data.email).to.equal('user2@gmail.com');
                     done();
                 }
             });

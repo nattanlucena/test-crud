@@ -2,14 +2,44 @@
 
 import chai from 'chai';
 import request from 'supertest';
+import mongoose from 'mongoose';
+import mochaMongoose from 'mocha-mongoose';
+
+import * as config from '../../../config/config';
 import server from '../../../bin/app';
 
 let expect = chai.expect;
 
 const API_BASE_PATH = '/api/users/';
+const TEST_DB_PATH = config.DB_HOST + config.DB_NAME;
+
+let clearDB = mochaMongoose(TEST_DB_PATH, {noClear: true});
 
 
-describe('Users', function () {
+/**
+ * Runs all unit tests for User module
+ */
+describe('USER Module', function () {
+    
+    /*
+     * Runs before all tests
+     */
+    before((done) => {
+        if (mongoose.connection.db) {
+            return done();
+        } else {
+            mongoose.connect(TEST_DB_PATH, done);
+        }
+    });
+
+
+    /*
+     * Runs before all tests
+     */
+    before((done) => {
+        clearDB(done);
+    });
+
 
     it('#Test server is on', function (done) {
         request(server)
@@ -17,12 +47,11 @@ describe('Users', function () {
             .expect(200)
             .end((err, res) => {
                 if (err) {
-                    console.log(err);
-                    done();
+                    throw new Error(err);
                 } else {
                     expect(res.text).to.equal("<h3>API on!</h3>\n");
-                    done();
                 }
+                done();
             });
     });
 
@@ -32,14 +61,14 @@ describe('Users', function () {
             .expect(200)
             .end((err, res) => {
                 if (err) {
-                    console.log(err);
-                    done();
+                    throw new Error(err);
                 } else {
                     expect(res.body.data).to.be.an('array');
-                    done();
                 }
+                done();
             });
     });
+
 
     it('#Test save an user', function (done) {
         let user = {
@@ -53,16 +82,15 @@ describe('Users', function () {
             .expect(201)
             .end((err, res) => {
                 if (err) {
-                    console.log(err);
-                    done();
+                    throw new Error(err);
                 } else {
                     expect(res.body.data.email).to.equal("user1@gmail.com");
-                    done();
                 }
+                done();
             });
     });
 
-    it('#Test save a repeat email user', function (done) {
+    it('#Test save a repeated email user', function (done) {
         let user = {
             "name": "user1",
             "email": "user1@gmail.com",
@@ -74,15 +102,15 @@ describe('Users', function () {
             .expect(500)
             .end((err, res) => {
                 if (err) {
-                    console.log(err);
-                    done();
+                    throw new Error(err);
                 } else {
                     expect(res.body.error).to.be.an('object');
                     expect(res.body.error.email).to.equal('Error, expected email to be unique.');
-                    done();
                 }
+                done();
             });
     });
+
 
     it('#Test update a user', function (done) {
         let user = {
@@ -96,14 +124,13 @@ describe('Users', function () {
             .expect(200)
             .end((err, res) => {
                 if (err) {
-                    console.log(err);
-                    done();
+                    throw new Error(err);
                 } else {
                     expect(res.body.data).to.be.an('object');
                     expect(res.body.data.email).to.equal('user2@gmail.com');
                     expect(res.body.data.name).to.equal('user2');
-                    done();
                 }
+                done();
             });
     });
 
@@ -113,14 +140,15 @@ describe('Users', function () {
             .expect(200)
             .end((err, res) => {
                 if (err) {
-                    console.log(err);
-                    done();
+                    throw new Error(err);
                 } else {
                     expect(res.body.data).to.be.an('object');
                     expect(res.body.data.email).to.equal('user2@gmail.com');
-                    done();
                 }
+                done();
+
             });
     });
+
 
 });

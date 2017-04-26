@@ -8,7 +8,7 @@ import methodOverride from 'method-override';
 import cors from 'cors';
 import path from 'path';
 import mongoose from 'mongoose';
-import * as pathUtils from '../utils/PathUtils';
+import * as pathUtils from '../utils/path-utils';
 import * as config from '../../config/config';
 
 const API_BASE_PATH = config.API_BASE_PATH;

@@ -3,9 +3,9 @@
  Module dependencies
  */
 import UserDBCollection from './schema';
-import constants from '../../utils/Constants';
+import constants from '../../utils/constants';
+import * as utils from '../../utils/utils';
 
-const EMAIL_REGEX = '^[a-zA-Z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
 
 /**
  * User Validation Custom Exception
@@ -75,12 +75,11 @@ class User {
     }
 
     /*
-     * Validate email with regex
+     * Validate email address
      */
     validateEmail() {
         let email = this.email;
-        let regex = new RegExp(EMAIL_REGEX);
-        if (!regex.test(email)) {
+        if (!utils.validateEmail(email)) {
             const message = constants.user.INVALID_EMAIL_ADDRESS;
             throw new UserValidationException(message);
         }

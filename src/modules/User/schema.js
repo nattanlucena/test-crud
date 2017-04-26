@@ -7,9 +7,9 @@ import * as bcrypt from 'bcrypt';
 
 const SALT_WORK_FACTOR = 10;
 
-var Schema = mongoose.Schema;
+let Schema = mongoose.Schema;
 
-var UserDBModel = new Schema({
+let UserDBModel = new Schema({
     name: {
         type: String,
         required: true
@@ -45,7 +45,7 @@ UserDBModel.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be uni
 
 //Define a trigger for user password pre save
 UserDBModel.pre('save', function (next) {
-    var _this = this;
+    let _this = this;
 
     if(!_this.isModified('password')) {
         return next();

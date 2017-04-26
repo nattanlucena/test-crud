@@ -4,9 +4,9 @@
   "scripts": {
     "build": "babel bin -d dist --presets es2015,stage-2",
     "serve": "node dist/app.js",
-    "start": "NODE_ENV=development sh ./scripts/start.sh",
+    "start": "sh ./scripts/start-dev.sh",
     "test:server": "./scripts/tests-api.sh",
-    "production": "NODE_ENV=production ./scripts/start.sh"
+    "start:prod": "sh ./scripts/start-prod.sh"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",

@@ -5,8 +5,8 @@
  * Module dependencies
  */
 import * as model from './model';
-import * as utils from '../../utils/Utils';
-import * as constants from '../../utils/Constants';
+import * as utils from '../../utils/utils';
+import * as constants from '../../utils/constants';
 
 
 /**
@@ -15,7 +15,7 @@ import * as constants from '../../utils/Constants';
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.getUsers = function (request, response) {
+module.exports.getUsers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
     model.fetch((err, users) => {
@@ -33,14 +33,14 @@ module.exports.getUsers = function (request, response) {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.saveUser = function (request, response) {
+module.exports.saveUser = (request, response) => {
     utils.logInfo('HTTP Request :: saveUser function');
-
+    console.log(request.body);
     model.save(request.body, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.status(201).json({data: user});
+            return response.status(201).json(utils.handleData(user));
         }
     });
 };
@@ -51,7 +51,7 @@ module.exports.saveUser = function (request, response) {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.findById = function (request, response) {
+module.exports.findById = (request, response) => {
     utils.logInfo('HTTP Request :: findById function');
 
     let id = request.params.id;
@@ -60,7 +60,7 @@ module.exports.findById = function (request, response) {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json({data: user});
+            return response.json(utils.handleData(user));
         }
     });
 };
@@ -71,7 +71,7 @@ module.exports.findById = function (request, response) {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.findByEmail = function (request, response) {
+module.exports.findByEmail = (request, response) => {
     utils.logInfo('HTTP Request :: findByEmail function');
 
     let email = request.params.email;
@@ -80,7 +80,7 @@ module.exports.findByEmail = function (request, response) {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json({data: user});
+            return response.json(utils.handleData(user));
         }
     });
 };
@@ -91,7 +91,7 @@ module.exports.findByEmail = function (request, response) {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.updateUser = function (request, response) {
+module.exports.updateUser = (request, response) => {
     utils.logInfo('HTTP Request :: updateUser function');
 
     let email = request.params.email;
@@ -100,7 +100,7 @@ module.exports.updateUser = function (request, response) {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json({data: updated});
+            return response.json(utils.handleData(updated));
         }
     });
 };
@@ -111,7 +111,7 @@ module.exports.updateUser = function (request, response) {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.removeUserById = function (request, response) {
+module.exports.removeUserById = (request, response) => {
     utils.logInfo('HTTP Request :: remove function');
 
     let id = request.params.id;
@@ -123,7 +123,8 @@ module.exports.removeUserById = function (request, response) {
             //Returns an empty json and http response status code 204
             return response.status(204).json({});
         } else {
-            return response.status(404).json({message: 'User not found!'});
+            const msg = constants.user.USER_NOT_FOUND;
+            return response.status(404).json(utils.handleMessage(msg));
         }
     });
 };
@@ -134,7 +135,7 @@ module.exports.removeUserById = function (request, response) {
  * @param request - HTTP request
  * @param response - HTTP response
 */
-module.exports.removeUserByEmail = function (request, response) {
+module.exports.removeUserByEmail = (request, response) => {
     utils.logInfo('HTTP Request :: removeUserByEmail function');
 
     let email = request.params.email;
@@ -146,7 +147,8 @@ module.exports.removeUserByEmail = function (request, response) {
             //Returns an empty json and http response status code 204
             return response.status(204).json({});
         } else {
-            return response.status(404).json({message: constants.user.USER_NOT_FOUND});
+            const msg = constants.user.USER_NOT_FOUND;
+            return response.status(404).json(utils.handleMessage(msg));
         }
     });
 };

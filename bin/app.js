@@ -6,12 +6,13 @@
 import app from '../src/middleware/express';
 import http from 'http';
 import * as config from '../config/config';
-import * as utils from '../src/utils/Utils';
+import * as utils from '../src/utils/utils';
 
 const server = http.Server(app());
 const PORT = config.PORT;
 const HOSTNAME = config.HOSTNAME;
 const INITIALIZE_MESSAGE = 'API running on http://' + HOSTNAME + ':' + PORT;
+
 
 /**
  * Initialize HTTP server

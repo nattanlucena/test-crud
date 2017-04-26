@@ -5,11 +5,11 @@ import bunyan from 'bunyan';
 
 const logger = Logger.logger;
 
-let envConfig = process.env.NODE_ENV === 'production'
-    ? dotenv.parse(fs.readFileSync('prod.env'))
-    : process.env.NODE_ENV === 'development'
-        ? dotenv.parse(fs.readFileSync('dev.env'))
-        : dotenv.parse(fs.readFileSync('unit-tests.env'));
+const node_env = process.env.NODE_ENV;
+const file =  `.env.${node_env}`;
+
+//Load env vars
+let envConfig = dotenv.parse(fs.readFileSync(file));
 
 for (let key in envConfig) {
     if (envConfig.hasOwnProperty(key)) {

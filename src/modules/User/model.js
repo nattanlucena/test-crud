@@ -19,9 +19,9 @@ module.exports = {
  *
  * @param callback - First param: err, in case of error; Second param: records from DB
  */
-function fetch(callback) {
+module.exports.fetch = (callback) => {
     UserDBCollection.find({}, {__v:0, created_at:0}, callback);
-}
+};
 
 /**
  * Save an user in database
@@ -29,7 +29,7 @@ function fetch(callback) {
  * @param data - Data from user to be saved
  * @param callback - First param: err, in case of error; Second param: the saved record
  */
-function save(data, callback) {
+module.exports.save = (data, callback) => {
     try {
         let user = new User(data.name, data.email);
 
@@ -45,17 +45,17 @@ function save(data, callback) {
     } catch (err) {
         return callback(err);
     }
-}
+};
 
 /**
  * Find an user, given an email address
  *
- * @param query - User id
+ * @param query
  * @param callback
  */
-function findOne(query, callback) {
+module.exports.findOne = (query, callback) =>{
     UserDBCollection.findOne(query, {password: 0, __v: 0}, callback);
-}
+};
 
 /**
  * Updates an user, given an id
@@ -64,7 +64,7 @@ function findOne(query, callback) {
  * @param data - User fields to update
  * @param callback
  */
-function update(query, data, callback) {
+module.exports.update = (query, data, callback) => {
     let options = {
         new: true, //return the modified document
         runValidators: true, //run the unique validator plugin
@@ -86,7 +86,7 @@ function update(query, data, callback) {
     }
 
     UserDBCollection.findOneAndUpdate(query, updateFields, options, callback);
-}
+};
 
 /**
  * Delete an user
@@ -94,6 +94,6 @@ function update(query, data, callback) {
  * @param query
  * @param callback
  */
-function remove(query, callback) {
+module.exports.remove = (query, callback) => {
     UserDBCollection.findOneAndRemove(query, callback);
-}
+};

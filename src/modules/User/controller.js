@@ -35,7 +35,7 @@ module.exports.getUsers = (request, response) => {
  */
 module.exports.saveUser = (request, response) => {
     utils.logInfo('HTTP Request :: saveUser function');
-    console.log(request.body);
+
     model.save(request.body, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))

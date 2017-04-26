@@ -1,22 +1,27 @@
 @import '../common';
 
-.navbar {
-  height: 6.5rem;
-  background-color: $primaryColor;
-  padding: 1rem;
+h1.section-title {
+  font-size: 32px;
+}
 
-  .nav-links,
-  .logo {
-    display: inline-block;
-  }
+#main-menu {
 
-  .logo {
-    color: $lightTextColor;
-    margin-right: 50%;
-  }
+  .nav-wrapper {
+    box-sizing: border-box;
+    padding: 0 15px;
 
-  .nav-links span {
-    color: $lightTextColor;
-    font-size: 1.6rem;
+    .brand-logo {
+      font-size: 25px;
+    }
+
+    #nav-mobile {
+
+      > li {
+
+        > a {
+          font-size: 16px;
+        }
+      }
+    }
   }
 }

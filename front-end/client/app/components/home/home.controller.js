@@ -1,6 +1,8 @@
 class HomeController {
   constructor() {
     this.name = 'home';
+
+    $('.tooltipped').tooltip({delay: 50});
   }
 }
 

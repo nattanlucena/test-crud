@@ -5,13 +5,6 @@
 import UserDBCollection from './schema';
 import User from './entity';
 
-module.exports = {
-    fetch: fetch,
-    save: save,
-    findOne: findOne,
-    update: update,
-    remove: remove
-};
 
 /**
  *  Get all users from database

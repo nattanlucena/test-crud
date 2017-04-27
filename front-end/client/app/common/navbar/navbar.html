@@ -1,0 +1,10 @@
+<nav id="main-menu">
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">Test CRUD</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li ng-repeat="item in $ctrl.mainMenu">
+        <a ui-sref="{{ item.module }}">{{ item.text }}</a>
+      </li>
+    </ul>
+  </div>
+</nav>

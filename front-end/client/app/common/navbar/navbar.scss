@@ -1,0 +1,27 @@
+@import '../common';
+
+h1.section-title {
+  font-size: 32px;
+}
+
+#main-menu {
+
+  .nav-wrapper {
+    box-sizing: border-box;
+    padding: 0 15px;
+
+    .brand-logo {
+      font-size: 25px;
+    }
+
+    #nav-mobile {
+
+      > li {
+
+        > a {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

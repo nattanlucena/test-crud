@@ -13,7 +13,7 @@ import User from './entity';
  * @param callback - First param: err, in case of error; Second param: records from DB
  */
 module.exports.fetch = (callback) => {
-    UserDBCollection.find({}, {__v:0, created_at:0}).lean().exec(callback);
+    UserDBCollection.find({}, {__v:0, created_at:0, password:0}).lean().exec(callback);
 };
 
 /**

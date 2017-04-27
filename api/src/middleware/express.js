@@ -86,7 +86,7 @@ function initClientRoutes() {
  */
 function initApiRoutes() {
     // Globbing routing files
-    pathUtils.getGlobbedPaths(path.join(__dirname, '../modules/**/routes.js')).forEach((routePath) => {
+    pathUtils.getGlobbedPaths(path.join(__dirname, '../lib/**/routes.js')).forEach((routePath) => {
         require(path.resolve(routePath))(app);
     });
 }

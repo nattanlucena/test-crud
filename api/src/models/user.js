@@ -2,8 +2,8 @@
 /*
  * Module dependencies
  */
-import UserDBCollection from './schema';
-import User from './entity';
+import UserDBCollection from './schemas/user.schema';
+import User from '../lib/user/entity';
 
 
 /**
@@ -54,7 +54,7 @@ module.exports.findOne = (query, callback) =>{
  * Updates an user, given an id
  *
  * @param query
- * @param data - User fields to update
+ * @param data - user fields to update
  * @param callback
  */
 module.exports.update = (query, data, callback) => {

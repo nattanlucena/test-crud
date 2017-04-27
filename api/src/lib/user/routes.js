@@ -9,7 +9,7 @@ const USER_BASE_PATH = API_BASE_PATH + '/users/';
 
 
 /**
- * Set User Module routes
+ * Set user Module routes
  *
  * @param app
  */

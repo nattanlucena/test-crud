@@ -2,13 +2,13 @@
 /*
  Module dependencies
  */
-import UserDBCollection from './schema';
+import UserDBCollection from '../../models/schemas/user.schema';
 import constants from '../../utils/constants';
 import * as utils from '../../utils/utils';
 
 
 /**
- * User Validation Custom Exception
+ * user Validation Custom Exception
  * @param message
  * @constructor
  */
@@ -18,7 +18,7 @@ const UserValidationException = function (message) {
 };
 
 /**
- * User class
+ * user class
  */
 class User {
     
@@ -44,7 +44,7 @@ class User {
     }
 
     /**
-     * Returns a new Mongoose Model User
+     * Returns a new Mongoose Model user
      * @returns {*}
      */
     getDatabaseDoc() {

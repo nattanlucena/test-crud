@@ -2,7 +2,7 @@
 /*
  Module dependencies
  */
-import UserDBCollection from '../../models/schemas/user.schema';
+import UserModel from './model';
 import constants from '../../utils/constants';
 import * as utils from '../../utils/utils';
 
@@ -49,7 +49,7 @@ class User {
      */
     getDatabaseDoc() {
         let self = this;
-        return new UserDBCollection({
+        return new UserModel({
             name: self.name,
             email: self.email,
             password: self.password,

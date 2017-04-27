@@ -4,10 +4,9 @@
 /*
  * Module dependencies
  */
-import * as model from '../../models/user';
+import model from '../../models/user';
 import * as utils from '../../utils/utils';
 import * as constants from '../../utils/constants';
-
 
 /**
  * Fetch all users from database

@@ -18,7 +18,7 @@ let app = express();
 
 
 /**
- * Initialize application middleware.
+ * Initialize application core.
  *
  * @method initMiddleware
  * @private
@@ -51,7 +51,7 @@ function initCrossDomain() {
         // Request headers you wish to allow
         res.set('Access-Control-Allow-Headers', 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token');
 
-        // Pass to next layer of middleware
+        // Pass to next layer of core
         next();
     });
 }

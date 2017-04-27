@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-import app from '../src/middleware/express';
+import app from '../src/core/express';
 import http from 'http';
 import * as config from '../config/config';
 import * as utils from '../src/utils/utils';

@@ -2,8 +2,8 @@
 /*
  * Module dependencies
  */
-import UserDBCollection from './schemas/user.schema';
-import User from '../lib/user/entity';
+import UserDBCollection from './model';
+import User from './entity';
 
 
 /**

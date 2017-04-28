@@ -8,8 +8,9 @@ import methodOverride from 'method-override';
 import cors from 'cors';
 import path from 'path';
 import mongoose from 'mongoose';
-import * as pathUtils from '../utils/path-utils';
-import * as config from '../../config/config';
+import * as pathUtils from './common/path-utils';
+import * as utils from './common/path-utils';
+import * as config from '../config/config';
 
 const API_BASE_PATH = config.API_BASE_PATH;
 const DB_URI = config.DB_HOST + config.DB_NAME;
@@ -86,7 +87,8 @@ function initClientRoutes() {
  */
 function initApiRoutes() {
     // Globbing routing files
-    pathUtils.getGlobbedPaths(path.join(__dirname, '../modules/**/routes.js')).forEach((routePath) => {
+    const ROUTES_PATH = './modules/**/routes.js';
+    pathUtils.getGlobbedPaths(path.join(__dirname, ROUTES_PATH)).forEach((routePath) => {
         require(path.resolve(routePath))(app);
     });
 }
@@ -120,12 +122,17 @@ function initDatabase() {
     process.on('SIGINT', function() {
         mongoose.connection.close(function () {
             console.log('Mongoose disconnected through app termination');
-            process.exit(0);
+            process.exit(1);
         });
     });
-
 }
 
+/**
+ * Prevent uncaughtException error
+ */
+function preventErrors() {
+    require('./common/crash-error-handler');
+}
 
 /**
  * Initialize express application
@@ -134,7 +141,6 @@ function initDatabase() {
  * @returns {Object} express app object
  */
 function init() {
-
     //
     initMiddleware();
     //
@@ -145,6 +151,8 @@ function init() {
     initCrossDomain();
     //
     initApiRoutes();
+    //
+    preventErrors();
 
     return app;
 }

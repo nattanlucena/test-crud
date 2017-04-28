@@ -3,8 +3,8 @@
  Module dependencies
  */
 import UserDBCollection from './schema';
-import constants from '../../utils/constants';
-import * as utils from '../../utils/utils';
+import constants from '../../../common/constants';
+import * as utils from '../../../common/utils';
 
 
 /**

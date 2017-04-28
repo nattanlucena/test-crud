@@ -4,9 +4,9 @@
 /*
  * Module dependencies
  */
-import * as model from './model';
-import * as utils from '../../utils/utils';
-import * as constants from '../../utils/constants';
+import * as utils from '../../common/utils';
+import * as constants from '../../common/constants';
+import model from './model/';
 
 
 /**

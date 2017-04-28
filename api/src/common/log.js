@@ -27,7 +27,7 @@ module.exports = {
         process.stdout.write(formattedMsg)
     },
     error: function (msg) {
-        var formattedMsg = chalk.bold.red('[' + getFormattedData() + ' [ERROR] ' + msg + '\n');
+        var formattedMsg = chalk.bold.red(getFormattedData() + ' [ERROR] ' + msg + '\n');
         process.stderr.write(formattedMsg)
     }
 };
@@ -36,5 +36,5 @@ module.exports = {
  *  Formatted moment
  */
 function getFormattedData() {
-    return moment().format('DD-MMYYYY HH:mm:ss')
+    return moment().format('DD-MM-YYYY HH:mm:ss')
 }

@@ -15,7 +15,7 @@ let clearDB = mochaMongoose(TEST_DB_PATH, {noClear: true});
 
 
 /**
- * Runs all unit tests for User module
+ * Runs all unit tests for user module
  */
 describe('USER Module', function () {
     
@@ -110,7 +110,7 @@ describe('USER Module', function () {
     });
 
 
-    it('#Test update a user', function (done) {
+    it('#Test update an user', function (done) {
         let user = {
             "name": "user2",
             "email": "user2@gmail.com",

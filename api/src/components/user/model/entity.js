@@ -8,7 +8,7 @@ import * as utils from '../../../common/utils';
 
 
 /**
- * User Validation Custom Exception
+ * user Validation Custom Exception
  * @param message
  * @constructor
  */
@@ -18,7 +18,7 @@ const UserValidationException = function (message) {
 };
 
 /**
- * User class
+ * user class
  */
 class User {
     
@@ -44,7 +44,7 @@ class User {
     }
 
     /**
-     * Returns a new Mongoose Model User
+     * Returns a new Mongoose Model user
      * @returns {*}
      */
     getDatabaseDoc() {

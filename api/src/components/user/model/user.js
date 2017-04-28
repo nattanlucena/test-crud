@@ -47,14 +47,14 @@ module.exports.save = (data, callback) => {
  * @param callback
  */
 module.exports.findOne = (query, callback) =>{
-    UserDBCollection.findOne(query, {password: 0, __v: 0}).lean().exec(callback);
+    UserDBCollection.findOne(query, {__v: 0}).exec(callback);
 };
 
 /**
  * Updates an user, given an id
  *
  * @param query
- * @param data - User fields to update
+ * @param data - user fields to update
  * @param callback
  */
 module.exports.update = (query, data, callback) => {
@@ -89,4 +89,15 @@ module.exports.update = (query, data, callback) => {
  */
 module.exports.remove = (query, callback) => {
     UserDBCollection.findOneAndRemove(query, callback);
+};
+
+/**
+ * Checks if password matchs
+ *
+ * @param user
+ * @param plainText
+ * @param callback
+ */
+module.exports.comparePassword = (user, plainText, callback) => {
+    user.comparePassword(plainText, callback);
 };

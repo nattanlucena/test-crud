@@ -14,16 +14,20 @@ import * as Log from './log';
 function handleError(error) {
     logError(error);
 
-    if (error.errors) {
-        let errorMessages = {};
-        for (let key in error.errors) {
-            if (error.errors.hasOwnProperty(key)) {
-                errorMessages[key] = error.errors[key].message;
+    if (error instanceof Error) {
+        if (error.errors) {
+            let errorMessages = {};
+            for (let key in error.errors) {
+                if (error.errors.hasOwnProperty(key)) {
+                    errorMessages[key] = error.errors[key].message;
+                }
             }
+            return {error: errorMessages}
+        } else {
+            return {error: error.message}
         }
-        return {error: errorMessages}
     } else {
-        return {error: error.message}
+        return {error: error};
     }
 }
 module.exports.handleError = handleError;
@@ -68,6 +72,28 @@ function logInfo(message) {
     }
 }
 module.exports.logInfo = logInfo;
+
+/**
+ * Print the debug message in console
+ * @param message
+ */
+function logDebug(message) {
+    if (process.env.NODE_ENV === 'development') {
+        Log.debug(message);
+    }
+}
+module.exports.logDebug = logDebug;
+
+/**
+ * Print the debug message in console
+ * @param message
+ */
+function logWarn(message) {
+    if (process.env.NODE_ENV === 'development') {
+        Log.warn(message);
+    }
+}
+module.exports.logWarn = logWarn;
 
 /**
  *  Validate email address function. If matchs, it returns true. If not, returns false

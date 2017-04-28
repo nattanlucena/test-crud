@@ -19,7 +19,6 @@ for (let key in envConfig) {
     }
 }
 
-
 /**
  *
  * Load project config setup
@@ -43,5 +42,6 @@ const config = {
         mute: !!bunyan.mute
     }
 };
+
 
 module.exports = config;

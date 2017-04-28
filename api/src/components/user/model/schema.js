@@ -64,6 +64,21 @@ UserDBModel.pre('save', function (next) {
     });
 });
 
+
+/*
+ Define a static comparePassword method for User Schema
+ */
+UserDBModel.methods.comparePassword = function (plainText, callback) {
+    let self = this;
+    bcrypt.compare(plainText, self.password, function (err, data) {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, data);
+        }
+    });
+};
+
 UserDBModel = mongoose.model('User', UserDBModel);
 
 export default UserDBModel;

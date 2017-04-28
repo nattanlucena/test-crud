@@ -8,17 +8,12 @@ let UserListFactory = function ($http) {
     })
     .then(function successCallback(response) {
 				callback(response);
-        return true;
       }, function errorCallback(response) {
         console.log(response);
       });
   };
 
-  let isSignedIn = () => {
-    return user.isSignedIn; 
-  };
-
-  return { getUsers, isSignedIn };
+  return { getUsers };
 };
 
 export default UserListFactory;

@@ -2,18 +2,16 @@ class UserFormController {
   constructor(userFormFactory) {
     this.name = 'userForm';
     this.userFormFactory = userFormFactory;
-    this.user = {
-      name: '',
-      email: '',
-      password: '123'
-    }
+    this.user = {}
   }
 
   addUser() {
     this.userFormFactory.addUser(this.user, (res) => {
-      console.log('submited')
-      console.log('submited')
-      console.log(res)
+      if (res.status === 201) {
+        Materialize.toast('Well done!', 3500)
+      } else if (res.status !== 201) {
+        Materialize.toast('Error! Try again later!', 4500)
+      }
     })
   }
 }

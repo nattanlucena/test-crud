@@ -1,16 +1,16 @@
 let UserFormFactory = function ($http) {
-  const user = {};
 
   let addUser = (data = {}, callback) => {
     return $http({
       method: 'POST',
       url: 'http://localhost:5000/api/users/',
-			data: data
+			data
     })
-    .then(function successCallback(response) {
-				callback(response);
-      }, function errorCallback(response) {
-        console.log(response);
+    .then(function successCallback(res) {
+				callback(res);
+      }, function errorCallback(res) {
+        Materialize.toast('Error! Try again later!', 3500)
+        console.log(res)
       });
   };
 

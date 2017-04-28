@@ -45,7 +45,7 @@ let paths = {
   dest: path.join(__dirname, 'dist')
 };
 
-// use webpack.config.js to build modules
+// use webpack.config.js to build components
 gulp.task('webpack', ['clean'], (cb) => {
   const config = require('./webpack.dist.config');
   config.entry.app = paths.entry;
@@ -68,7 +68,7 @@ gulp.task('webpack', ['clean'], (cb) => {
 gulp.task('serve', () => {
   const config = require('./webpack.dev.config');
   config.entry.app = [
-    // this modules required to make HRM working
+    // this components required to make HRM working
     // it responsible for all this webpack magic
     'webpack-hot-middleware/client?reload=true',
     // application entry point

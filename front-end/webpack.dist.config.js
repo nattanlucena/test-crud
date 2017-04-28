@@ -15,8 +15,8 @@ config.plugins = config.plugins.concat([
     mangle: {
 
       // You can specify all variables that should not be mangled.
-      // For example if your vendor dependency doesn't use modules
-      // and relies on global variables. Most of angular modules relies on
+      // For example if your vendor dependency doesn't use components
+      // and relies on global variables. Most of angular components relies on
       // angular global variable, so we should keep it unchanged
       except: ['$super', '$', 'exports', 'require', 'angular']
     }

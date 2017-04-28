@@ -1,7 +1,7 @@
 const bunyan = require('bunyan');
 const name = 'logger';
 
-var logger = bunyan.createLogger({
+let logger = bunyan.createLogger({
         name: name
 });
 

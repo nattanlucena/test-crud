@@ -14,18 +14,23 @@ import * as Log from './log';
 function handleError(error) {
     logError(error);
 
-    if (error.errors) {
-        let errorMessages = {};
-        for (let key in error.errors) {
-            if (error.errors.hasOwnProperty(key)) {
-                errorMessages[key] = error.errors[key].message;
+    let errorMessages = {};
+    if (error instanceof Error) {
+        if (error.errors) {
+            for (let key in error.errors) {
+                if (error.errors.hasOwnProperty(key)) {
+                    errorMessages[key] = error.errors[key].message;
+                }
             }
+            return {error: errorMessages}
+        } else {
+            return {error: error.message}
         }
-        return {error: errorMessages}
     } else {
-        return {error: error.message}
+        return {error: error};
     }
 }
+
 module.exports.handleError = handleError;
 
 /**

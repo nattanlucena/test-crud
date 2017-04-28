@@ -9,10 +9,10 @@ import glob from 'glob';
  */
 function getGlobbedPaths(globPatterns, excludes) {
     // URL paths regex
-    var urlRegex = new RegExp('^(?:[a-z]+:)?\/\/', 'i');
+    let urlRegex = new RegExp('^(?:[a-z]+:)?\/\/', 'i');
 
     // The output array
-    var output = [];
+    let output = [];
 
     // If glob pattern is array so we use each pattern in a recursive way, otherwise we use glob
     if (_.isArray(globPatterns)) {
@@ -23,11 +23,11 @@ function getGlobbedPaths(globPatterns, excludes) {
         if (urlRegex.test(globPatterns)) {
             output.push(globPatterns);
         } else {
-            var files = glob.sync(globPatterns);
+            let files = glob.sync(globPatterns);
             if (excludes) {
                 files = files.map(function(file) {
                     if (_.isArray(excludes)) {
-                        for (var i in excludes) {
+                        for (let i in excludes) {
                             if(excludes.hasOwnProperty(i)) {
                                 file = file.replace(excludes[i], '');
                             }

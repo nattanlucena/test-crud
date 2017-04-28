@@ -3,9 +3,18 @@
     Module dependencies
  */
 import User from '../user/model';
+import * as tokenController from './token/controller';
 import * as utils from '../../common/utils';
 import * as constants from '../../common/constants';
 
+/**
+ * Sign in with email and password and returns a generated
+ * token to be used in http header authorization field
+ *
+ * @param request - HTTP request
+ * @param response - HTTP response
+ * @returns {Object} - {data: user, token: token}
+ */
 module.exports.signIn = (request, response) => {
 
     let body = request.body;
@@ -29,8 +38,25 @@ module.exports.signIn = (request, response) => {
             if (err) {
                 return response.status(401).send(utils.handleError(err));
             }
-            user.password = undefined;
-            return response.json({ data: user });
+
+            let payload = {
+                id: user._id,
+                name: user.name,
+                email: user.email
+            };
+            tokenController.createToken(payload, (err, token) => {
+                if (err) {
+                    return response.status(401).send(utils.handleError(err));
+                }
+
+                user._id = undefined;
+                user.password = undefined;
+                let result = {
+                    data: user,
+                    token: token
+                };
+                return response.json(result);
+            });
         });
     });
 };

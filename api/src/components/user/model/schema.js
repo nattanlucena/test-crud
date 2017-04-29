@@ -28,6 +28,7 @@ let UserDBModel = new Schema({
         type: Boolean,
         default: true
     },
+    is_manager: false,
     created_at: {
         type: Date,
         default: Date.now

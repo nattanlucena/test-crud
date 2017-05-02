@@ -3,7 +3,7 @@
  */
 import * as config from '../../../config/config';
 import * as appUserController from './app/controller';
-import * as managerController from './hotel-manager/controller';
+import * as managerController from './manager/controller';
 
 const APP_USER_BASE_PATH = config.APP_BASE_PATH + '/users/';
 const MANAGER_USER_BASE_PATH = config.MANAGER_BASE_PATH + '/users/';
@@ -35,7 +35,7 @@ function setUserRoutes(app) {
 
 
     ////////////////////////////////
-    //hotel-manager routes
+    //manager routes
     ////////////////////////////////
 
     app.get(MANAGER_USER_BASE_PATH, managerController.getManagers);

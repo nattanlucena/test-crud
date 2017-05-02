@@ -10,10 +10,12 @@ import Manager from './entity';
  *  Get all users from database
  *  Returns a callback with two params: err and users
  *
+ * @param query - Search query
+ * @param options
  * @param callback - First param: err, in case of error; Second param: records from DB
  */
-module.exports.fetch = (callback) => {
-    UserModel.fetch(callback);
+module.exports.fetch = (query, options, callback) => {
+    UserModel.fetch(query, options, callback);
 };
 
 /**
@@ -57,8 +59,8 @@ module.exports.findOne = (query, callback) =>{
  * @param data - user fields to update
  * @param callback
  */
-module.exports.update = (query, data, callback) => {
-    UserModel.update(query, data, callback);
+module.exports.update = (query, data, options, callback) => {
+    UserModel.update(query, data, options, callback);
 };
 
 /**

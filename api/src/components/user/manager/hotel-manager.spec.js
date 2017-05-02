@@ -93,7 +93,7 @@ describe('USER Module', function () {
         let user = {
             "name": "user1",
             "email": "user1@gmail.com",
-            "cpf": "388399488595",
+            "cpf": "388398595",
             "password": "123456"
         };
         request(server)

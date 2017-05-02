@@ -24,13 +24,7 @@ module.exports.fetch = (callback) => {
  */
 module.exports.save = (data, callback) => {
     try {
-        let address = {
-            street: data.street,
-            city: data.city,
-            state: data.state,
-            postal: data.postal
-        };
-        let manager = new Manager(data.name, data.email, data.password, data.cpf, address);
+        let manager = new Manager(data.name, data.email, data.password);
 
         UserModel.save(manager.getDatabaseDoc(), callback);
     } catch (err) {

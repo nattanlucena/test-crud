@@ -30,6 +30,7 @@ let UserDBModel = new Schema({
         },
         type: {
             type: String,
+            index: true,
             default: 'app'
         },
         cpf: {
@@ -50,13 +51,12 @@ let UserDBModel = new Schema({
         updated_at: {
             type: Date
         }
-    },
-    {collection: 'users'});
+    });
 
 /*
  Validator plugin for unique fields
  */
-//UserDBModel.plugin(uniqueValidator, {message: 'Error, expected {PATH} to be unique.'});
+UserDBModel.plugin(uniqueValidator, {message: 'Error, expected {PATH} to be unique.'});
 
 //Define a trigger for user password pre save
 UserDBModel.pre('save', function (next) {
@@ -94,6 +94,6 @@ UserDBModel.methods.comparePassword = function (plainText, callback) {
     });
 };
 
-UserDBModel = mongoose.model('User', UserDBModel);
+UserDBModel = mongoose.model('users', UserDBModel);
 
 export default UserDBModel;

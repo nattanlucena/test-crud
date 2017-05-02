@@ -24,6 +24,7 @@ let UserDBModel = new Schema({
             type: String,
             required: true
         },
+        salt: String,
         is_active: {
             type: Boolean,
             default: true
@@ -67,7 +68,7 @@ UserDBModel.pre('save', function (next) {
     }
 
     bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-        "use strict";
+        console.log(salt);
         bcrypt.hash(self.password, salt, function (err, hash) {
             if (err) {
                 return next();

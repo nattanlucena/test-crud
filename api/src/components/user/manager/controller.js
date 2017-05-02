@@ -4,10 +4,10 @@
 /*
  * Module dependencies
  */
-import * as utils from '../../../common/utils';
-import * as constants from '../../../common/constants';
 import userType from '../model/user-type';
 import model from './model/';
+import * as utils from '../../../common/utils';
+import * as constants from '../../../common/constants';
 
 
 /**
@@ -63,6 +63,7 @@ module.exports.saveManager = (request, response) => {
             return response.status(500).json(utils.handleError(err))
         } else {
             manager.password = undefined;
+            manager.salt = undefined;
             manager.__v = undefined;
             return response.status(201).json(utils.handleData(manager));
         }

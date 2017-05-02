@@ -2,10 +2,12 @@
     Module dependencies
  */
 import * as config from '../../../config/config';
-import * as controller from './controller';
+import * as appUserController from './app/controller';
+import * as managerController from './hotel-manager/controller';
 
-const API_BASE_PATH = config.API_BASE_PATH;
-const USER_BASE_PATH = API_BASE_PATH + '/users/';
+const APP_USER_BASE_PATH = config.APP_BASE_PATH + '/users/';
+const MANAGER_USER_BASE_PATH = config.MANAGER_BASE_PATH + '/users/';
+const ADMIN_USER_BASE_PATH = config.ADMIN_BASE_PATH + '/users/';
 
 
 /**
@@ -15,26 +17,42 @@ const USER_BASE_PATH = API_BASE_PATH + '/users/';
  */
 function setUserRoutes(app) {
 
-    //route for get all users
-    app.get(USER_BASE_PATH, controller.getUsers);
+    ////////////////////////////////
+    //app routes
+    ////////////////////////////////
 
-    //route for get an user, given an ID
-    app.get(USER_BASE_PATH + 'id/:id', controller.findById);
+    app.get(APP_USER_BASE_PATH, appUserController.getUsers);
 
-    //route for get an user, given an email address
-    app.get(USER_BASE_PATH + 'email/:email', controller.findByEmail);
+    app.get(APP_USER_BASE_PATH + 'id/:id', appUserController.findById);
 
-    //route for create a new user
-    app.post(USER_BASE_PATH, controller.saveUser);
+    app.get(APP_USER_BASE_PATH + 'email/:email', appUserController.findByEmail);
 
-    //route for update an user
-    app.put(USER_BASE_PATH + ':email', controller.updateUser);
+    app.post(APP_USER_BASE_PATH, appUserController.saveUser);
 
-    //route for delete an user, given an id
-    app.delete(USER_BASE_PATH + 'id/:id', controller.removeUserById);
+    app.put(APP_USER_BASE_PATH + ':email', appUserController.updateUser);
 
-    //route for delete an user, given an email address
-    app.delete(USER_BASE_PATH + 'email/:email', controller.removeUserByEmail);
+    app.delete(APP_USER_BASE_PATH + ':email', appUserController.removeUserByEmail);
+
+
+    ////////////////////////////////
+    //hotel-manager routes
+    ////////////////////////////////
+
+    app.get(MANAGER_USER_BASE_PATH, managerController.getManagers);
+
+    app.get(MANAGER_USER_BASE_PATH + 'id/:id', managerController.findById);
+
+    app.get(MANAGER_USER_BASE_PATH + 'email/:email', managerController.findByEmail);
+
+    app.post(MANAGER_USER_BASE_PATH, managerController.saveManager);
+
+    app.put(MANAGER_USER_BASE_PATH + ':email', managerController.updateManager);
+
+    app.delete(MANAGER_USER_BASE_PATH + ':email', managerController.removeManagerByEmail);
+
+    ////////////////////////////////
+    //admin routes
+    ////////////////////////////////
 
 }
 

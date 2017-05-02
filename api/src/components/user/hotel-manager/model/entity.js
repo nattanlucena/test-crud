@@ -2,9 +2,10 @@
 /*
  Module dependencies
  */
-import ManagerDBCollection from './schema';
-import constants from '../../../common/constants';
-import * as utils from '../../../common/utils';
+import User from '../../model/entity';
+import UserType from '../../model/user-type';
+import UserDBCollection from '../../model';
+import constants from '../../../../common/constants';
 
 
 /**
@@ -12,40 +13,35 @@ import * as utils from '../../../common/utils';
  * @param message
  * @constructor
  */
-const UserValidationException = function (message) {
+const ManagerValidationException = function (message) {
     this.message = message;
-    this.name = 'UserValidationException';
+    this.name = 'ManagerValidationException';
 };
 
 /**
  * user class
  */
-class Manager {
+class Manager extends User{
 
     /**
      * Constructor method
      * @param name
      * @param email
+     * @param password
      * @param cpf
      * @param address
      */
-    constructor(name, email, cpf, address) {
+    constructor(name, email, password, cpf, address) {
+        super(name, email, password);
 
-        this.name = name;
-        this.email = email;
         this.cpf = cpf;
         this.address = address;
+        this.type = UserType[1];
+
+        super.validateRequiredFields();
+        super.validateEmail();
 
         this.validateRequiredFields();
-        this.validateEmail();
-    }
-
-    setPassword(pass) {
-        this.password = pass;
-    }
-
-    setIsActive(active) {
-        this.isActive = active;
     }
 
     setRoles (roles) {
@@ -58,13 +54,15 @@ class Manager {
      */
     getDatabaseDoc() {
         let self = this;
-        return new ManagerDBCollection({
+        let Collection = UserDBCollection.getCollectionInstance();
+        return new Collection({
             name: self.name,
             email: self.email,
             password: self.password,
             cpf: self.cpf,
             address: self.address,
-            roles: self.roles,
+            type: self.type,
+            roles: self.roles || [],
             is_active: self.isActive,
             updated_at: Date.now()
         });
@@ -79,36 +77,19 @@ class Manager {
             exceptionMessage = constants.manager.ALL_REQUIRED_FIELDS;
         } else  {
             exceptionMessage = [];
-            if (!this.name) {
-                exceptionMessage.push(constants.manager.NAME_REQUIRED);
-            }
-            if (!this.email){
-                exceptionMessage.push(constants.manager.EMAIL_REQUIRED);
-            }
             if (!this.cpf){
-                exceptionMessage.push(constants.manager.CPF_REQUIRED);
+                exceptionMessage.push({ 'cpf': constants.manager.CPF_REQUIRED });
             }
+            /*
             if (!this.address){
                 exceptionMessage.push(constants.manager.ADDRESS_REQUIRED);
             }
+            */
         }
-
-        if (exceptionMessage) {
-            throw new UserValidationException(exceptionMessage);
-        }
-    }
-
-    /*
-     * Validate email address
-     */
-    validateEmail() {
-        let email = this.email;
-        if (!utils.validateEmail(email)) {
-            const message = constants.user.INVALID_EMAIL_ADDRESS;
-            throw new UserValidationException(message);
+        if (exceptionMessage.length > 0) {
+            throw new ManagerValidationException(exceptionMessage);
         }
     }
-
 }
 
 export default Manager;

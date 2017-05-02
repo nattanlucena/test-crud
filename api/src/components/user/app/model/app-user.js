@@ -2,7 +2,7 @@
 /*
  * Module dependencies
  */
-import ManagerDBCollection from './schema';
+import UserModel from '../../model/';
 import Manager from './entity';
 
 
@@ -13,7 +13,7 @@ import Manager from './entity';
  * @param callback - First param: err, in case of error; Second param: records from DB
  */
 module.exports.fetch = (callback) => {
-    ManagerDBCollection.find({}, {__v:0, created_at:0}).lean().exec(callback);
+    UserModel.fetch(callback);
 };
 
 /**
@@ -30,17 +30,9 @@ module.exports.save = (data, callback) => {
             state: data.state,
             postal: data.postal
         };
-        let manager = new Manager(data.name, data.email, data.cpf, address);
+        let manager = new Manager(data.name, data.email, data.password, data.cpf, address);
 
-        if (data.password) {
-            manager.setPassword(data.password);
-        }
-        if (data.isActive !== undefined) {
-            manager.setIsActive(data.isActive);
-        }
-
-        manager.getDatabaseDoc().save(callback);
-
+        UserModel.save(manager.getDatabaseDoc(), callback);
     } catch (err) {
         return callback(err);
     }
@@ -53,48 +45,28 @@ module.exports.save = (data, callback) => {
  * @param callback
  */
 module.exports.findOne = (query, callback) =>{
-    ManagerDBCollection.findOne(query, {__v: 0}).exec(callback);
+    UserModel.findOne(query, callback);
 };
 
 /**
- * Updates an user, given an id
+ * Updates a manager
  *
  * @param query
  * @param data - user fields to update
  * @param callback
  */
 module.exports.update = (query, data, callback) => {
-    let options = {
-        new: true, //return the modified document
-        runValidators: true, //run the unique validator plugin
-        context: 'query'
-    };
-    let updateFields = {};
-
-    if (data.name) {
-        updateFields.name = data.name;
-    }
-    if (data.email) {
-        updateFields.email = data.email;
-    }
-    if (data.password) {
-        updateFields.password = data.password;
-    }
-    if (data.isActive !== undefined) {
-        updateFields.is_active = data.isActive;
-    }
-
-    ManagerDBCollection.findOneAndUpdate(query, updateFields, options, callback);
+    UserModel.update(query, data, callback);
 };
 
 /**
- * Delete an user
+ * Delete a manager
  *
  * @param query
  * @param callback
  */
 module.exports.remove = (query, callback) => {
-    ManagerDBCollection.findOneAndRemove(query, callback);
+    UserModel.remove(query, callback);
 };
 
 /**
@@ -105,5 +77,5 @@ module.exports.remove = (query, callback) => {
  * @param callback
  */
 module.exports.comparePassword = (manager, plainText, callback) => {
-    manager.comparePassword(plainText, callback);
+    UserModel.comparePassword(plainText, callback);
 };

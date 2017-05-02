@@ -9,7 +9,7 @@ module.exports = {
         NAME_REQUIRED: "Field name is required",
         EMAIL_REQUIRED: "Field email is required",
         NAME_AND_EMAIL_REQUIRED: "Fields name and email are required",
-        USER_NOT_FOUND: "user not found"
+        USER_NOT_FOUND: "User not found"
     },
 
     auth: {

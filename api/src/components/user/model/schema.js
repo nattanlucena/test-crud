@@ -10,56 +10,70 @@ const SALT_WORK_FACTOR = 10;
 let Schema = mongoose.Schema;
 
 let UserDBModel = new Schema({
-    name: {
-        type: String,
-        required: true
+        name: {
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true,
+            index: true,
+            unique: true
+        },
+        password: {
+            type: String,
+            required: true
+        },
+        is_active: {
+            type: Boolean,
+            default: true
+        },
+        type: {
+            type: String,
+            default: 'app'
+        },
+        cpf: {
+            type: String,
+            unique: true,
+            index: true
+        },
+        address: {
+            street: String,
+            city: String,
+            state: String,
+            postal: String
+        },
+        created_at: {
+            type: Date,
+            default: Date.now
+        },
+        updated_at: {
+            type: Date
+        }
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        index: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    is_active: {
-        type: Boolean,
-        default: true
-    },
-    is_manager: false,
-    created_at: {
-        type: Date,
-        default: Date.now
-    },
-    updated_at: {
-        type: Date
-    }
-},
-    {collection: 'user'});
+    {collection: 'users'});
 
 /*
  Validator plugin for unique fields
  */
-UserDBModel.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
+//UserDBModel.plugin(uniqueValidator, {message: 'Error, expected {PATH} to be unique.'});
 
 //Define a trigger for user password pre save
 UserDBModel.pre('save', function (next) {
-    let _this = this;
+    let self = this;
 
-    if(!_this.isModified('password')) {
+    if (!self.isModified('password')) {
         return next();
     }
 
     bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
         "use strict";
-        bcrypt.hash(_this.password, salt, function (err, hash) {
+        bcrypt.hash(self.password, salt, function (err, hash) {
             if (err) {
                 return next();
             }
-            _this.salt = salt;
-            _this.password = hash;
+            self.salt = salt;
+            self.password = hash;
             next();
         });
     });

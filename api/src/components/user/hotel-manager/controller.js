@@ -4,8 +4,8 @@
 /*
  * Module dependencies
  */
-import * as utils from '../../common/utils';
-import * as constants from '../../common/constants';
+import * as utils from '../../../common/utils';
+import * as constants from '../../../common/constants';
 import model from './model/';
 
 
@@ -40,6 +40,8 @@ module.exports.saveManager = (request, response) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
+            manager.password = undefined;
+            manager.__v = undefined;
             return response.status(201).json(utils.handleData(manager));
         }
     });
@@ -91,8 +93,8 @@ module.exports.findByEmail = (request, response) => {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.updateUser = (request, response) => {
-    utils.logInfo('HTTP Request :: updateUser function');
+module.exports.updateManager = (request, response) => {
+    utils.logInfo('HTTP Request :: updateManager function');
 
     let email = request.params.email;
     let query = { email: email };
@@ -100,31 +102,12 @@ module.exports.updateUser = (request, response) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json(utils.handleData(updated));
-        }
-    });
-};
-
-/**
- * Remove an user by their id
- *
- * @param request - HTTP request
- * @param response - HTTP response
- */
-module.exports.removeUserById = (request, response) => {
-    utils.logInfo('HTTP Request :: remove function');
-
-    let id = request.params.id;
-    let query = { _id: id };
-    model.remove(query, (err, result) => {
-        if (err) {
-            return response.status(500).json(utils.handleError(err))
-        } else if (result){
-            //Returns an empty json and http response status code 204
-            return response.status(204).json({});
-        } else {
-            const msg = constants.user.USER_NOT_FOUND;
-            return response.status(404).json(utils.handleMessage(msg));
+            if (!updated) {
+                const err = constants.user.USER_NOT_FOUND;
+                return response.status(404).json(utils.handleError(err));
+            } else {
+                return response.json(utils.handleData(updated));
+            }
         }
     });
 };
@@ -135,20 +118,20 @@ module.exports.removeUserById = (request, response) => {
  * @param request - HTTP request
  * @param response - HTTP response
 */
-module.exports.removeUserByEmail = (request, response) => {
-    utils.logInfo('HTTP Request :: removeUserByEmail function');
+module.exports.removeManagerByEmail = (request, response) => {
+    utils.logInfo('HTTP Request :: removeManagerByEmail function');
 
     let email = request.params.email;
     let query = { email: email };
     model.remove(query, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
-        } else if (result){
+        } else if (!result){
+            const err = constants.user.USER_NOT_FOUND;
+            return response.status(404).json(utils.handleError(err));
+        } else {
             //Returns an empty json and http response status code 204
             return response.status(204).json({});
-        } else {
-            const msg = constants.user.USER_NOT_FOUND;
-            return response.status(404).json(utils.handleMessage(msg));
         }
     });
 };

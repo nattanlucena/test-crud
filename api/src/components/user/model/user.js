@@ -2,42 +2,36 @@
 /*
  * Module dependencies
  */
-import UserDBCollection from './schema';
-import User from './entity';
+import Collection from './schema';
 
 
 /**
- *  Get all users from database
+ * Returns the user collection instance to be used to create custom queries
+ *
+ * @returns {Collection}
+ */
+module.exports.getCollectionInstance = () => {
+    return Collection;
+};
+
+/**
+ *  Get all users from database.
  *  Returns a callback with two params: err and users
  *
  * @param callback - First param: err, in case of error; Second param: records from DB
  */
 module.exports.fetch = (callback) => {
-    UserDBCollection.find({}, {__v:0, created_at:0}).lean().exec(callback);
+    Collection.find({}, { __v:0, password:0 }).lean().exec(callback);
 };
 
 /**
  * Save an user in database
  *
- * @param data - Data from user to be saved
+ * @param user - User to be saved
  * @param callback - First param: err, in case of error; Second param: the saved record
  */
-module.exports.save = (data, callback) => {
-    try {
-        let user = new User(data.name, data.email);
-
-        if (data.password) {
-            user.setPassword(data.password);
-        }
-        if (data.isActive !== undefined) {
-            user.setIsActive(data.isActive);
-        }
-
-        user.getDatabaseDoc().save(callback);
-
-    } catch (err) {
-        return callback(err);
-    }
+module.exports.save = (user, callback) => {
+    user.save({password: 0, __v: 0}, callback);
 };
 
 /**
@@ -47,7 +41,7 @@ module.exports.save = (data, callback) => {
  * @param callback
  */
 module.exports.findOne = (query, callback) =>{
-    UserDBCollection.findOne(query, {__v: 0}).exec(callback);
+    Collection.findOne(query, {__v: 0}).exec(callback);
 };
 
 /**
@@ -58,27 +52,18 @@ module.exports.findOne = (query, callback) =>{
  * @param callback
  */
 module.exports.update = (query, data, callback) => {
+    let updateFields = {};
+    for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+            updateFields[key] = data[key];
+        }
+    }
     let options = {
         new: true, //return the modified document
         runValidators: true, //run the unique validator plugin
         context: 'query'
     };
-    let updateFields = {};
-
-    if(data.name) {
-        updateFields.name = data.name;
-    }
-    if (data.email) {
-        updateFields.email = data.email;
-    }
-    if (data.password) {
-        updateFields.password = data.password;
-    }
-    if (data.isActive !== undefined) {
-        updateFields.is_active = data.isActive;
-    }
-
-    UserDBCollection.findOneAndUpdate(query, updateFields, options, callback);
+    Collection.findOneAndUpdate(query, updateFields, options, callback);
 };
 
 /**
@@ -88,7 +73,7 @@ module.exports.update = (query, data, callback) => {
  * @param callback
  */
 module.exports.remove = (query, callback) => {
-    UserDBCollection.findOneAndRemove(query, callback);
+    Collection.findOneAndRemove(query, callback);
 };
 
 /**

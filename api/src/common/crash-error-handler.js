@@ -6,7 +6,7 @@ import * as utils from './utils';
 process.on('uncaughtException', (err) => {
 
     let timeout = 1;
-    console.log(err);
+
     utils.logError('SERVER CRASHED');
     utils.logError(err);
 

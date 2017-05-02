@@ -120,8 +120,7 @@ module.exports.updateManager = (request, response) => {
 
     let email = request.params.email;
     let query = { email: email };
-    let options = {test: true};
-    model.update(query, request.body, options, (err, updated) => {
+    model.update(query, request.body, (err, updated) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {

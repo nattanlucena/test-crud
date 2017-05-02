@@ -27,7 +27,7 @@ function handleError(error) {
             return {error: error.message}
         }
     } else {
-        return {error: error};
+        return error.message ? {error: error.message} : {error: error};
     }
 }
 module.exports.handleError = handleError;

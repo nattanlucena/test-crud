@@ -1,6 +1,6 @@
 "use strict";
 /*
-    Module dependencies
+ Module dependencies
  */
 import User from '../user/model';
 import * as tokenController from './token/controller';
@@ -20,14 +20,14 @@ module.exports.signIn = (request, response) => {
     let body = request.body;
 
     /*
-        Checks if email and password are empty
+     Checks if email and password are empty
      */
-    if (!body.hasOwnProperty('email') && !body.hasOwnProperty('password')){
+    if (!body.hasOwnProperty('email') && !body.hasOwnProperty('password')) {
         const err = new Error(constants.auth.INVALID_EMAIL_OR_PASSWORD);
         return response.status(401).send(utils.handleError(err));
     }
 
-    let query = { email: body.email };
+    let query = {email: body.email};
     User.findOne(query, (err, user) => {
 
         if (err) {
@@ -38,17 +38,11 @@ module.exports.signIn = (request, response) => {
             if (err) {
                 return response.status(401).send(utils.handleError(err));
             }
-
-            let payload = {
-                id: user._id,
-                name: user.name,
-                email: user.email
-            };
-            tokenController.createToken(payload, (err, token) => {
+            
+            generateToken(user, (err, token) => {
                 if (err) {
                     return response.status(401).send(utils.handleError(err));
                 }
-
                 user._id = undefined;
                 user.password = undefined;
                 let result = {
@@ -56,7 +50,7 @@ module.exports.signIn = (request, response) => {
                     token: token
                 };
                 return response.json(result);
-            });
+            })
         });
     });
 };
@@ -86,5 +80,28 @@ function validateUser(user, plainPassword, callback) {
             return callback(err);
         }
     });
+}
 
+/**
+ * Generate token and returns the token and the user to http response
+ *
+ * @param user
+ * @param callback
+ * @returns {*}
+ */
+function generateToken(user, callback) {
+    try {
+        let payload = {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            type: user.type,
+            date: Date.now()
+        };
+        let token = tokenController.createToken(payload);
+
+        return callback(null, token);
+    } catch (err) {
+        return callback(err, token);
+    }
 }

@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import signupComponent from './signup.component';
+import authService from '../auth.service';
 
 let signupModule = angular.module('signup', [
   uiRouter
@@ -21,5 +22,7 @@ let signupModule = angular.module('signup', [
 .component('signup', signupComponent)
 
 .name;
+
+signupComponent.controller.$inject = ['authService'];
 
 export default signupModule;

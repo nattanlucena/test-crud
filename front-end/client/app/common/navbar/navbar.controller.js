@@ -3,12 +3,16 @@ class NavbarController {
     this.name = 'navbar';
     this.mainMenu = [
       {
-        text: 'Página Inicial',
+        text: 'Home',
         module: 'home'
       },
       {
-        text: 'Sobre',
-        module: 'about'
+        text: 'Login',
+        module: 'login'
+      },
+      {
+        text: 'Signup',
+        module: 'signup'
       }
     ];
   }

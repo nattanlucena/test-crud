@@ -4,7 +4,7 @@ let UserListFactory = function ($http) {
   let getUsers = (callback) => {
     return $http({
       method: 'GET',
-      url: 'http://localhost:5000/api/users/'
+      url: 'http://localhost:5000/api/manager/users/'
     })
     .then(function successCallback(response) {
 				callback(response);

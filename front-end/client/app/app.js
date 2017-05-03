@@ -16,12 +16,12 @@ angular.module('app', [
   .config(['$locationProvider', '$authProvider', function($locationProvider, $authProvider) {
     "ngInject";
 
-    $authProvider.httpInterceptor = function() { return true; },
+    $authProvider.httpInterceptor = () => { return true }
     $authProvider.withCredentials = false;
     $authProvider.tokenRoot = null;
     $authProvider.baseUrl = 'http://localhost:5000/api/';
     $authProvider.loginUrl = '/auth/';
-    $authProvider.signupUrl = '/signup/';
+    $authProvider.signupUrl = '/manager/users/';
     $authProvider.unlinkUrl = '/unlink/';
     $authProvider.tokenName = 'token';
     $authProvider.tokenPrefix = 'satellizer';
@@ -35,3 +35,13 @@ angular.module('app', [
   }])
 
   .component('app', AppComponent)
+
+  .run(['$transitions', '$location', '$auth', function($transitions, $location, $auth) {
+    console.log('RUN BARRY!')
+    $transitions.onStart({to: '/auth/login'}, (trans) => {
+      console.log('Route Change Start!')
+      if (!$auth.isAuthenticated()) {
+        $location.path('/auth/login');
+      }
+    })
+  }])

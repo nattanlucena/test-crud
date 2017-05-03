@@ -1,5 +1,5 @@
 <div class="row">
-  <form class="col s12 m6 offset-m3" ng-submit="$ctrl.register()">
+  <form class="col s12 m6 offset-m3" ng-submit="$ctrl.register($ctrl.user)">
     <div class="row">
       <div class="col s12">
         <h1>Signup</h1>
@@ -11,7 +11,7 @@
         <label for="name">Nome</label>
       </div>
       <div class="input-field col s6">
-        <input id="email" type="text" class="validate" ng-model="$ctrl.user.email">
+        <input id="email" type="email" class="validate" ng-model="$ctrl.user.email">
         <label for="email">E-mail</label>
       </div>
       <div class="input-field col s6">
@@ -19,7 +19,7 @@
         <label for="cpf">CPF</label>
       </div>
       <div class="input-field col s6">
-        <input id="password" type="text" class="validate" ng-model="$ctrl.user.password">
+        <input id="password" type="password" class="validate" ng-model="$ctrl.user.password">
         <label for="password">Password</label>
       </div>
       <div class="input-field file-field col m12 l8">

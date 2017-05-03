@@ -23,6 +23,6 @@ let signupModule = angular.module('signup', [
 
 .name;
 
-signupComponent.controller.$inject = ['authService'];
+signupComponent.controller.$inject = ['$auth', '$location'];
 
 export default signupModule;

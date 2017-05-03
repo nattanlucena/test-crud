@@ -1,5 +1,5 @@
 class LoginController {
-  constructor($auth, ) {
+  constructor($auth) {
     this.name = 'login';
     this.$auth = $auth;
   }
@@ -10,7 +10,7 @@ class LoginController {
         console.log(res)
         // Materialize.toast('Well done!', 3000);
         this.$auth.setToken(res.data.token)
-        console.log(this.$auth.getToken())
+        console.log(this.$auth.isAuthenticated())
       })
       .catch((err) => {
         console.log(err)

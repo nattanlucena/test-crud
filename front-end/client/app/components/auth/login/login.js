@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import loginComponent from './login.component';
+import authService from '../auth.service';
 
 let loginModule = angular.module('login', [
   uiRouter
@@ -22,6 +23,6 @@ let loginModule = angular.module('login', [
 
 .name;
 
-loginComponent.controller.$inject = ['$auth']
+loginComponent.controller.$inject = ['$auth', 'authService']
 
 export default loginModule;

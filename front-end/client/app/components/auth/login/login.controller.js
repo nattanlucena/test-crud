@@ -1,16 +1,21 @@
 class LoginController {
-  constructor($auth) {
+  constructor($auth, ) {
     this.name = 'login';
     this.$auth = $auth;
-    this.user = {
-      username: '',
-      password: ''
-    };
   }
 
-  login() {
-    console.log('Inside login controller function')
-    this.$auth.login(this.user);
+  login(user) {
+    this.$auth.login(user)
+      .then((res) => {
+        console.log(res)
+        // Materialize.toast('Well done!', 3000);
+        this.$auth.setToken(res.data.token)
+        console.log(this.$auth.getToken())
+      })
+      .catch((err) => {
+        console.log(err)
+        // Materialize.toast(err.data.error, 3500);
+      });
   }
 }
 

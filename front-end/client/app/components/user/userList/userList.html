@@ -1,18 +1,12 @@
 <h1 class="section-title">List users</h1>
+<label>Search for:<input type="search" ng-model="filtroNome"></label>
+
 <ul class="collection">
-  <li class="collection-item avatar">
+  <li class="collection-item avatar" ng-repeat="list in $ctrl.userList | filter:{name:filtroNome}">
     <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
-    <span class="title">Full Name</span>
-    <p>E-mail</p>
-    <a href="#!" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user">
-      <i class="material-icons">close</i>
-    </a>
-  </li>
-  <li class="collection-item avatar">
-    <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
-    <span class="title">Full Name</span>
-    <p>E-mail</p>
-    <a href="#!" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user">
+    <span class="title"  >{{list.name}}</span>
+    <p>{{list.email}}</p>
+    <a ng-click="$ctrl.userRemove(list)" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user">
       <i class="material-icons">close</i>
     </a>
   </li>

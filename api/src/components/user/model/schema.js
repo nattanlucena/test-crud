@@ -21,8 +21,7 @@ let UserDBModel = new Schema({
         index: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     is_active: {
         type: Boolean,

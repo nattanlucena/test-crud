@@ -27,7 +27,7 @@ function handleError(error) {
             return {error: error.message}
         }
     } else {
-        return {error: error};
+        return error.message ? {error: error.message} : {error: error};
     }
 }
 module.exports.handleError = handleError;
@@ -37,9 +37,7 @@ module.exports.handleError = handleError;
  * @param msg
  * @returns {*}
  */
-function handleMessage(msg) {
-    return {message: msg};
-}
+let handleMessage = (msg) => ({message: msg});
 module.exports.handleMessage = handleMessage;
 
 /**
@@ -47,9 +45,8 @@ module.exports.handleMessage = handleMessage;
  * @param data
  * @returns {*}
  */
-module.exports.handleData = (data) => {
-    return {data: data};
-};
+let handleData = (data) => ({data: data});
+module.exports.handleData = handleData;
 
 /**
  * Print the error message in console

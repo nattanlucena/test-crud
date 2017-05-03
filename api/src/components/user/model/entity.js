@@ -2,7 +2,6 @@
 /*
  Module dependencies
  */
-import UserDBCollection from './schema';
 import constants from '../../../common/constants';
 import * as utils from '../../../common/utils';
 
@@ -21,47 +20,25 @@ const UserValidationException = function (message) {
  * user class
  */
 class User {
-    
+
     /**
      * Constructor method
      * @param name
      * @param email
+     * @param password
      */
-    constructor(name, email) {
+    constructor(name, email, password) {
         this.name = name;
         this.email = email;
-
-        this.validateRequiredFields();
-        this.validateEmail();
-    }
-
-    setPassword(pass) {
-        this.password = pass;
-    }
-
-    setIsActive(active) {
-        this.isActive = active;
-    }
-
-    /**
-     * Returns a new Mongoose Model user
-     * @returns {*}
-     */
-    getDatabaseDoc() {
-        let self = this;
-        return new UserDBCollection({
-            name: self.name,
-            email: self.email,
-            password: self.password,
-            is_active: self.isActive,
-            updated_at: Date.now()
-        });
+        this.password = password;
+        this.isActive = true;
     }
 
     /*
      Validate required fields
-     */
+    */
     validateRequiredFields() {
+
         let exceptionMessage;
         if (!this.name && !this.email) {
             exceptionMessage = constants.user.NAME_AND_EMAIL_REQUIRED;

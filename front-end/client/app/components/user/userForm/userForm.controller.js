@@ -11,7 +11,6 @@ class UserFormController {
 		    this.lista = this.userListService.get();
 		    this.lista.push(data.data.data);	
 	    });
-	    	
 	};	  
 }
 export default UserFormController;

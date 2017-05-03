@@ -6,7 +6,7 @@ let UserListFactory = function($http) {
             console.log('Log Factory listUsers');
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:5000/api/users/',
+                    url: 'http://localhost:5000/api/manager/users',
                 }).then(function success(data) {
                     callback(data.data.data);
                 },function error(err) {
@@ -14,11 +14,11 @@ let UserListFactory = function($http) {
                 });            
         },   
 
-        userRemove: function(id, callback) {
-            console.log('Removendo Usuario: ', id);
+        userRemove: function(email, callback) {
+            console.log('Removendo Usuario: ', email);
             $http({
                 method: 'DELETE',
-                url: 'http://localhost:5000/api/users/id/' + id,
+                url: 'http://localhost:5000/api/manager/users/' + email,
             }).then(function success(data) {
                  callback(null, data);
                 console.log(data);

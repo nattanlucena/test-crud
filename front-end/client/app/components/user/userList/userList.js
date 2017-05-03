@@ -4,7 +4,6 @@ import userListComponent from './userList.component';
 import UserListFactory from './userList.factory';
 import userListService from './userListService';
 
-
 let userListModule = angular.module('userList', [
   uiRouter,
 ])
@@ -13,6 +12,8 @@ let userListModule = angular.module('userList', [
 .factory('userListFactory', UserListFactory)
 .factory('userListService', userListService)
 
+
+.factory('UserListFactory', UserListFactory)
 
 .name;
 

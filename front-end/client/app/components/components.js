@@ -1,12 +1,12 @@
 import angular from 'angular';
 import Home from './home/home';
-import About from './about/about';
 import User from './user/user';
+import Auth from './auth/auth';
 
 let componentModule = angular.module('app.components', [
+  Auth,
   Home,
-  About,
-  User
+  User,
 ])
 
 .name;

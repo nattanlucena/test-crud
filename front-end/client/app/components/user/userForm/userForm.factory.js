@@ -6,7 +6,7 @@ let UserFactory = function($http) {
             console.log('Log Factory: ', user);
                 $http({
                     method: 'POST',
-                    url: 'http://localhost:5000/api/users/',
+                    url: 'http://localhost:5000/api/manager/users/',
                     data: user
                 }).then(function success(data) {
                     callback(data);

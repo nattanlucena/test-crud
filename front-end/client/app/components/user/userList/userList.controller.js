@@ -15,8 +15,7 @@ class UserListController {
 	}
 
 	userRemove(user){
-		var id = user._id;
-		this.UserListFactory.userRemove(id, (err, success) => {
+		this.UserListFactory.userRemove(user.email, (err, success) => {
 			if (err) {
 				console.log('Erro');
 			}else{

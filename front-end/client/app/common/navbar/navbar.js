@@ -10,4 +10,6 @@ let navbarModule = angular.module('navbar', [
   
 .name;
 
+navbarComponent.controller.$inject = ['$auth', '$location'];
+
 export default navbarModule;

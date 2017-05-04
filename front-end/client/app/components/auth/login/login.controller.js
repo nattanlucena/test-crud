@@ -1,20 +1,18 @@
 class LoginController {
-  constructor($auth) {
+  constructor($auth, $location) {
     this.name = 'login';
     this.$auth = $auth;
+    this.$location = $location;
   }
 
   login(user) {
     this.$auth.login(user)
       .then((res) => {
-        console.log(res)
-        // Materialize.toast('Well done!', 3000);
         this.$auth.setToken(res.data.token)
-        console.log(this.$auth.isAuthenticated())
+        this.$location.path('/home')
       })
       .catch((err) => {
-        console.log(err)
-        // Materialize.toast(err.data.error, 3500);
+        Materialize.toast(err, 3500);
       });
   }
 }

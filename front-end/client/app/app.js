@@ -35,9 +35,9 @@ angular.module('app', [
   }])
 
   .component('app', AppComponent)
-
+  
+/*
   .run(['$transitions', '$location', '$auth', function($transitions, $location, $auth) {
-    console.log('RUN BARRY!')
     $transitions.onStart({to: '/auth/login'}, (trans) => {
       console.log('Route Change Start!')
       if (!$auth.isAuthenticated()) {
@@ -45,3 +45,4 @@ angular.module('app', [
       }
     })
   }])
+*/

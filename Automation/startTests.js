@@ -34,9 +34,9 @@ exports.config = {
     ],
 
     specs: [
-        'Tests/Home/test_home.js',
-        'Tests/Login/test_login.js',
-        'Tests/Signup/test_signup.js',
+        //'Tests/Home/test_home.js',
+        'Tests/Login/test_login.js'
+        //'Tests/Signup/test_signup.js',
     ],
 
     framework: 'jasmine2',

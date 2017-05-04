@@ -17,7 +17,7 @@ describe('Test-Crud: Teste Signup', function(){
         page_home.enterPageSignUp();
         page_signup.inputTextName('Test signup');
         page_signup.inputTextEmail('felipe.rgcr@gmail.com');
-        page_signup.inputTextCpf(utils.getRandom());
+        page_signup.inputTextCpf(utils.getRandomCpf());
         page_signup.inputTextPassword('admin');
         page_signup.clickButtonSave();
         page_signup.validMenssageSucess('[object Object]');
@@ -30,7 +30,7 @@ describe('Test-Crud: Teste Signup', function(){
      page_home.enterPageSignUp();
      page_signup.inputTextName('Test Signup - Valid Menssage');
      page_signup.clickButtonSave();
-     page_signup.validMenssageErro('[object Object]');
+     page_signup.validMenssageErro('Fields name and email are required');
      expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/signup');
 
     });

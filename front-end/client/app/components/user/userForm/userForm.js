@@ -2,6 +2,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import userFormComponent from './userForm.component';
 import userFormFactory from './userForm.factory';
+import userListService from '../userList/userListService';
 
 let userFormModule = angular.module('userForm', [
   uiRouter
@@ -13,7 +14,8 @@ let userFormModule = angular.module('userForm', [
 
 .name;
 
-userFormComponent.controller.$inject = ['userFormFactory'];
+userFormComponent.controller.$inject = ['userFormFactory', 'userListService']; 
 userFormFactory.$inject = ['$http'];
 
-export default userFormModule;
+export default userFormModule;    
+

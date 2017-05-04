@@ -6,7 +6,7 @@ import userList from './userList/userList';
 
 let userModule = angular.module('user', [
   uiRouter,
-	UserForm,
+  UserForm,
   userList
 ])
 

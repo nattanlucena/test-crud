@@ -1,19 +1,21 @@
 class UserFormController {
-  constructor(userFormFactory) {
-    this.name = 'userForm';
-    this.userFormFactory = userFormFactory;
-    this.user = {}
-  }
+	constructor(UserFactory, userListService) {
+	    this.UserFactory = UserFactory;	
+	    this.password = '12345';
+	    this.userListService = userListService;
+	};  
 
-  addUser() {
-    this.userFormFactory.addUser(this.user, (res) => {
-      if (res.status === 201) {
-        Materialize.toast('Well done!', 3500)
-      } else if (res.status !== 201) {
-        Materialize.toast('Error! Try again later!', 4500)
-      }
-    })
-  }
+	save() {
+		this.user.password = this.password; 
+	    this.UserFactory.saveUser(this.user, (data) => { 
+		    this.lista = this.userListService.get();
+		    this.lista.push(data.data.data);	
+	    });
+	    this.reset();
+	}	
+
+	reset(){
+		this.user = {};
+	}  
 }
-
 export default UserFormController;

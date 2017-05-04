@@ -1,15 +1,29 @@
 class UserListController {
-  constructor(userListFactory) {
+  constructor(UserListFactory, userListService) {
     this.name = 'userList';
-    this.userListFactory = userListFactory;
-    this.userList = []
+    this.UserListFactory = UserListFactory;
+    this.userListService = userListService;
+    this.listAll();
   }
 
-  initUserList() {
-    this.userListFactory.getUsers((res) => {
-      this.userList = res.data.data;
-    })
-  };
+	listAll(){
+
+		this.UserListFactory.listUsers((data) => { 
+	    	this.userList = data;
+	    	this.userListService.set(data);
+	    });
+	}
+
+	userRemove(user){
+		this.UserListFactory.userRemove(user.email, (err, success) => {
+			if (err) {
+				console.log('Erro');
+			}else{
+				this.listAll();
+			}
+			
+		});
+	}   
 }
 
 export default UserListController;

@@ -11,6 +11,10 @@ class LoginController {
   login() {
     this.$auth.login(this.user);
   }
+
+  reset(){
+   this.user ={};
+  } 
 }
 
 export default LoginController;

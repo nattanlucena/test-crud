@@ -9,7 +9,6 @@ class LoginController {
   }
 
   login() {
-    console.log('Inside login controller function')
     this.$auth.login(this.user);
   }
 }

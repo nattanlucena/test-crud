@@ -19,6 +19,14 @@ var page_signup = function(){
     this.clickButtonSave = function(){
         element(by.buttonText('save')).click();
     }
+    this.validMenssageErro = function(msgErro){
+        var menssageErro = element(by.id('toast-container')).getText();
+        expect(menssageErro).toBe(msgErro);
+    }
+    this.validMenssageSucess = function(msgSucess){
+        var menssageErro = element(by.id('toast-container')).getText();
+        expect(menssageErro).toBe(msgSucess);
+    }
 };
 
 module.exports = new page_signup();

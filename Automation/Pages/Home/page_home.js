@@ -20,11 +20,17 @@ var page_home = function(){
         expect(menssageErro).toBe(msgErro);
     }
     this.inputTextFullName = function(fullName){
-        element(by.id('last_name')).sendKeys(fullName);
+        element(by.id('name')).sendKeys(fullName);
     };
     this.inputTextEmail = function(email){
         element(by.id('email')).sendKeys(email);
     };
+    this.inputTextCpf = function(cpf){
+        element(by.id('cpf')).sendKeys(cpf);
+    };
+    this.clickButtonSave = function(){
+        element(by.id('btSave')).click();
+    }
 
 };
 module.exports = new page_home();

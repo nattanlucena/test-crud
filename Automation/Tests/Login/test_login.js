@@ -6,26 +6,20 @@ describe('Test-Crud: Teste Login ', function(){
 
     var page_login = require('../../Pages/Login/page_login.js');
     var page_home = require('../../Pages/Home/page_home.js');
-    var page_signup = require('../../Pages/Signup/page_signup.js');
+    var utils = require('../../utils.js');
+
 
     beforeEach(function(){
-        browser.get('http://localhost:3000/');
+        browser.get(utils.path()+':3000/');
     });
 
-    it('Logar na Aplicação com usuario não cadastrado', function(){
+    it('Log in to Application with unregistered user', function(){
         page_home.enterPageLogin();
         page_login.enterFieldValueLogin('admin');
         page_login.enterFieldValuePassword('admin');
         page_login.clickButtonLogin();
-    });
+        expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
-    // it('Realizar Cadastro e Logar na aplicação', function(){
-    //     page_home.enterPageSignUp();
-    //     page_signup.inputTextName('Felipe');
-    //     page_signup.inputTextEmail('felipe.rgcr@gmail.com');
-    //     page_signup.inputTextCpf('09705063419');
-    //     page_signup.inputTextPassword('admin');
-    //     page_signup.clickButtonSave();
-    // });
+    });
 
 });

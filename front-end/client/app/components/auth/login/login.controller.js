@@ -1,16 +1,24 @@
 class LoginController {
-  constructor($auth) {
+  constructor($auth, $location) {
     this.name = 'login';
     this.$auth = $auth;
-    this.user = {
-      username: '',
-      password: ''
-    };
+    this.$location = $location;
   }
 
-  login() {
-    this.$auth.login(this.user);
+  login(user) {
+    this.$auth.login(user)
+      .then((res) => {
+        this.$auth.setToken(res.data.token)
+        this.$location.path('/home')
+      })
+      .catch((err) => {
+        Materialize.toast(err, 3500);
+      });  
   }
+  
+  reset() {
+   this.user = {};
+  } 
 }
 
 export default LoginController;

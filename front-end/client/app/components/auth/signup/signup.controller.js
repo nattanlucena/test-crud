@@ -16,6 +16,10 @@ class SignupController {
         Materialize.toast(err.data.error, 3500)
       });
   }
+
+  reset(){
+    this.user = {};
+  } 
 }
 
 export default SignupController;

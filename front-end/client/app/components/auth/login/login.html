@@ -1,5 +1,5 @@
 <div class="row">
-  <form class="col s12 m6 offset-m3" ng-submit="$ctrl.login($ctrl.user)">
+  <form class="col s12 m6 offset-m3">
     <div class="row">
       <div class="col s12">
         <h1>Login</h1>
@@ -17,8 +17,13 @@
         <label for="password">Password</label>
       </div>
       <div class="input-field col s12">
-        <button type="submit" class="waves-effect waves-light btn right">Login</button>
+        <button type="submit" class="waves-effect waves-light btn right" id="btLogin" ng-click="$ctrl.login()">Login</button>
       </div>
+
+      <div class="input-field col s12">
+        <button type="submit" class="waves-effect waves-light btn right" id="btReset" ng-click="$ctrl.reset()">Reset</button>
+      </div>
+
     </div>
   </form>
 </div>

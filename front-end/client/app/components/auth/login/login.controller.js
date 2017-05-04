@@ -13,8 +13,7 @@ class LoginController {
       })
       .catch((err) => {
         Materialize.toast(err, 3500);
-      });
-  }
+      });  
 }
 
 export default LoginController;

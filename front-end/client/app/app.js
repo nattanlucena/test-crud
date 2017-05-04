@@ -4,6 +4,7 @@ import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
 import satellizer from 'satellizer';
+//import uiMask from 'angular-ui-mask';
 import 'normalize.css';
 
 angular.module('app', [
@@ -11,6 +12,7 @@ angular.module('app', [
     satellizer,
     Common,
     Components,
+  //  uiMask
   ])
 
   .config(['$locationProvider', '$authProvider', function($locationProvider, $authProvider) {

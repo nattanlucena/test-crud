@@ -1,20 +1,22 @@
-let UserFormFactory = function ($http) {
+let UserFactory = function($http) {
+    let usuario = {};
 
-  let addUser = (data = {}, callback) => {
-    return $http({
-      method: 'POST',
-      url: 'http://localhost:5000/api/users/',
-			data
-    })
-    .then(function successCallback(res) {
-				callback(res);
-      }, function errorCallback(res) {
-        Materialize.toast('Error! Try again later!', 3500)
-        console.log(res)
-      });
-  };
+    usuario = {
+        saveUser: function(user,callback) {
+            console.log('Log Factory: ', user);
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost:5000/api/manager/users/',
+                    data: user
+                }).then(function success(data) {
+                    callback(data);
+                },function error(err) {
+                    console.log('Erro: ', err);     
+                });            
+        }
+    }
 
-  return { addUser };
+    return usuario;
 };
 
-export default UserFormFactory;
+export default UserFactory;

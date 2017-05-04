@@ -1,4 +1,27 @@
-var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+//var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+//var HtmlScreenshotReporter = require('protractor-html-screenshot-reporter');
+//var htmlSpcReporter = require('jasmine-spec-reporter');
+var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+
+var reporter = new HtmlScreenshotReporter({
+    dest: 'ReportJasmine',
+    showSummary: true,
+    showQuickLinks: true,
+    showConfiguration: true,
+    screenshotsFolder: 'images',
+    takeScreenshots: true,
+    takeScreenshotsOnlyOnFailures: true,
+    fixedScreenshotName: true,
+    ignoreSkippedSpecs: false,
+    consolidate: true,
+    consolidateAll: true,
+    preserveDirectory: true,
+    reportTitle: 'Testlauf_',
+    fileNameSeparator: '_',
+    fileNameDateSuffix: true,
+    cleanDestination: false,
+    filename: 'MyReportRoque.html'
+});
 
 
 exports.config = {
@@ -26,8 +49,10 @@ exports.config = {
 
         browser.driver.manage().window().maximize();
 
-        //Gerar relatório no terminal dos resultados dos teste
+        jasmine.getEnv().addReporter(reporter);
+
         var Reporter = require('jasmine-spec-reporter').SpecReporter;
+
 
         jasmine.getEnv().addReporter(new Reporter({
             displayFailuresSummary: true, // display summary of all failures after execution
@@ -46,14 +71,5 @@ exports.config = {
             }
 
         }));
-
-        //Gerar relatório de execução dos teste automáticos em index.html
-        jasmine.getEnv().addReporter(
-            new Jasmine2HtmlReporter({
-                takeScreenshots: true,
-                takeScreenshotsOnlyOnFailures: true,
-                filePrefix: 'index'
-            })
-        );
     }
 };

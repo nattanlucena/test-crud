@@ -12,7 +12,7 @@ var page_login = function(){
         element(by.id('password')).sendKeys(value);
     }
 
-    this.clickLogin = function(){
+    this.clickButtonLogin = function(){
         element(by.buttonText('Login')).click();
     }
 };

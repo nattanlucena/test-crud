@@ -1,18 +1,20 @@
 class SignupController {
-  constructor(authService) {
+  constructor($auth, $location) {
     this.name = 'signup';
-    this.authService = authService;
+    this.$auth = $auth;
+    this.$location = $location;
     this.user = {};
   }
 
-  register() {
-    this.authService.register(this.user, (err, res) => {
-      if (err || res.status !== 201) {
-        Materialize.toast(err, 3500)
-      } else if (res.status === 201) {
+  register(user) {
+    this.$auth.signup(user)
+      .then((res) => {
         Materialize.toast('Well done!', 3500)
-      }
-    })
+        this.$location.path('/auth/login')
+      })
+      .catch((err) => {
+        Materialize.toast(err.data.error, 3500)
+      });
   }
 }
 

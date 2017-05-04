@@ -1,20 +1,19 @@
 class NavbarController {
-  constructor() {
+  constructor($auth, $location) {
     this.name = 'navbar';
-    this.mainMenu = [
-      {
-        text: 'Home',
-        module: 'home'
-      },
-      {
-        text: 'Login',
-        module: 'login'
-      },
-      {
-        text: 'Signup',
-        module: 'signup'
-      }
-    ];
+    this.$auth = $auth;
+    this.$location = $location;
+  }
+
+  isAuthenticated() {
+    return this.$auth.isAuthenticated();
+  }
+
+  logout(e) {
+    e.preventDefault();
+    this.$location.path('/auth/login');
+
+    return this.$auth.logout();
   }
 }
 

@@ -14,6 +14,10 @@ class SignupController {
       }
     })
   }
+
+  reset(){
+    this.user = {};
+  } 
 }
 
 export default SignupController;

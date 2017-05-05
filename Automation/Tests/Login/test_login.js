@@ -50,6 +50,7 @@ describe('Test-Crud: Teste Login ', function(){
         console.log('LOG IN TO APPLICATION WITH SUCESS');
         var email = utils.getUserApplication();
         page_home.waitScreen();
+        page_home.listEmailScreen(email);
 
     });
 

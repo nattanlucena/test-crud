@@ -5,20 +5,22 @@ import Components from './components/components';
 import AppComponent from './app.component';
 import satellizer from 'satellizer';
 import uiMask from 'angular-ui-mask';
+import paginator from 'angular-utils-pagination';
 import 'normalize.css';
 
-angular.module('app', [
+let app =angular.module('app', [
     uiRouter,
     satellizer,
     Common,
     Components,
-    uiMask
-  ])
+    uiMask,
+    paginator
+  ]);
 
-  .config(['$locationProvider', '$authProvider', function($locationProvider, $authProvider) {
-    "ngInject";
+app.config(['$locationProvider', '$authProvider', ($locationProvider, $authProvider) => {
+    'ngInject';
 
-    $authProvider.httpInterceptor = () => { return true }
+    $authProvider.httpInterceptor = () => { return true };
     $authProvider.withCredentials = false;
     $authProvider.tokenRoot = null;
     $authProvider.baseUrl = 'http://localhost:5000/api/';
@@ -34,17 +36,20 @@ angular.module('app', [
     // @see: https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions
     // #how-to-configure-your-server-to-work-with-html5mode
     $locationProvider.html5Mode(true).hashPrefix('!')
-  }])
+  }]);
 
-  .component('app', AppComponent)
-  
-/*
-  .run(['$transitions', '$location', '$auth', function($transitions, $location, $auth) {
-    $transitions.onStart({to: '/auth/login'}, (trans) => {
-      console.log('Route Change Start!')
-      if (!$auth.isAuthenticated()) {
-        $location.path('/auth/login');
-      }
-    })
-  }])
-*/
+app.component('app', AppComponent);
+
+
+// app.run(($transitions, $location, $auth) => {
+//     $transitions.onStart({to: '/auth/login'}, (trans) => {
+//       console.log('Route Change Start!');
+//       if (!$auth.isAuthenticated()) {
+//         $location.path('/auth/login');
+//       }
+//     })
+//   });
+
+
+
+

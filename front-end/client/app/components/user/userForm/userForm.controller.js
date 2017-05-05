@@ -1,18 +1,16 @@
 class UserFormController {
-	constructor(UserFactory, userListService) {
-	    this.UserFactory = UserFactory;	
-	    this.password = '12345';
-	    this.userListService = userListService;
-	};  
+  constructor(UserFactory, userListService) {
+    this.UserFactory = UserFactory;
+    this.userListService = userListService;
+  };
 
-	save() {
-		this.user.password = this.password; 
-	    this.UserFactory.saveUser(this.user, (data) => { 
-		    this.lista = this.userListService.get();
-		    this.lista.push(data.data.data);	
-	    });
-	    this.reset();
-	}	
+  save() {
+    this.UserFactory.saveUser(this.user, (err, data) => {
+      this.lista = this.userListService.get();
+      this.lista.push(data.data.data);
+    });
+    this.reset();
+  }
 
 	reset(){
 		this.user = {};
@@ -20,12 +18,13 @@ class UserFormController {
 
 	validaPhoto(){
 		let array = ['jpeg', 'png', 'jpg'];
-		let extensao = this.user.photo.split(".");
-		
-		if (array.indexOf(extensao[extensao.length -1]) == -1){
-			Materialize.toast('Extensão do arquivo inválida!', 3500);
+		let extension = this.user.photo.split(".");
+
+		if (array.indexOf(extension[extension.length -1]) == -1){
+			Materialize.toast('Invalid file extension!', 3500);
 			this.user.photo = '';
-		}	
-	}  
+		}
+	}
+
 }
 export default UserFormController;

@@ -1,12 +1,12 @@
 <h1 class="section-title">List users</h1>
 <label>Search for:<input id="search" type="search" ng-model="filtroNome"></label>
 <ul class="collection">
-  <li class="collection-item avatar" ng-repeat="list in $ctrl.userList | filter:{name:filtroNome} as results" id="line{{list.cpf}}">
+  <li class="collection-item avatar" dir-paginate="list in $ctrl.userList |  itemsPerPage:3 | filter:filtroNome as results " id="line{{$index}}">
 
     <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
     <span class="title"  >{{list.name}}</span>
     <p>{{list.email}}</p>
-    <a ng-click="$ctrl.userRemove(list)" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user" id="btn-close{{list.cpf}}">
+    <a ng-click="$ctrl.userRemove(list)" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user" id="btn-close{{$index}}">
       <i class="material-icons">close</i>
     </a>
 
@@ -14,4 +14,5 @@
   <li class="animate-repeat" ng-if="results.length === 0" id="result-search">
       <strong>No results found...</strong>
   </li>
+  <dir-pagination-controls max-size="5" boundary-links="true"></dir-pagination-controls>
 </ul>

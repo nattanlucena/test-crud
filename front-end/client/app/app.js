@@ -5,6 +5,7 @@ import Components from './components/components';
 import AppComponent from './app.component';
 import satellizer from 'satellizer';
 import uiMask from 'angular-ui-mask';
+import paginator from 'angular-utils-pagination';
 import 'normalize.css';
 
 angular.module('app', [
@@ -12,7 +13,8 @@ angular.module('app', [
     satellizer,
     Common,
     Components,
-    uiMask
+    uiMask,
+    paginator
   ])
 
   .config(['$locationProvider', '$authProvider', function($locationProvider, $authProvider) {

@@ -76,9 +76,9 @@ class Manager extends User{
         if (!this.name && !this.email && !this.cpf && !this.address) {
             exceptionMessage = constants.manager.ALL_REQUIRED_FIELDS;
         } else  {
-            exceptionMessage = [];
+            // exceptionMessage = [];
             if (!this.cpf){
-                exceptionMessage.push({ 'cpf': constants.manager.CPF_REQUIRED });
+                exceptionMessage = constants.manager.CPF_REQUIRED;
             }
             /*
             if (!this.address){
@@ -86,7 +86,7 @@ class Manager extends User{
             }
             */
         }
-        if (exceptionMessage.length > 0) {
+        if (exceptionMessage) {
             throw new ManagerValidationException(exceptionMessage);
         }
     }

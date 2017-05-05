@@ -1,12 +1,17 @@
 <h1 class="section-title">List users</h1>
-<label>Search for:<input type="search" ng-model="filtroNome"></label>
+<label>Search for:<input id="search" type="search" ng-model="filtroNome"></label>
 <ul class="collection">
-  <li class="collection-item avatar" ng-repeat="list in $ctrl.userList | filter:{name:filtroNome}">
+  <li class="collection-item avatar" ng-repeat="list in $ctrl.userList | filter:{name:filtroNome} as results" id="line{{list.cpf}}">
+
     <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
     <span class="title"  >{{list.name}}</span>
     <p>{{list.email}}</p>
-    <a ng-click="$ctrl.userRemove(list)" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user">
+    <a ng-click="$ctrl.userRemove(list)" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user" id="btn-close{{list.cpf}}">
       <i class="material-icons">close</i>
     </a>
+
+  </li>
+  <li class="animate-repeat" ng-if="results.length === 0" id="result-search">
+      <strong>No results found...</strong>
   </li>
 </ul>

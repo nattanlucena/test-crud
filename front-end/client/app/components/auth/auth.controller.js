@@ -1,4 +1,8 @@
 class AuthController {
+
+  /**
+   * @constructor
+   */
   constructor() {
     this.name = 'auth';
   }

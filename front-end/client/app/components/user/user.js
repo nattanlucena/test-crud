@@ -11,14 +11,28 @@ let userModule = angular.module('user', [
 ])
 
 .config(($stateProvider, $urlRouterProvider) => {
-  "ngInject";
+  'ngInject';
 
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('user', {
       url: '/user',
-      component: 'user'
+      component: 'user',
+      resolve : {
+        authenticated : [ '$auth', '$location', '$q', ($auth, $location, $q) => {
+          let deferred = $q.defer();
+
+          if (!$auth.isAuthenticated()) {
+            deferred.reject('Authentication is required');
+            $location.path('/auth/login');
+          } else {
+            deferred.resolve()
+          }
+
+          return deferred.promise;
+        }]
+      }
     });
 })
 

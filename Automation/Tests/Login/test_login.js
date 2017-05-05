@@ -14,42 +14,42 @@ describe('Test-Crud: Teste Login ', function(){
         browser.get(utils.path()+':3000/');
     });
 
-    it('Log in to Application with unregistered user', function(){
-        //page_home.enterPageLogin();
+    it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
+
+        console.log('LOG IN TO APPLICATION WITH UNREGISTERED USER');
+        console.log('Logando com dados não cadastrados:' + '\n' + 'Login: ' + 'admin' + '\n' + 'Password: ' + 'admin');
+
+        page_login.waitScreen();
         page_login.enterFieldValueLogin('admin');
         page_login.enterFieldValuePassword('admin');
         page_login.clickButtonLogin();
+
+        console.log('Mensagem de erro: '+ '[object Object]');
+
         page_login.validMenssageErro('[object Object]');
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });
-    it('Make registration with only Login', function(){
-      //page_home.enterPageLogin();
+    it('MAKE REGISTRATION WITH ONLY LOGIN', function(){
+
+        console.log('MAKE REGISTRATION WITH ONLY LOGIN');
+        console.log('Cadastro com usuário inválido.' +'\n' + 'Login: ' + 'admin');
+
+        page_login.waitScreen();
         page_login.enterFieldValueLogin('admin');
         page_login.clickButtonLogin();
+
+        console.log('Mensagem de erro: '+ '[object Object]');
+
         page_login.validMenssageErro('[object Object]');
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });
-    it('Log in to Application with sucess', function(){
-        var email = utils.getText()+'@gmail.com';
-        var password = utils.getRandomNumber();
+    it('LOG IN TO APPLICATION WITH SUCESS', function(){
 
-        page_home.enterPageSignUp();
-        page_signup.inputTextName('Teste Cadastro com sucesso!');
-        page_signup.inputTextCpf(utils.getRandomCpf());
-        page_signup.inputTextEmail(email);
-        page_signup.inputTextPassword(password);
-        page_signup.clickButtonSave();
-        page_signup.validMenssageSucess('Well done!');
-        expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
-
-        page_home.enterPageLogin();
-        page_login.enterFieldValueLogin(email);
-        page_login.enterFieldValuePassword(password);
-        page_login.clickButtonLogin();
-        //page_login.validMenssageSucess('[object Object]');
-        expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/');
+        console.log('LOG IN TO APPLICATION WITH SUCESS');
+        var email = utils.getUserApplication();
+        page_home.waitScreen();
 
     });
 

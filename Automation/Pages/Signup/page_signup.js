@@ -31,6 +31,10 @@ var page_signup = function(){
         var menssageErro = element(by.id('toast-container')).getText();
         expect(menssageErro).toBe(msgSucess);
     }
+    this.waitScreen = function(){
+        var input = element(by.id('email'));
+        expect(input.isEnabled()).toBe(true);
+    };
 };
 
 module.exports = new page_signup();

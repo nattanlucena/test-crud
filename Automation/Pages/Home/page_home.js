@@ -30,7 +30,11 @@ var page_home = function(){
     };
     this.clickButtonSave = function(){
         element(by.id('btSave')).click();
-    }
+    };
+    this.waitScreen = function(){
+        var input = element(by.id('cpf'));
+        expect(input.isEnabled()).toBe(true);
+    };
 
 };
 module.exports = new page_home();

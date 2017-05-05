@@ -12,7 +12,8 @@ describe('Test-Crud: Teste Home', function(){
     });
 
     it('To register without permission', function(){
-        page_home.enterPageHome();
+
+        page_home.waitScreen();
         page_home.inputTextFullName('Test Home');
         page_home.inputTextEmail('felipe.rgcr@gmail.com');
         page_home.inputTextCpf(utils.getRandom());

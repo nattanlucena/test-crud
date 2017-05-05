@@ -27,7 +27,7 @@ var reporter = new HtmlScreenshotReporter({
 exports.config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
 
-    highlightDelay: 100,
+    highlightDelay: 10,
 
     multiCapabilities: [
         {'browserName': 'chrome'},

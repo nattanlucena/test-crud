@@ -5,8 +5,8 @@
 var page_login = function(){
 
     this.enterFieldValueLogin = function(value){
-        element(by.id('username')).clear();
-        element(by.id('username')).sendKeys(value);
+        element(by.id('email')).clear();
+        element(by.id('email')).sendKeys(value);
     }
 
     this.enterFieldValuePassword = function(value){
@@ -24,6 +24,10 @@ var page_login = function(){
     this.validMenssageSucess = function(msgSucess){
         var menssageErro = element(by.id('toast-container')).getText();
         expect(menssageErro).toBe(msgSucess);
+    }
+    this.waitScreen = function(){
+        var input = element(by.id('email'));
+        expect(input.isEnabled()).toBe(true);
     }
 };
 

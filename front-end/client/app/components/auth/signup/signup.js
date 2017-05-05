@@ -1,7 +1,8 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import signupComponent from './signup.component';
-import authService from '../auth.service';
+// import { default as swal } from 'sweetalert2'
+// import authService from '../auth.service';
 
 let signupModule = angular.module('signup', [
   uiRouter

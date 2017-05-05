@@ -21,22 +21,24 @@
     <div class="input-field file-field col m12 l8">
       <div class="btn btn-sm">
         <span><i class="material-icons">file_upload</i>Avatar</span>
-        <input type="file">
+        <input type="file" accept="image/x-png,image/jpeg" >
       </div>
 
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
+        <input class="file-path validate" type="text" ng-model="$ctrl.user.photo" ng-change="$ctrl.validaPhoto()">
       </div>
     </div>
 
-    <div class="input-field col m12 l4">
-      <button type="submit" ng-click="$ctrl.save()" class="waves-effect waves-light btn right" id="btSave">save</button>
-    </div>
+  </div>
 
-    <div class="input-field col m12 l4">
-      <button type="submit" ng-click="$ctrl.reset()" class="waves-effect waves-light btn right" id="btReset">reset
-      </button>
-    </div>
+  <div class="input-field col m12 l4">
+    <button type="submit" ng-click="$ctrl.save()" class="waves-effect waves-light btn right" id="btSave">save</button>
+  </div>
+
+  <div class="input-field col m12 l4">
+    <button type="submit" ng-click="$ctrl.reset()" class="waves-effect waves-light btn right" id="btReset">reset
+    </button>
+  </div>
 
   </div>
 </form>

@@ -26,7 +26,7 @@ describe('Test-Crud: Teste Login ', function(){
 
         console.log('Mensagem de erro: '+ '[object Object]');
 
-        page_login.validMenssageErro('[object Object]');
+        //page_login.validMenssageErro('[object Object]');
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });
@@ -41,7 +41,7 @@ describe('Test-Crud: Teste Login ', function(){
 
         console.log('Mensagem de erro: '+ '[object Object]');
 
-        page_login.validMenssageErro('[object Object]');
+        //page_login.validMenssageErro('[object Object]');
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });

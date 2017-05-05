@@ -4,7 +4,7 @@
 var page_home = function(){
 
     this.enterPageLogin = function(){
-        var linkPageLogin = element(by.id('nav-link-to-login'));
+        var linkPageLogin = element(by.buttonText('Login'));
         linkPageLogin.click();
     };
     this.enterPageHome = function(){
@@ -40,8 +40,7 @@ var page_home = function(){
         expect(input.isEnabled()).toBe(true);
     };
     this.listEmailScreen = function(email){
-        var listEmail = element(by.text(''+email));
-        expect(listEmail).toBe(email);
+        element(by.id('search')).sendKeys(email);
     };
 
 };

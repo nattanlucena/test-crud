@@ -18,7 +18,7 @@ var page_login = function(){
         element(by.buttonText('Login')).click();
     }
     this.validMenssageErro = function(msgErro){
-        var menssageErro = element(by.id('toast-container')).getText();
+        var menssageErro = element(by.id('toast-containe')).getText();
         expect(menssageErro).toBe(msgErro);
     }
     this.validMenssageSucess = function(msgSucess){

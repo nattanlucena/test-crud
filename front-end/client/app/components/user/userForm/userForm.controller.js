@@ -16,6 +16,16 @@ class UserFormController {
 
 	reset(){
 		this.user = {};
+	}
+
+	validaPhoto(){
+		let array = ['jpeg', 'png', 'jpg'];
+		let extensao = this.user.photo.split(".");
+		
+		if (array.indexOf(extensao[extensao.length -1]) == -1){
+			Materialize.toast('Extensão do arquivo inválida!', 3500);
+			this.user.photo = '';
+		}	
 	}  
 }
 export default UserFormController;

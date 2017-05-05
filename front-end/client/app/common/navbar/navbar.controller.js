@@ -12,7 +12,6 @@ class NavbarController {
   logout(e) {
     e.preventDefault();
     this.$location.path('/auth/login');
-
     return this.$auth.logout();
   }
 }

@@ -25,7 +25,7 @@ app.config(['$locationProvider', '$authProvider', ($locationProvider, $authProvi
     $authProvider.tokenRoot = null;
     $authProvider.baseUrl = 'http://localhost:5000/api/';
     $authProvider.loginUrl = '/auth/';
-    $authProvider.signupUrl = '/manager/users/';
+    $authProvider.signupUrl = '/auth/manager/signup';
     $authProvider.unlinkUrl = '/unlink/';
     $authProvider.tokenName = 'token';
     $authProvider.tokenPrefix = 'satellizer';

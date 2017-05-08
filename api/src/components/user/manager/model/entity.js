@@ -38,10 +38,7 @@ class Manager extends User{
         this.address = address;
         this.type = UserType[1];
 
-        super.validateRequiredFields();
-        super.validateEmail();
-
-        this.validateRequiredFields();
+        this.validateFields();
     }
 
     setRoles (roles) {
@@ -68,10 +65,23 @@ class Manager extends User{
         });
     }
 
+
+    validateFields() {
+        super.validateEmail();
+
+        //validate manager fields
+        this.validateRequiredFields();
+    }
+
+
     /*
-     Validate required fields
+      Validate required fields
      */
     validateRequiredFields() {
+
+        //Validate user common fields
+        super.validateRequiredFields();
+
         let exceptionMessage;
         if (!this.name && !this.email && !this.cpf && !this.address) {
             exceptionMessage = constants.manager.ALL_REQUIRED_FIELDS;

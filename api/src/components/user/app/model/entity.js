@@ -12,9 +12,9 @@ import UserDBCollection from '../../model';
  * @param message
  * @constructor
  */
-const ManagerValidationException = function (message) {
+const AppUserValidationException = function (message) {
     this.message = message;
-    this.name = 'ManagerValidationException';
+    this.name = 'AppUserValidationException';
 };
 
 /**
@@ -29,14 +29,12 @@ class AppUser extends User{
      * @param password
      */
     constructor(name, email, password) {
-
         super(name, email, password);
 
-        this.cpf = cpf;
         this.type = UserType[0];
         this.isActive = true;
 
-        this.validateRequiredFields();
+        this.validateFields();
     }
 
     isActive(value) {
@@ -57,6 +55,12 @@ class AppUser extends User{
             is_active: self.isActive,
             updated_at: Date.now()
         });
+    }
+
+    validateFields() {
+        //Validate user common fields
+        super.validateRequiredFields();
+        super.validateEmail();
     }
 
 }

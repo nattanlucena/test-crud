@@ -2,7 +2,7 @@
 /*
  Module dependencies
  */
-import {User, Manager, AppUser} from '../user';
+import { User, Manager } from '../user';
 import * as tokenController from './token/controller';
 import * as utils from '../../common/utils';
 import * as constants from '../../common/constants';
@@ -134,6 +134,6 @@ function generateToken(user, callback) {
 
         return callback(null, token);
     } catch (err) {
-        return callback(err, token);
+        return callback(err);
     }
 }

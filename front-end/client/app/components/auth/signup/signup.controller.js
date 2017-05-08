@@ -11,38 +11,49 @@ class SignupController {
     this.$auth = $auth;
     this.$location = $location;
     this.user = {};
+//    swal('oi')
+//      .catch(swal.noop)
   }
 
+  /**
+   *
+   * @param user
+   */
   register(user) {
     this.$auth.signup(user)
       .then((success) => {
-        const msg = `User ${success.data.data.name} successfully created!`;
+        let response = success.data;
+
+        const msg = `User ${response.data.name} successfully created!`;
         this.alert('Success', msg, 'success');
-        this.$location.path('/auth/login')
+
+        this.$auth.setToken(response.token);
+        this.$location.path('/home')
       })
       .catch((err) => {
-        console.log(typeof err.data);
         if (err.data) {
-          // console.log(err.data);
           let msg = '';
           if (typeof err.data.error === 'object') {
             Object.keys(err.data.error).forEach( (key) => {
-              console.log(key);
               msg = err.data.error[key] + '\n';
             });
           } else {
-            console.log('aqui');
             msg = err.data.error;
           }
           this.alert('Error', msg, 'error');
         } else {
-          console.log(err);
+          this.alert('Error', err, 'error');
         }
-        //Materialize.toast(err.data.error, 3500)
       });
   }
 
-
+  /**
+   * Custom alert dialog
+   * @param title
+   * @param text
+   * @param type
+   * @returns {*}
+   */
   alert(title, text, type) {
     let timer = 'succes' ? 3500 : 2000;
     return swal({

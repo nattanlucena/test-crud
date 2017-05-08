@@ -8,13 +8,13 @@ import uiMask from 'angular-ui-mask';
 import paginator from 'angular-utils-pagination';
 import 'normalize.css';
 
-let app =angular.module('app', [
+let app = angular.module('app', [
     uiRouter,
     satellizer,
     Common,
     Components,
     uiMask,
-    paginator
+    paginator,
   ]);
 
 app.config(['$locationProvider', '$authProvider', ($locationProvider, $authProvider) => {
@@ -25,7 +25,7 @@ app.config(['$locationProvider', '$authProvider', ($locationProvider, $authProvi
     $authProvider.tokenRoot = null;
     $authProvider.baseUrl = 'http://localhost:5000/api/';
     $authProvider.loginUrl = '/auth/';
-    $authProvider.signupUrl = '/manager/users/';
+    $authProvider.signupUrl = '/auth/manager/signup';
     $authProvider.unlinkUrl = '/unlink/';
     $authProvider.tokenName = 'token';
     $authProvider.tokenPrefix = 'satellizer';
@@ -40,16 +40,21 @@ app.config(['$locationProvider', '$authProvider', ($locationProvider, $authProvi
 
 app.component('app', AppComponent);
 
+app.run(['$transitions', '$location', '$q', ($transitions, $location, $q) => {
+    $transitions.onStart({to: '*'}, (trans) => {
+      let auth = trans.injector().get('$auth');
+      let state = trans.router.stateService;
+      let deferred = $q.defer();
+      let to = trans.to();
 
-// app.run(($transitions, $location, $auth) => {
-//     $transitions.onStart({to: '/auth/login'}, (trans) => {
-//       console.log('Route Change Start!');
-//       if (!$auth.isAuthenticated()) {
-//         $location.path('/auth/login');
-//       }
-//     })
-//   });
+      if (!auth.isAuthenticated() && to.restrict()) {
+        deferred.reject("Authentication is required!");
+//      state.go('login') TODO: handle TransitionError
+        $location.path('/auth/login')
+      } else {
+        deferred.resolve();
+      }
 
-
-
-
+      return deferred.promise;
+    });
+}]);

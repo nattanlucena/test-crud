@@ -11,6 +11,8 @@ class SignupController {
     this.$auth = $auth;
     this.$location = $location;
     this.user = {};
+//    swal('oi')
+//      .catch(swal.noop)
   }
 
   /**

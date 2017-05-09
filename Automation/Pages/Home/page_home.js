@@ -44,7 +44,9 @@ var page_home = function(){
         expect(input.isEnabled()).toBe(true);
     };
     this.listEmailScreen = function(email){
+        var buttonSearch = element(by.id('btn-search'));
         element(by.id('search')).sendKeys(email);
+        buttonSearch.click();
     };
 
 };

@@ -21,7 +21,7 @@ var page_signup = function(){
         element(by.id('password')).sendKeys(password);
     };
     this.clickButtonSave = function(){
-        element(by.buttonText('save')).click();
+        element(by.id('btn-save')).click();
     }
     this.validMenssageErro = function(msgErro){
         var menssageErro = element(by.id('swal2-title')).getText();

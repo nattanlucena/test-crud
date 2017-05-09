@@ -8,15 +8,16 @@ import methodOverride from 'method-override';
 import cors from 'cors';
 import path from 'path';
 import mongoose from 'mongoose';
+import busBoyBodyParser from 'busboy-body-parser';
+// import multer from 'multer'
 import * as pathUtils from './common/path-utils';
 import * as utils from './common/path-utils';
 import * as config from '../config/config';
-
+let multipart = require('connect-multiparty');
 const API_BASE_PATH = config.API_BASE_PATH;
 const DB_URI = config.DB_HOST + config.DB_NAME;
 
 let app = express();
-
 
 /**
  * Initialize application middleware.
@@ -26,11 +27,12 @@ let app = express();
  */
 function initMiddleware() {
     app.set('showStackError', true);
-
+    // app.use(busBoyBodyParser({'limit': '5b'}));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true
     }));
+    // app.use
     app.use(methodOverride());
     app.use(cors());
 }
@@ -103,24 +105,25 @@ function initDatabase() {
     mongoose.Promise = global.Promise;
 
     mongoose.connect(DB_URI);
+    let conn = mongoose.connection;
 
-    mongoose.connection.on('once', function () {
+    conn.on('once', function () {
         console.log('Mongoose connected to ' + DB_URI);
     });
 
     // if the connection throws an error
-    mongoose.connection.on('error', function (err) {
+    conn.on('error', function (err) {
         console.log('Mongoose connection error: ' + err);
     });
 
     // when the connection is disconnected
-    mongoose.connection.on('disconnected', function () {
+    conn.on('disconnected', function () {
         console.log('Mongoose disconnected');
     });
 
     // if the Node process ends, close the Mongoose connection
     process.on('SIGINT', function() {
-        mongoose.connection.close(function () {
+        conn.close(function () {
             console.log('Mongoose disconnected through app termination');
             process.exit(1);
         });

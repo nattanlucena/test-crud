@@ -1,3 +1,5 @@
+const swal = require('sweetalert2');
+
 class SignupController {
 
   /**
@@ -11,8 +13,6 @@ class SignupController {
     this.$auth = $auth;
     this.$location = $location;
     this.user = {};
-//    swal('oi')
-//      .catch(swal.noop)
   }
 
   /**
@@ -25,12 +25,14 @@ class SignupController {
         let response = success.data;
 
         const msg = `User ${response.data.name} successfully created!`;
-        this.alert('Success', msg, 'success');
+        console.log('Usuario logado? ', msg);
+       this.alert('Success', msg, 'success');
 
         this.$auth.setToken(response.token);
         this.$location.path('/home')
       })
       .catch((err) => {
+        console.log('Erro ao se logar ', err);
         if (err.data) {
           let msg = '';
           if (typeof err.data.error === 'object') {
@@ -40,9 +42,11 @@ class SignupController {
           } else {
             msg = err.data.error;
           }
-          this.alert('Error', msg, 'error');
+         // this.alert('Error', msg, 'error');
+         console.log('Erro ao se logar2 ', err);
         } else {
-          this.alert('Error', err, 'error');
+         // this.alert('Error', err, 'error');
+         console.log('Erro ao se logar3 ', err);
         }
       });
   }
@@ -62,7 +66,7 @@ class SignupController {
       text: text,
       showConfirmButton: false,
       timer: timer
-    });
+    }).catch(swal.noop);
   }
 
   reset(){

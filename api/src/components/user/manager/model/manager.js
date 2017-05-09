@@ -4,7 +4,7 @@
  */
 import UserModel from '../../model/';
 import Manager from './entity';
-import * as gridfs from '../../../../common/grif-fs-config';
+import * as gridfs from '../../../../common/gridfs-config';
 
 
 

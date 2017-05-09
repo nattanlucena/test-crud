@@ -8,7 +8,7 @@ import userType from '../model/user-type';
 import model from './model/';
 import * as utils from '../../../common/utils';
 import * as constants from '../../../common/constants'
-import * as gridfs from '../../../common/grif-fs-config';
+import * as gridfs from '../../../common/gridfs-config';
 
 
 /**

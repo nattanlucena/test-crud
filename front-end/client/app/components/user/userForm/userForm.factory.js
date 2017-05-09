@@ -5,6 +5,7 @@ let UserFactory = function ($http) {
   return {
 
     saveUser: (user, callback) => {
+      console.log(user);
       $http({
         method: 'POST',
         url: API_BASE_PATH,

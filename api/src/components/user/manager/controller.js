@@ -7,7 +7,8 @@
 import userType from '../model/user-type';
 import model from './model/';
 import * as utils from '../../../common/utils';
-import * as constants from '../../../common/constants';
+import * as constants from '../../../common/constants'
+import * as gridfs from '../../../common/grif-fs-config';
 
 
 /**
@@ -52,21 +53,36 @@ module.exports.getActiveManagers = (request, response) => {
 /**
  * Save an user in database
  *
+ *
  * @param request - HTTP request
  * @param response - HTTP response
  */
 module.exports.saveManager = (request, response) => {
     utils.logInfo('HTTP Request :: saveUser function');
 
-    model.save(request.body, (err, manager) => {
+    gridfs.upload(request, response, (err) => {
+
         if (err) {
-            return response.status(500).json(utils.handleError(err))
-        } else {
-            manager.password = undefined;
-            manager.salt = undefined;
-            manager.__v = undefined;
-            return response.status(201).json(utils.handleData(manager));
+            return response.status(500).json(utils.handleError(err));
         }
+
+        let file = request.file || undefined;
+        let customBody = { name: 'Mateus1',
+            email: 'mateus1@gmail.com',
+            password: '123456',
+            cpf: '18873787481' };
+
+        model.save(customBody, file, (err, manager) => {
+            if (err) {
+                return response.status(500).json(utils.handleError(err))
+            } else {
+                manager.password = undefined;
+                manager.salt = undefined;
+                manager.__v = undefined;
+
+                return response.status(201).json(utils.handleData(manager));
+            }
+        });
     });
 };
 

@@ -9,6 +9,8 @@ const SALT_WORK_FACTOR = 10;
 
 let Schema = mongoose.Schema;
 
+// let GFS = mongoose.model("GFS", new Schema({}, {strict: false}), "" );
+// console.log(GFS);
 let UserDBModel = new Schema({
         name: {
             type: String,
@@ -44,6 +46,10 @@ let UserDBModel = new Schema({
             city: String,
             state: String,
             postal: String
+        },
+        avatar: {
+            type: Schema.Types.Object,
+            refs: 'avatar-user.files'
         },
         created_at: {
             type: Date,

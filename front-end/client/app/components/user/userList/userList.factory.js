@@ -24,7 +24,19 @@ let UserListFactory = function ($http) {
       }, function error(err) {
         callback(err);
       });
+    },
+
+    userFilter: (email, callback) => {
+      $http({
+        method: 'GET',
+        url: API_BASE_PATH + '/email/' + email,
+      }).then(function success(data) {
+        callback(null, data);
+      }, function error(err) {
+        callback(err);
+      });
     }
+
   };
 
 };

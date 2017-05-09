@@ -21,6 +21,7 @@ class UserListController {
       } else {
         this.userList = data;
         this.userListService.set(data);
+        this.lengthListUser = data.length;
       }
     });
   }
@@ -34,6 +35,27 @@ class UserListController {
         this.listAll();
       }
     });
+  }
+
+  userFilter(email) {
+    if (typeof email === 'undefined' || email === ''){
+      this.listAll();
+    }else{
+      this.UserListFactory.userFilter(email, (err, data) =>{
+        if (err){
+          const errorMsg = `Could not fetch user: ${err}`;
+          Materialize.toast(errorMsg, 3500);
+        } else {
+          if (data.data.data === null){
+            this.userList = {};
+            this.lengthListUser = 0;
+          }else{
+            this.userList = data.data;
+          }          
+          this.userListService.set(data);  
+        }
+      });
+    } 
   }
 }
 

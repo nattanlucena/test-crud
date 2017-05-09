@@ -10,7 +10,7 @@ let UserFactory = function ($http) {
         url: API_BASE_PATH,
         data: user
       }).then(function success(data) {
-        callback(null, data);
+        callback(null, data.data);
       }, function error(err) {
         callback(err);
       });

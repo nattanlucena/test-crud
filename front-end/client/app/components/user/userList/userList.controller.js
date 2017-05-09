@@ -28,9 +28,11 @@ class UserListController {
   userRemove(user) {
     this.UserListFactory.userRemove(user.email, (err) => {
       if (err) {
+        console.log(err);
         const errorMsg = `Unable to remove user: ${err}`;
         Materialize.toast(errorMsg, 3500);
       } else {
+        Materialize.toast('User removed', 3500);
         this.listAll();
       }
     });

@@ -1,6 +1,6 @@
 let UserListFactory = function ($http) {
 
-  const API_BASE_PATH = 'http://localhost:5000/api/manager/users';
+  const API_BASE_PATH = 'http://localhost:5000/api/manager/users/';
 
   return {
 

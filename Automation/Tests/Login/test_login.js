@@ -14,7 +14,7 @@ describe('Test-Crud: Teste Login ', function(){
         browser.get(utils.path()+':3000/');
     });
 
-    it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
+    /*it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
 
         console.log('LOG IN TO APPLICATION WITH UNREGISTERED USER');
         console.log('Logando com dados não cadastrados:' + '\n' + 'Login: ' + 'admin' + '\n' + 'Password: ' + 'admin');
@@ -44,14 +44,28 @@ describe('Test-Crud: Teste Login ', function(){
         //page_login.validMenssageErro('[object Object]');
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
-    });
-    it('LOG IN TO APPLICATION WITH SUCESS', function(){
+    });*/
+    /*it('LOG IN TO APPLICATION WITH SUCESS', function(){
 
         console.log('LOG IN TO APPLICATION WITH SUCESS');
         var email = utils.getUserApplication();
         page_home.waitScreen();
         page_home.listEmailScreen(email);
+        page_home.logout();
 
+        expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/');
+    });
+*/
+    it('LOGIN IN TO APPLICATION WITH DELETE USER', function(){
+
+        console.log('LOGIN IN TO APPLICATION WITH DELETE USER');
+        var email = utils.getUserApplication();
+        page_home.waitScreen();
+        page_home.clickDeleteUser(email);
+        page_home.listEmailScreen(email);
+        page_home.logout();
+
+        expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/');
     });
 
 });

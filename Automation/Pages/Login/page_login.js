@@ -15,7 +15,7 @@ var page_login = function(){
     }
 
     this.clickButtonLogin = function(){
-        element(by.buttonText('Login')).click();
+        element(by.id('btn-login')).click();
     }
     this.validMenssageErro = function(msgErro){
         var menssageErro = element(by.id('toast-containe')).getText();

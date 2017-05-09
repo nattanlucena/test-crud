@@ -31,9 +31,13 @@ var page_home = function(){
     this.clickButtonSave = function(){
         element(by.id('btSave')).click();
     };
+    this.logout = function(){
+        element(by.id('nav-link-to-logout')).click();
+    };
     this.clickDeleteUser = function(email){
-        var listEmail = element(by.css('.collection a'));
-        listEmail.click();
+        this.listEmailScreen(email)
+        var actionCloseEmail = element(by.id('btn-close0'));
+        actionCloseEmail.click();
     };
     this.waitScreen = function(){
         var input = element(by.id('email'));

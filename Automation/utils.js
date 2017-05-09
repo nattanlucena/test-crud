@@ -82,7 +82,6 @@ module.exports = {
 
         console.log('Iniciando o login com os Dados:' + '\n' + 'Login:' + email + '\n' + 'Password:' + password);
 
-        page_home.enterPageLogin();
         page_login.enterFieldValueLogin(email);
         page_login.enterFieldValuePassword(password);
         page_login.clickButtonLogin();

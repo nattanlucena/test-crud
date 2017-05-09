@@ -45,6 +45,10 @@ class Manager extends User{
         this.roles = roles;
     }
 
+    setAvatar (avatar) {
+        this.avatar = avatar;
+    }
+
     /**
      * Returns a new Mongoose Model user
      * @returns {*}
@@ -61,6 +65,7 @@ class Manager extends User{
             type: self.type,
             roles: self.roles || [],
             is_active: self.isActive,
+            avatar: self.avatar || undefined,
             updated_at: Date.now()
         });
     }

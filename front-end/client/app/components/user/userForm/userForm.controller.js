@@ -1,14 +1,15 @@
 class UserFormController {
-	
+
 	constructor(UserFactory, userListService) {
 	this.UserFactory = UserFactory;
 	this.userListService = userListService;
 	};
 
 	save() {
-		this.UserFactory.saveUser(this.user, (err, data) => {
+		this.UserFactory.saveUser(this.user, (err, user) => {
+		  //TODO: tratar erro
 			this.lista = this.userListService.get();
-			this.lista.push(data.data.data);
+			this.lista.push(user.data);
 		});
 		this.reset();
 	}
@@ -19,7 +20,6 @@ class UserFormController {
 	}
 
 	validaPhoto(){
-		console.log('Foto2: ', this.user.photo.name);
 		let array = ['jpeg', 'png', 'jpg'];
 		let extension = this.user.photo.name.split(".");
 

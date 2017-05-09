@@ -67,12 +67,7 @@ module.exports.saveManager = (request, response) => {
         }
 
         let file = request.file || undefined;
-        let customBody = { name: 'Mateus1',
-            email: 'mateus1@gmail.com',
-            password: '123456',
-            cpf: '18873787481' };
-
-        model.save(customBody, file, (err, manager) => {
+        model.save(request.body, file, (err, manager) => {
             if (err) {
                 return response.status(500).json(utils.handleError(err))
             } else {

@@ -5,13 +5,12 @@ let UserFactory = function ($http) {
   return {
 
     saveUser: (user, callback) => {
-      console.log(user);
       $http({
         method: 'POST',
         url: API_BASE_PATH,
         data: user
       }).then(function success(data) {
-        callback(null, data);
+        callback(null, data.data);
       }, function error(err) {
         callback(err);
       });

@@ -11,6 +11,9 @@ const AUTH_BASE_PATH = API_BASE_PATH + '/auth/';
  */
 function setAuthRoutes(app) {
     app.post(AUTH_BASE_PATH, controller.signIn);
+
+    //App user signup
+    app.post(AUTH_BASE_PATH + 'manager/signup', controller.signUp);
 }
 
 module.exports = setAuthRoutes;

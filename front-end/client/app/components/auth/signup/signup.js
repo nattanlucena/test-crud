@@ -1,8 +1,6 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import signupComponent from './signup.component';
-// import { default as swal } from 'sweetalert2'
-// import authService from '../auth.service';
 
 let signupModule = angular.module('signup', [
   uiRouter
@@ -16,7 +14,8 @@ let signupModule = angular.module('signup', [
   $stateProvider
     .state('signup', {
       url: '/auth/signup',
-      component: 'signup'
+      component: 'signup',
+      restrict: () => { return false }
     });
 })
 

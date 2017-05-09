@@ -19,20 +19,7 @@ let userModule = angular.module('user', [
     .state('user', {
       url: '/user',
       component: 'user',
-      resolve : {
-        authenticated : [ '$auth', '$location', '$q', ($auth, $location, $q) => {
-          let deferred = $q.defer();
-
-          if (!$auth.isAuthenticated()) {
-            deferred.reject('Authentication is required');
-            $location.path('/auth/login');
-          } else {
-            deferred.resolve()
-          }
-
-          return deferred.promise;
-        }]
-      }
+      restrict: () => { return true }
     });
 })
 

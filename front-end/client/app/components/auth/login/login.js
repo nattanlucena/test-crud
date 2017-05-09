@@ -23,6 +23,6 @@ let loginModule = angular.module('login', [
 
 .name;
 
-loginComponent.controller.$inject = ['$auth', '$location', '$q'];
+loginComponent.controller.$inject = ['$auth', '$location'];
 
 export default loginModule;

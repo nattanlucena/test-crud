@@ -23,16 +23,13 @@ class SignupController {
     this.$auth.signup(user)
       .then((success) => {
         let response = success.data;
-
         const msg = `User ${response.data.name} successfully created!`;
-        console.log('Usuario logado? ', msg);
-       this.alert('Success', msg, 'success');
 
+        this.alert('Success', msg, 'success');
         this.$auth.setToken(response.token);
         this.$location.path('/home')
       })
       .catch((err) => {
-        console.log('Erro ao se logar ', err);
         if (err.data) {
           let msg = '';
           if (typeof err.data.error === 'object') {
@@ -42,11 +39,9 @@ class SignupController {
           } else {
             msg = err.data.error;
           }
-         // this.alert('Error', msg, 'error');
-         console.log('Erro ao se logar2 ', err);
+          this.alert('Error', msg, 'error');
         } else {
-         // this.alert('Error', err, 'error');
-         console.log('Erro ao se logar3 ', err);
+          this.alert('Error', err, 'error');
         }
       });
   }

@@ -6,10 +6,11 @@ class UserListController {
    * @param UserListFactory
    * @param userListService
    */
-  constructor(UserListFactory, userListService) {
+  constructor(UserListFactory, userListService, userListDirective) {
     this.name = 'userList';
     this.UserListFactory = UserListFactory;
     this.userListService = userListService;
+    this.userListDirective = userListDirective;
     this.listAll();
   }
 

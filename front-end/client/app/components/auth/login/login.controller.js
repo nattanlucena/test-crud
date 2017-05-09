@@ -1,5 +1,6 @@
-class LoginController {
+const swal = require('sweetalert2');
 
+class LoginController {
   /**
    * Constructor
    *
@@ -20,11 +21,27 @@ class LoginController {
   login(user) {
     this.$auth.login(user)
       .then((res) => {
-        this.$auth.setToken(res.data.token);
-        this.$location.path('/home')
+        this.$auth.setToken(res.data.token)
+        swal({
+          title: 'Welcome!',
+          text: 'You will be redirected!',
+          type: 'success',
+          timer: 4000
+        }).catch((reason) => {
+          // doesn't working with $location service
+          // TODO: this.$location.path('/home');
+          window.location.href = '/home';
+        })
       })
-      .catch((err) => {
-        Materialize.toast(err, 3500);
+      .catch((res) => {
+        swal({
+          title: 'Opss...',
+          text: res.data.error,
+          type: 'error',
+          timer: 4000
+        }).catch((reason) => {
+          this.reset();
+        })
       });
   }
 

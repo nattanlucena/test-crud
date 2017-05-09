@@ -21,11 +21,11 @@
     <div class="input-field file-field col m12 l8">
       <div class="btn btn-sm">
         <span><i class="material-icons">file_upload</i>Avatar</span>
-        <input type="file" accept="image/x-png,image/jpeg" >
+        <input type="file" accept="image/x-png,image/jpeg" fileread = $ctrl.user.photo >
       </div>
 
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" ng-model="$ctrl.user.photo" ng-change="$ctrl.validaPhoto()">
+        <input class="file-path validate" type="text" ng-model="$ctrl.photoName" ng-change="$ctrl.validaPhoto()">
       </div>
     </div>
 

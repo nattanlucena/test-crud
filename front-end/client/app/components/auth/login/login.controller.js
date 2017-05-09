@@ -1,13 +1,23 @@
 const swal = require('sweetalert2');
 
 class LoginController {
-  constructor($auth, $location, $q) {
+  /**
+   * Constructor
+   *
+   * @param $auth
+   * @param $location
+   */
+  constructor($auth, $location) {
     this.name = 'login';
     this.$auth = $auth;
     this.$location = $location;
-    this.$q = $q;
   }
 
+  /**
+   * Login method
+   *
+   * @param user
+   */
   login(user) {
     this.$auth.login(user)
       .then((res) => {
@@ -17,9 +27,7 @@ class LoginController {
           text: 'You will be redirected!',
           type: 'success',
           timer: 4000
-        }).then(() => {
-          this.$q.resolve();
-        }, (reason) => {
+        }).catch((reason) => {
           // doesn't working with $location service
           // TODO: this.$location.path('/home');
           window.location.href = '/home';
@@ -36,10 +44,10 @@ class LoginController {
         })
       });
   }
-  
+
   reset() {
    this.user = {};
-  } 
+  }
 }
 
 export default LoginController;

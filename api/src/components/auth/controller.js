@@ -2,7 +2,7 @@
 /*
  Module dependencies
  */
-import User from '../user/model';
+import { User, Manager } from '../user';
 import * as tokenController from './token/controller';
 import * as utils from '../../common/utils';
 import * as constants from '../../common/constants';
@@ -38,7 +38,7 @@ module.exports.signIn = (request, response) => {
             if (err) {
                 return response.status(401).send(utils.handleError(err));
             }
-            
+
             generateToken(user, (err, token) => {
                 if (err) {
                     return response.status(401).send(utils.handleError(err));
@@ -51,6 +51,38 @@ module.exports.signIn = (request, response) => {
                 };
                 return response.json(result);
             })
+        });
+    });
+};
+
+/**
+ * Create an manager in sing up and returns the token to the user be logged in
+ *
+ * @param request
+ * @param response
+ */
+module.exports.signUp = (request, response) => {
+    utils.logInfo('HTTP request :: signUp method');
+
+    let body = request.body;
+    Manager.save(body, (err, manager) => {
+
+        if (err) {
+            return response.status(401).send(utils.handleError(err));
+        }
+
+        generateToken(manager, (err, token) => {
+            if (err) {
+                return response.status(401).send(utils.handleError(err));
+            }
+            manager._id = undefined;
+            manager.password = undefined;
+            manager.salt = undefined;
+            let result = {
+                data: manager,
+                token: token
+            };
+            return response.json(result);
         });
     });
 };
@@ -102,6 +134,6 @@ function generateToken(user, callback) {
 
         return callback(null, token);
     } catch (err) {
-        return callback(err, token);
+        return callback(err);
     }
 }

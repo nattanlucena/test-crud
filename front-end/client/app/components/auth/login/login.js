@@ -15,20 +15,7 @@ let loginModule = angular.module('login', [
     .state('login', {
       url: '/auth/login',
       component: 'login',
-      resolve : {
-        authenticated : [ '$auth', '$location', '$q', ($auth, $location, $q) => {
-          let deferred = $q.defer();
-
-          if (!$auth.isAuthenticated()) {
-            deferred.resolve()
-          } else {
-            deferred.reject("You already logged in!");
-            $location.path('/home');
-          }
-
-          return deferred.promise;
-        }]
-      }
+      restrict: () => { return false }
     });
 })
 
@@ -36,6 +23,6 @@ let loginModule = angular.module('login', [
 
 .name;
 
-loginComponent.controller.$inject = ['$auth', '$location', '$q'];
+loginComponent.controller.$inject = ['$auth', '$location'];
 
 export default loginModule;

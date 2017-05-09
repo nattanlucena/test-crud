@@ -22,6 +22,11 @@ module.exports = {
         EMAIL_REQUIRED: "Field email is required",
         CPF_REQUIRED: "Field cpf is required",
         ADDRESS_REQUIRED: "Field address is required"
-    }
+    },
+
+    //Constants for user module
+    post : {
+        POST_NOT_FOUND: "Post not found"
+    },
 
 };

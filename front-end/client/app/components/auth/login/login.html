@@ -8,12 +8,12 @@
     <div class="row">
       <div class="input-field col s6">
         <i class="material-icons prefix">account_circle</i>
-        <input id="email" type="email" ng-model="$ctrl.user.email" class="validate">
+        <input id="email" type="email" ng-model="$ctrl.user.email" class="validate" required>
         <label for="email">E-mail</label>
       </div>
       <div class="input-field col s6">
         <i class="material-icons prefix">lock</i>
-        <input id="password" ng-model="$ctrl.user.password" type="password" class="validate">
+        <input id="password" ng-model="$ctrl.user.password" type="password" class="validate" required>
         <label for="password">Password</label>
       </div>
       <div class="input-field col s12">

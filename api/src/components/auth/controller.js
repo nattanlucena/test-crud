@@ -16,20 +16,20 @@ import * as constants from '../../common/constants';
  * @returns {Object} - {data: user, token: token}
  */
 module.exports.signIn = (request, response) => {
-
     let body = request.body;
 
     /*
-     Checks if email and password are empty
+     * Checks if email and password are empty
      */
-    if (!body.hasOwnProperty('email') && !body.hasOwnProperty('password')) {
+    if (!body.hasOwnProperty('email') || !body.hasOwnProperty('password')) {
         const err = new Error(constants.auth.INVALID_EMAIL_OR_PASSWORD);
+
         return response.status(401).send(utils.handleError(err));
     }
 
     let query = {email: body.email};
-    User.findOne(query, (err, user) => {
 
+    User.findOne(query, (err, user) => {
         if (err) {
             return response.status(401).send(utils.handleError(err));
         }
@@ -43,12 +43,15 @@ module.exports.signIn = (request, response) => {
                 if (err) {
                     return response.status(401).send(utils.handleError(err));
                 }
+
                 user._id = undefined;
                 user.password = undefined;
+                
                 let result = {
                     data: user,
                     token: token
                 };
+
                 return response.json(result);
             })
         });

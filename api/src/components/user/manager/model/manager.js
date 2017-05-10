@@ -29,18 +29,22 @@ module.exports.fetch = (query, options, callback) => {
  */
 module.exports.save = (data, file, callback) => {
     try {
-        let address;
+
+        let manager = new Manager(data.name, data.email, data.password, data.cpf);
+
         if (data.address) {
-            address = {
+            let address = {
                 street: data.street,
                 city: data.city,
                 state: data.state,
                 postal: data.postal
             };
+            manager.setAddress(address);
         }
-        let manager = new Manager(data.name, data.email, data.password, data.cpf, address);
 
-        if (file === undefined) {
+        //If file is undefined or not passed as parameter
+        if (typeof file === 'function' || file === undefined) {
+            callback = typeof file === 'function' ? file : callback;
             UserModel.save(manager.getDatabaseDoc(), callback);
         } else {
             delete data.password; //remove password field from metadata

@@ -23,12 +23,11 @@ class LoginController {
         this.$auth.setToken(res.data.token);
         this.$location.path('/home')
       })
-      .catch((err) => {
+      .catch((err) => {   
+      console.log(err.data);     
         Materialize.toast(err, 3500);
       });
-  }
-
-  
+  } 
 
   reset() {      
    this.user = {email: null, password: null};

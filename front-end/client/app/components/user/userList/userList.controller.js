@@ -1,3 +1,5 @@
+const swal = require('sweetalert2');
+
 class UserListController {
 
   /**
@@ -27,14 +29,46 @@ class UserListController {
   }
 
   userRemove(user) {
-    this.UserListFactory.userRemove(user.email, (err) => {
-      if (err) {
-        const errorMsg = `Unable to remove user: ${err}`;
-        Materialize.toast(errorMsg, 3500);
-      } else {
-        this.listAll();
-      }
-    });
+    let self = this;
+    swal({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false
+    }).then(function (confirm) {      
+        if (confirm) {          
+            self.UserListFactory.userRemove(user.email, (err) => {
+            if (err) {
+              const errorMsg = `Unable to remove user: ${err}`;
+              Materialize.toast(errorMsg, 3500);
+            } else {
+              swal(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+              self.listAll();
+            }
+           });
+        }   
+      },function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+          swal(
+            'Cancelled',
+            'Your user is safe :)',
+            'error'
+          )
+        }
+    });    
   }
 
   userFilter(email) {

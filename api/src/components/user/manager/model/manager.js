@@ -4,6 +4,8 @@
  */
 import UserModel from '../../model/';
 import Manager from './entity';
+import * as gridfs from '../../../../common/gridfs-config';
+
 
 
 /**
@@ -22,21 +24,46 @@ module.exports.fetch = (query, options, callback) => {
  * Save a manager in database
  *
  * @param data - Data from user to be saved
+ * @param file - User avatar file, if exists
  * @param callback - First param: err, in case of error; Second param: the saved record
  */
-module.exports.save = (data, callback) => {
+module.exports.save = (data, file, callback) => {
     try {
-        let address;
+
+        let manager = new Manager(data.name, data.email, data.password, data.cpf);
+
         if (data.address) {
-            address = {
+            let address = {
                 street: data.street,
                 city: data.city,
                 state: data.state,
                 postal: data.postal
             };
+            manager.setAddress(address);
         }
-        let manager = new Manager(data.name, data.email, data.password, data.cpf, address);
-        UserModel.save(manager.getDatabaseDoc(), callback);
+
+        //If file is undefined or not passed as parameter
+        if (typeof file === 'function' || file === undefined) {
+            callback = typeof file === 'function' ? file : callback;
+            UserModel.save(manager.getDatabaseDoc(), callback);
+        } else {
+            delete data.password; //remove password field from metadata
+
+            //Save file on gridfs
+            let writeStream = gridfs.writeStream(file, data);
+            gridfs.readStream(file, writeStream);
+
+            writeStream.on('close', (savedFile) => {
+                //Remove file from temp directory
+                gridfs.unlink(file, (err) => {
+                    if (err) {
+                        return callback(err);
+                    }
+                    manager.setAvatar(savedFile._id);
+                    UserModel.save(manager.getDatabaseDoc(), callback);
+                });
+            });
+        }
     } catch (err) {
         return callback(err);
     }
@@ -57,6 +84,7 @@ module.exports.findOne = (query, callback) =>{
  *
  * @param query
  * @param data - user fields to update
+ * @param options
  * @param callback
  */
 module.exports.update = (query, data, options, callback) => {

@@ -45,6 +45,10 @@ let UserDBModel = new Schema({
             state: String,
             postal: String
         },
+        avatar: {
+            type: Schema.Types.Object,
+            refs: 'avatar-user.files'
+        },
         created_at: {
             type: Date,
             default: Date.now

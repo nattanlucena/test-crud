@@ -1,6 +1,7 @@
 /*
     Module dependencies
  */
+
 import * as config from '../../../config/config';
 import * as appUserController from './app/controller';
 import * as managerController from './manager/controller';

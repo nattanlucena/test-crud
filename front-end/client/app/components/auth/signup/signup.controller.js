@@ -1,3 +1,5 @@
+const swal = require('sweetalert2');
+
 class SignupController {
 
   /**
@@ -11,8 +13,6 @@ class SignupController {
     this.$auth = $auth;
     this.$location = $location;
     this.user = {};
-//    swal('oi')
-//      .catch(swal.noop)
   }
 
   /**
@@ -23,10 +23,9 @@ class SignupController {
     this.$auth.signup(user)
       .then((success) => {
         let response = success.data;
-
         const msg = `User ${response.data.name} successfully created!`;
-        this.alert('Success', msg, 'success');
 
+        this.alert('Success', msg, 'success');
         this.$auth.setToken(response.token);
         this.$location.path('/home')
       })
@@ -62,7 +61,7 @@ class SignupController {
       text: text,
       showConfirmButton: false,
       timer: timer
-    });
+    }).catch(swal.noop);
   }
 
   reset(){

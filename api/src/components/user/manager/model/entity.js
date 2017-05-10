@@ -31,11 +31,11 @@ class Manager extends User{
      * @param cpf
      * @param address
      */
-    constructor(name, email, password, cpf, address) {
+    constructor(name, email, password, cpf) {
         super(name, email, password);
 
         this.cpf = cpf;
-        this.address = address;
+
         this.type = UserType[1];
 
         this.validateFields();
@@ -43,6 +43,14 @@ class Manager extends User{
 
     setRoles (roles) {
         this.roles = roles;
+    }
+
+    setAddress (address) {
+        this.address = address;
+    }
+
+    setAvatar (avatar) {
+        this.avatar = avatar;
     }
 
     /**
@@ -61,6 +69,7 @@ class Manager extends User{
             type: self.type,
             roles: self.roles || [],
             is_active: self.isActive,
+            avatar: self.avatar || undefined,
             updated_at: Date.now()
         });
     }

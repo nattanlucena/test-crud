@@ -25,7 +25,6 @@ for (let key in envConfig) {
  *
  */
 const config = {
-
     API_BASE_PATH: '/api',
     APP_BASE_PATH: '/api/app',
     MANAGER_BASE_PATH: '/api/manager',
@@ -46,6 +45,5 @@ const config = {
         mute: !!bunyan.mute
     }
 };
-
 
 module.exports = config;

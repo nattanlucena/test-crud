@@ -11,10 +11,6 @@ let userListModule = angular.module('userList', [
 .component('userList', userListComponent)
 .factory('userListFactory', UserListFactory)
 .factory('userListService', userListService)
-
-
-.factory('UserListFactory', UserListFactory)
-
 .name;
 
 userListComponent.controller.$inject = ['userListFactory', 'userListService'];

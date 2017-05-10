@@ -17,11 +17,9 @@ const ADMIN_USER_BASE_PATH = config.ADMIN_BASE_PATH + '/users/';
  * @param app
  */
 function setUserRoutes(app) {
-
     ////////////////////////////////
     //app routes
     ////////////////////////////////
-
     app.get(APP_USER_BASE_PATH, appUserController.getUsers);
 
     app.get(APP_USER_BASE_PATH + 'id/:id', appUserController.findById);
@@ -38,7 +36,6 @@ function setUserRoutes(app) {
     ////////////////////////////////
     //manager routes
     ////////////////////////////////
-
     app.get(MANAGER_USER_BASE_PATH, managerController.getManagers);
 
     app.get(MANAGER_USER_BASE_PATH + 'id/:id', managerController.findById);
@@ -54,7 +51,6 @@ function setUserRoutes(app) {
     ////////////////////////////////
     //admin routes
     ////////////////////////////////
-
 }
 
 module.exports = setUserRoutes;

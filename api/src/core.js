@@ -20,6 +20,29 @@ const DB_URI = config.DB_HOST + config.DB_NAME;
 let app = express();
 
 /**
+ * Initialize express application
+ *
+ * @method init
+ * @returns {Object} express app object
+ */
+function init() {
+    //
+    initMiddleware();
+    //
+    initDatabase();
+    //
+    initCrossDomain();
+    //
+    initClientRoutes();    
+    //
+    initApiRoutes();
+    //
+    preventErrors();
+
+    return app;
+}
+
+/*
  * Initialize application middleware.
  *
  * @method initMiddleware
@@ -35,6 +58,39 @@ function initMiddleware() {
     // app.use
     app.use(methodOverride());
     app.use(cors());
+}
+
+/**
+ * Initialize Database setup config
+ * @method initDatabase
+ * @private
+ */
+function initDatabase() {
+    mongoose.Promise = global.Promise;
+
+    mongoose.connect(DB_URI);
+
+    mongoose.connection.on('once', function () {
+        console.log('Mongoose connected to ' + DB_URI);
+    });
+
+    // if the connection throws an error
+    mongoose.connection.on('error', function (err) {
+        console.log('Mongoose connection error: ' + err);
+    });
+
+    // when the connection is disconnected
+    mongoose.connection.on('disconnected', function () {
+        console.log('Mongoose disconnected');
+    });
+
+    // if the Node process ends, close the Mongoose connection
+    process.on('SIGINT', function() {
+        mongoose.connection.close(function () {
+            console.log('Mongoose disconnected through app termination');
+            process.exit(1);
+        });
+    });
 }
 
 /**
@@ -59,7 +115,6 @@ function initCrossDomain() {
     });
 }
 
-
 /**
  * Configure client routes
  *
@@ -67,7 +122,6 @@ function initCrossDomain() {
  * @private
  */
 function initClientRoutes() {
-
     app.get(API_BASE_PATH, (req, res) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
@@ -90,7 +144,8 @@ function initClientRoutes() {
 function initApiRoutes() {
     // Globbing routing files
     const ROUTES_PATH = './components/**/routes.js';
-    pathUtils.getGlobbedPaths(path.join(__dirname, ROUTES_PATH)).forEach((routePath) => {
+    
+    pathUtils.getGlobbedPaths(path.join(__dirname, ROUTES_PATH)).forEach((routePath) => {    
         require(path.resolve(routePath))(app);
     });
 }
@@ -135,29 +190,6 @@ function initDatabase() {
  */
 function preventErrors() {
     require('./common/crash-error-handler');
-}
-
-/**
- * Initialize express application
- *
- * @method init
- * @returns {Object} express app object
- */
-function init() {
-    //
-    initMiddleware();
-    //
-    initDatabase();
-    //
-    initClientRoutes();
-    //
-    initCrossDomain();
-    //
-    initApiRoutes();
-    //
-    preventErrors();
-
-    return app;
 }
 
 export default init;

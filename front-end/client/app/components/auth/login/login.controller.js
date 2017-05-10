@@ -43,9 +43,7 @@ class LoginController {
           this.reset();
         })
       });
-  }
-
-  
+  } 
 
   reset() {      
    this.user = {email: null, password: null};

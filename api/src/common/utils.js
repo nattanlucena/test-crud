@@ -22,11 +22,11 @@ function handleError(error) {
                     errorMessages[key] = error.errors[key].message;
                 }
             }
-            return {error: errorMessages}
+            return {error: errorMessages}            
         } else {
-            return {error: error.message}
+            return {error: error.message}            
         }
-    } else {
+    } else {        
         return error.message ? {error: error.message} : {error: error};
     }
 }

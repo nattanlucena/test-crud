@@ -28,8 +28,10 @@ class LoginController {
       });
   }
 
-  reset() {
-   this.user = {};
+  
+
+  reset() {      
+   this.user = {email: null, password: null};
   }
 }
 

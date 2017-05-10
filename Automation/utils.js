@@ -77,15 +77,15 @@ module.exports = {
         page_signup.inputTextEmail(email);
         page_signup.inputTextPassword(password);
         page_signup.clickButtonSave();
-        //page_signup.validMenssageSucess('Success');
-        expect(browser.getCurrentUrl()).toBe(this.path() + ':3000/auth/signup');
+        page_signup.validMenssageSucess('Success');
+        expect(browser.getCurrentUrl()).toBe(this.path() + ':3000/');
 
         console.log('Iniciando o login com os Dados:' + '\n' + 'Login:' + email + '\n' + 'Password:' + password);
 
-        page_login.enterFieldValueLogin(email);
+        /*page_login.enterFieldValueLogin(email);
         page_login.enterFieldValuePassword(password);
         page_login.clickButtonLogin();
-        page_home.waitScreen();
+        page_home.waitScreen();*/
 
         console.log('Usuário cadastrado e logado na aplicação!');
 

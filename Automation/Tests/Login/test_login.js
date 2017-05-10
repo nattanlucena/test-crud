@@ -24,9 +24,9 @@ describe('Test-Crud: Teste Login ', function(){
         page_login.enterFieldValuePassword('admin');
         page_login.clickButtonLogin();
 
-        console.log('Mensagem de erro: '+ '[object Object]');
+        console.log('Mensagem de erro: '+ 'Opss...');
 
-        //page_login.validMenssageErro('[object Object]');
+        page_login.validMenssageErro('Opss...');
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });
@@ -39,9 +39,9 @@ describe('Test-Crud: Teste Login ', function(){
         page_login.enterFieldValueLogin('admin');
         page_login.clickButtonLogin();
 
-        console.log('Mensagem de erro: '+ '[object Object]');
+        console.log('Mensagem de erro: '+ 'Opss...');
 
-        //page_login.validMenssageErro('[object Object]');
+        page_login.validMenssageErro('Opss...');
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });*/
@@ -65,7 +65,7 @@ describe('Test-Crud: Teste Login ', function(){
         page_home.listEmailScreen(email);
         page_home.logout();
 
-        expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/');
+        //expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/');
     });
 
 });

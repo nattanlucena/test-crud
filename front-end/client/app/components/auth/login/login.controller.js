@@ -26,7 +26,8 @@ class LoginController {
           title: 'Welcome!',
           text: 'You will be redirected!',
           type: 'success',
-          timer: 4000
+          timer: 2000,
+          showConfirmButton: false
         }).catch((reason) => {
           // doesn't working with $location service
           // TODO: this.$location.path('/home');
@@ -44,7 +45,7 @@ class LoginController {
         })
       });
   } 
-
+  
   reset() {      
    this.user = {email: null, password: null};
   }

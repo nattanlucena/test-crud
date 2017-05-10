@@ -3,14 +3,17 @@ import uiRouter from 'angular-ui-router';
 import userFormComponent from './userForm.component';
 import userFormFactory from './userForm.factory';
 import userListService from '../userList/userListService';
+import fileread from './userForm.directive';
 
 let userFormModule = angular.module('userForm', [
-  uiRouter
+  uiRouter,
 ])
 
 .component('userForm', userFormComponent)
 
 .factory('userFormFactory', userFormFactory)
+
+.directive('fileread', fileread)
 
 .name;
 

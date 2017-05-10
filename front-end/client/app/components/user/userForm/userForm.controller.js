@@ -7,11 +7,14 @@ class UserFormController {
 
 	save() {
 		this.UserFactory.saveUser(this.user, (err, user) => {
-		  //TODO: tratar erro
-			this.lista = this.userListService.get();
-			this.lista.push(user.data);
-		});
-		this.reset();
+			if (err) {
+		  		Materialize.toast(err.data.error, 3500);
+		  	}else{
+		  		this.lista = this.userListService.get();
+				this.lista.push(user.data);
+				this.reset();
+		  	}
+		});		
 	}
 
 	reset(){

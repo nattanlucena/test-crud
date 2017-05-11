@@ -124,7 +124,6 @@ describe('USER Module', function () {
             .expect(200)
             .end((err, res) => {
                 if (err) {
-                    console.log(err);
                     throw new Error(err);
                 } else {
                     expect(res.body.data).to.be.an('object');

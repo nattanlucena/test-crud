@@ -149,9 +149,8 @@ module.exports.updateManager = (request, response) => {
 module.exports.removeManagerByEmail = (request, response) => {
     utils.logInfo('HTTP Request :: removeManagerByEmail function');
 
-    let email = request.params.email;
-    let query = { email: email };
-    model.remove(query, (err, result) => {
+    let params = request.params;
+    model.remove(params, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else if (!result){

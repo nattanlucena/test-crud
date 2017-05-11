@@ -115,8 +115,11 @@ module.exports.validateEmail = validateEmail;
  */
 function queryFilter(params) {
     let filter = {};
-
-    if (params.id) {
+    if (typeof params === 'object') {
+        Object.keys(params).forEach((key) => {
+            filter[key] = params[key];
+        });
+    } else if (params.id) {
         filter._id = params;
     } else {
         filter[params] = params;

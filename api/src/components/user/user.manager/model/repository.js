@@ -30,6 +30,11 @@ module.exports.fetch = (params, options, callback) => {
  * @param callback - First param: err, in case of error; Second param: the saved record
  */
 module.exports.save = (data, file, callback) => {
+
+    if (typeof file === 'function') {
+        callback = file;
+    }
+
     try {
 
         let manager = new Manager(data.name, data.email, data.password, data.cpf);
@@ -44,11 +49,8 @@ module.exports.save = (data, file, callback) => {
             manager.setAddress(address);
         }
 
-        //If file is undefined or not passed as parameter
-        if (typeof file === 'function' || file === undefined) {
-            callback = typeof file === 'function' ? file : callback;
-            UserModel.save(manager.getDatabaseDoc(), callback);
-        } else {
+        //If file exists and it's an image
+        if (file && typeof file !== 'function') {
             delete data.password; //remove password field from metadata
 
             //Save file on gridfs
@@ -62,9 +64,10 @@ module.exports.save = (data, file, callback) => {
                         return callback(err);
                     }
                     manager.setAvatar(savedFile._id);
-                    UserModel.save(manager.getDatabaseDoc(), callback);
                 });
             });
+        } else {
+            UserModel.save(manager.getDatabaseDoc(), callback);
         }
     } catch (err) {
         return callback(err);

@@ -83,7 +83,7 @@ class UserListController {
   }
 
   userFilter(email) {
-    if (typeof email === 'undefined' || email === ''){
+    if (typeof email === 'undefined' || email === '' || email === this.$auth.getPayload().email){
       this.listAll();
     }else{
       this.UserListFactory.userFilter(email, (err, data) =>{

@@ -53,8 +53,8 @@ class UserListController {
       confirmButtonClass: 'btn btn-success',
       cancelButtonClass: 'btn btn-danger',
       buttonsStyling: false
-    }).then(function (confirm) {      
-        if (confirm) {          
+    }).then(function (confirm) {
+        if (confirm) {
             self.UserListFactory.userRemove(user.email, (err) => {
             if (err) {
               const errorMsg = `Unable to remove user: ${err}`;
@@ -68,7 +68,7 @@ class UserListController {
               self.listAll();
             }
            });
-        }   
+        }
       },function (dismiss) {
         // dismiss can be 'cancel', 'overlay',
         // 'close', and 'timer'
@@ -79,7 +79,7 @@ class UserListController {
             'error'
           )
         }
-    });    
+    });
   }
 
   userFilter(email) {
@@ -96,11 +96,11 @@ class UserListController {
             this.lengthListUser = 0;
           }else{
             this.userList = data.data;
-          }          
-          this.userListService.set(data);  
+          }
+          this.userListService.set(data);
         }
       });
-    } 
+    }
   }
 }
 

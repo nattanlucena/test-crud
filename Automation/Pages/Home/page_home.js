@@ -38,13 +38,15 @@ let page_home = function(){
         element(by.id('nav-link-to-logout')).click();
     };
     this.clickDeleteUser = function(email){
-        this.listEmailScreen(email);
+        let emailTemp = element(by.xpath('.//*[@id="line0"]/p')).getText();
+        this.listEmailScreen(emailTemp);
         let actionCloseEmail = element(by.id('btn-close0'));
         actionCloseEmail.click();
         this.validMenssageDelete('Are you sure?');
         let actionConfirmeDelete = element(by.buttonText('Yes, delete it!'));
         actionConfirmeDelete.click();
         this.confirmDeleteOk('Deleted!');
+        this.listEmailScreen(emailTemp);
     };
     this.waitScreen = function(){
         let input = element(by.id('email'));
@@ -64,6 +66,7 @@ let page_home = function(){
         expect(menssageOk).toBe(ok);
         element(by.buttonText('OK')).click();
     };
+
 
 };
 module.exports = new page_home();

@@ -1,14 +1,13 @@
 /*
     Module dependencies
  */
-
 import * as config from '../../../config/config';
-import * as appUserController from './app/controller';
-import * as managerController from './manager/controller';
+import * as appUserController from './user.app/controller';
+import * as managerController from './user.manager/controller';
 
 const APP_USER_BASE_PATH = config.APP_BASE_PATH + '/users/';
 const MANAGER_USER_BASE_PATH = config.MANAGER_BASE_PATH + '/users/';
-const ADMIN_USER_BASE_PATH = config.ADMIN_BASE_PATH + '/users/';
+// const ADMIN_USER_BASE_PATH = config.ADMIN_BASE_PATH + '/users/';
 
 
 /**
@@ -18,7 +17,7 @@ const ADMIN_USER_BASE_PATH = config.ADMIN_BASE_PATH + '/users/';
  */
 function setUserRoutes(app) {
     ////////////////////////////////
-    //app routes
+    //user.app routes
     ////////////////////////////////
     app.get(APP_USER_BASE_PATH, appUserController.getUsers);
 
@@ -34,7 +33,7 @@ function setUserRoutes(app) {
 
 
     ////////////////////////////////
-    //manager routes
+    //user.manager routes
     ////////////////////////////////
     app.get(MANAGER_USER_BASE_PATH, managerController.getManagers);
 

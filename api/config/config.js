@@ -11,6 +11,7 @@ const logger = Logger.logger;
 const node_env = process.env.NODE_ENV;
 const file = path.join(__dirname, '../env', `.env.${node_env}`);
 
+
 //Load env vars
 let envConfig = dotenv.parse(fs.readFileSync(file));
 for (let key in envConfig) {

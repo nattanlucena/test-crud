@@ -7,8 +7,8 @@
   </div>
 
   <div class="input-field col m4 l4">
-    <a class="waves-effect waves-light btn" id="btn-search">
-      <i class="material-icons right" ng-click="$ctrl.userFilter($ctrl.emailFilter)">search</i>
+    <a class="waves-effect waves-light btn" id="btn-search" ng-click="$ctrl.userFilter($ctrl.emailFilter)">
+      <i class="material-icons right" >search</i>
     </a>
   </div>
 
@@ -27,6 +27,6 @@
   <li class="animate-repeat" ng-if="$ctrl.lengthListUser === 0" id="result-search">
         <strong>No results found...</strong>
   </li>
-  
+
   <dir-pagination-controls max-size="5" boundary-links="true"></dir-pagination-controls>
 </ul>

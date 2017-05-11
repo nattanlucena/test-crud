@@ -4,10 +4,10 @@ import chai from 'chai';
 import request from 'supertest';
 import mongoose from 'mongoose';
 import mochaMongoose from 'mocha-mongoose';
-import server from '../../../bin/user.app';
-import * as config from '../../../config/config';
+import server from '../../../../bin/app';
+import * as config from '../../../../config/config';
 
-const API_BASE_PATH = '/api/users/';
+const API_BASE_PATH = '/api/app/users/';
 const TEST_DB_PATH = config.DB_HOST + config.DB_NAME;
 
 let expect = chai.expect;
@@ -147,6 +147,5 @@ describe('USER Module', function () {
 
             });
     });
-
-
+    
 });

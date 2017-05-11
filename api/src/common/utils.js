@@ -2,7 +2,6 @@
 /*
  Module dependencies
  */
-//import logger from './Logger';
 import * as Log from './log';
 
 

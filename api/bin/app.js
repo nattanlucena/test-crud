@@ -55,4 +55,4 @@ server.listen(PORT, () => {
 });
 // }
 
-module.exports = server;
+export default server;

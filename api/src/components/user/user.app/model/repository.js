@@ -4,7 +4,6 @@
  */
 import UserModel from '../../model/';
 import Manager from './entity';
-import * as utils from '../../../../common/utils';
 
 
 /**

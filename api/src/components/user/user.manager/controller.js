@@ -20,7 +20,7 @@ import * as gridfs from '../../../common/gridfs-config';
 module.exports.getManagers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
-    let params = {type: userType[1]};
+    let params = { type: userType[1] };
     let options = {__v: 0, password: 0};
     model.fetch(params, options, (err, managers) => {
         if (err) {

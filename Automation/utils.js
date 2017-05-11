@@ -70,24 +70,56 @@ module.exports = {
 
         console.log('Iniciando cadastro na tela de Signup');
 
+        browser.sleep(1000);
+
         page_home.enterPageSignUp();
         page_signup.waitScreen();
+        page_signup.clickButtonReset();
         page_signup.inputTextName('Teste Cadastro com sucesso!');
         page_signup.inputTextCpf(this.getRandomCpf());
         page_signup.inputTextEmail(email);
         page_signup.inputTextPassword(password);
         page_signup.clickButtonSave();
         page_signup.validMenssageSucess('Success');
+
+        browser.sleep(1000);
+
         expect(browser.getCurrentUrl()).toBe(this.path() + ':3000/');
 
         console.log('Iniciando o login com os Dados:' + '\n' + 'Login:' + email + '\n' + 'Password:' + password);
 
-        /*page_login.enterFieldValueLogin(email);
-        page_login.enterFieldValuePassword(password);
-        page_login.clickButtonLogin();
-        page_home.waitScreen();*/
-
         console.log('Usuário cadastrado e logado na aplicação!');
+
+        return ''+email;
+    },
+
+    getDuplicateUserApplication: function(email){
+
+        var page_login = require('./Pages/Login/page_login.js');
+        var page_home = require('./Pages/Home/page_home.js');
+        var page_signup = require('./Pages/Signup/page_signup.js');
+
+        browser.get(this.path()+':3000/');
+
+        var password = this.getRandomNumber();
+
+        console.log('Iniciando cadastro com email duplicado na tela de Signup');
+
+        browser.sleep(1000);
+
+        page_home.enterPageSignUp();
+        page_signup.waitScreen();
+        page_signup.clickButtonReset();
+        page_signup.inputTextName('Teste Cadastro Duplicado sem Sucesso!');
+        page_signup.inputTextCpf(this.getRandomCpf());
+        page_signup.inputTextEmail(email);
+        page_signup.inputTextPassword(password);
+        page_signup.clickButtonSave();
+        page_signup.validMenssageErro('Error');
+
+        browser.sleep(1000);
+
+        console.log('Usuário com e-mail duplicado.');
 
         return ''+email;
     }

@@ -1,22 +1,25 @@
 /**
  * Created by roque on 03/05/17.
  */
-var page_home = function(){
+let page_home = function(){
 
+    this.clickButtonReset = function(){
+        element(by.id('btReset')).click();
+    };
     this.enterPageLogin = function(){
-        var linkPageLogin = element(by.buttonText('Login'));
+        let linkPageLogin = element(by.buttonText('Login'));
         linkPageLogin.click();
     };
     this.enterPageHome = function(){
-        var linkPageHome = element(by.id('nav-link-to-home'));
+        let linkPageHome = element(by.id('nav-link-to-home'));
         linkPageHome.click();
     };
     this.enterPageSignUp = function(){
-        var linkPageSignUp = element(by.id('nav-link-to-signup'));
+        let linkPageSignUp = element(by.id('nav-link-to-signup'));
         linkPageSignUp.click();
     };
     this.validMenssageErro = function(msgErro){
-        var menssageErro = element(by.id('toast-container')).getText();
+        let menssageErro = element(by.id('toast-container')).getText();
         expect(menssageErro).toBe(msgErro);
     };
     this.inputTextFullName = function(fullName){
@@ -35,18 +38,31 @@ var page_home = function(){
         element(by.id('nav-link-to-logout')).click();
     };
     this.clickDeleteUser = function(email){
-        this.listEmailScreen(email)
-        var actionCloseEmail = element(by.id('btn-close0'));
+        this.listEmailScreen(email);
+        let actionCloseEmail = element(by.id('btn-close0'));
         actionCloseEmail.click();
+        this.validMenssageDelete('Are you sure?');
+        let actionConfirmeDelete = element(by.buttonText('Yes, delete it!'));
+        actionConfirmeDelete.click();
+        this.confirmDeleteOk('Deleted!');
     };
     this.waitScreen = function(){
-        var input = element(by.id('email'));
+        let input = element(by.id('email'));
         expect(input.isEnabled()).toBe(true);
     };
     this.listEmailScreen = function(email){
-        var buttonSearch = element(by.id('btn-search'));
+        element(by.id('search')).clear();
         element(by.id('search')).sendKeys(email);
-        buttonSearch.click();
+        element(by.id('btn-search')).click();
+    };
+    this.validMenssageDelete = function(msg){
+        let menssageErro = element(by.id('swal2-title')).getText();
+        expect(menssageErro).toBe(msg);
+    };
+    this.confirmDeleteOk = function(ok){
+        let menssageOk = element(by.id('swal2-title')).getText();
+        expect(menssageOk).toBe(ok);
+        element(by.buttonText('OK')).click();
     };
 
 };

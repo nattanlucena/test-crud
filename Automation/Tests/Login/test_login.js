@@ -14,12 +14,13 @@ describe('Test-Crud: Teste Login ', function(){
         browser.get(utils.path()+':3000/');
     });
 
-    /*it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
+    it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
 
         console.log('LOG IN TO APPLICATION WITH UNREGISTERED USER');
         console.log('Logando com dados não cadastrados:' + '\n' + 'Login: ' + 'admin' + '\n' + 'Password: ' + 'admin');
 
         page_login.waitScreen();
+        page_login.clickButtonReset();
         page_login.enterFieldValueLogin('admin');
         page_login.enterFieldValuePassword('admin');
         page_login.clickButtonLogin();
@@ -27,6 +28,7 @@ describe('Test-Crud: Teste Login ', function(){
         console.log('Mensagem de erro: '+ 'Opss...');
 
         page_login.validMenssageErro('Opss...');
+        page_login.confirmOk();
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });
@@ -36,27 +38,26 @@ describe('Test-Crud: Teste Login ', function(){
         console.log('Cadastro com usuário inválido.' +'\n' + 'Login: ' + 'admin');
 
         page_login.waitScreen();
+        page_login.clickButtonReset();
         page_login.enterFieldValueLogin('admin');
         page_login.clickButtonLogin();
 
         console.log('Mensagem de erro: '+ 'Opss...');
 
         page_login.validMenssageErro('Opss...');
+        page_login.confirmOk();
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
-    });*/
-    /*it('LOG IN TO APPLICATION WITH SUCESS', function(){
+    });
+    it('LOG IN TO APPLICATION WITH SUCESS', function(){
 
         console.log('LOG IN TO APPLICATION WITH SUCESS');
         var email = utils.getUserApplication();
         page_home.waitScreen();
         page_home.listEmailScreen(email);
         page_home.logout();
-
-        expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/');
     });
-*/
-    it('LOGIN IN TO APPLICATION WITH DELETE USER', function(){
+   it('LOGIN IN TO APPLICATION WITH DELETE USER', function(){
 
         console.log('LOGIN IN TO APPLICATION WITH DELETE USER');
         var email = utils.getUserApplication();
@@ -64,8 +65,22 @@ describe('Test-Crud: Teste Login ', function(){
         page_home.clickDeleteUser(email);
         page_home.listEmailScreen(email);
         page_home.logout();
-
-        //expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/');
     });
+   it('DUPLICATE EMAIL SIGNUP', function(){
+       console.log('DUPLICATE EMAIL SIGNUP');
+       var email = utils.getUserApplication();
+       page_home.logout();
+       utils.getDuplicateUserApplication(email);
+   });
+   it('DUPLICATE EMAIL SIGNUP ON HOME SCREEN', function(){
+       console.log('DUPLICATE EMAIL SIGNUP ON HOME SCREEN');
+       var email = utils.getUserApplication();
+       page_home.waitScreen();
+       page_home.clickButtonReset();
+       page_home.inputTextFullName('Teste com e-mail duplicado');
+       page_home.inputTextEmail(email);
+       page_home.inputTextCpf(utils.getRandomCpf());
+       page_home.clickButtonSave();
+   });
 
 });

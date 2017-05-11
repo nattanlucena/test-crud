@@ -5,7 +5,6 @@ let AllFunctions = function () {
   return {
 
     successMessage: (options, callback) => {
-      console.log('Dentro Mesangem');
         swal({
           title: options.title || 'Success',
           text: options.text || 'OK',
@@ -27,7 +26,7 @@ let AllFunctions = function () {
         }).catch((reason) => {
           callback(null, 'ok');
         })
-    }  
+    }
   };
 
 };

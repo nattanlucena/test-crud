@@ -4,6 +4,7 @@
  */
 import UserModel from '../../model/';
 import Manager from './entity';
+import * as utils from '../../../../common/utils';
 
 
 /**
@@ -17,7 +18,7 @@ module.exports.fetch = (callback) => {
 };
 
 /**
- * Save a manager in database
+ * Save a user.manager in database
  *
  * @param data - Data from user to be saved
  * @param callback - First param: err, in case of error; Second param: the saved record
@@ -43,7 +44,7 @@ module.exports.findOne = (query, callback) =>{
 };
 
 /**
- * Updates a manager
+ * Updates a user.manager
  *
  * @param query
  * @param data - user fields to update
@@ -54,7 +55,7 @@ module.exports.update = (query, data, callback) => {
 };
 
 /**
- * Delete a manager
+ * Delete a user.manager
  *
  * @param query
  * @param callback

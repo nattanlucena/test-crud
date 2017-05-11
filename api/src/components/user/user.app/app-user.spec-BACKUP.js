@@ -4,7 +4,7 @@ import chai from 'chai';
 import request from 'supertest';
 import mongoose from 'mongoose';
 import mochaMongoose from 'mocha-mongoose';
-import server from '../../../bin/app';
+import server from '../../../bin/user.app';
 import * as config from '../../../config/config';
 
 const API_BASE_PATH = '/api/users/';

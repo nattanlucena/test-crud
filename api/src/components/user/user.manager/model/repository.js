@@ -5,6 +5,7 @@
 import UserModel from '../../model/';
 import Manager from './entity';
 import * as gridfs from '../../../../common/gridfs-config';
+import * as utils from '../../../../common/utils';
 
 
 
@@ -12,16 +13,17 @@ import * as gridfs from '../../../../common/gridfs-config';
  *  Get all users from database
  *  Returns a callback with two params: err and users
  *
- * @param query - Search query
+ * @param params - HTTP param
  * @param options
  * @param callback - First param: err, in case of error; Second param: records from DB
  */
-module.exports.fetch = (query, options, callback) => {
+module.exports.fetch = (params, options, callback) => {
+    let query = utils.queryFilter(params);
     UserModel.fetch(query, options, callback);
 };
 
 /**
- * Save a manager in database
+ * Save a user.manager in database
  *
  * @param data - Data from user to be saved
  * @param file - User avatar file, if exists
@@ -72,32 +74,35 @@ module.exports.save = (data, file, callback) => {
 /**
  * Find an user, given an email address
  *
- * @param query
+ * @param params - HTTP param
  * @param callback
  */
-module.exports.findOne = (query, callback) =>{
+module.exports.findOne = (params, callback) =>{
+    let query = utils.queryFilter(params);
     UserModel.findOne(query, callback);
 };
 
 /**
- * Updates a manager
+ * Updates a user.manager
  *
- * @param query
+ * @param params - HTTP param
  * @param data - user fields to update
  * @param options
  * @param callback
  */
-module.exports.update = (query, data, options, callback) => {
+module.exports.update = (params, data, options, callback) => {
+    let query = utils.queryFilter(params);
     UserModel.update(query, data, options, callback);
 };
 
 /**
- * Delete a manager
+ * Delete a user.manager
  *
- * @param query
+ * @param params - HTTP param
  * @param callback
  */
-module.exports.remove = (query, callback) => {
+module.exports.remove = (params, callback) => {
+    let query = utils.queryFilter(params);
     UserModel.remove(query, callback);
 };
 

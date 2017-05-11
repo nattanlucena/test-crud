@@ -26,8 +26,8 @@ for (let key in envConfig) {
  */
 const config = {
     API_BASE_PATH: '/api',
-    APP_BASE_PATH: '/api/app',
-    MANAGER_BASE_PATH: '/api/manager',
+    APP_BASE_PATH: '/api/user.app',
+    MANAGER_BASE_PATH: '/api/user.manager',
     ADMIN_BASE_PATH: '/api/admin',
 
     PORT: process.env.PORT || 3000,

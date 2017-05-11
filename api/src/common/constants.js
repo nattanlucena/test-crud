@@ -12,10 +12,12 @@ module.exports = {
         USER_NOT_FOUND: "User not found"
     },
 
+    //Constants for auth module
     auth: {
         INVALID_EMAIL_OR_PASSWORD: 'Invalid email or password'
     },
 
+    //Constants for user.manager module
     manager: {
         ALL_REQUIRED_FIELDS: 'Fields name, email, cpf and address are required',
         NAME_REQUIRED: "Field name is required",
@@ -24,7 +26,7 @@ module.exports = {
         ADDRESS_REQUIRED: "Field address is required"
     },
 
-    //Constants for user module
+    //Constants for post module
     post : {
         POST_NOT_FOUND: "Post not found"
     },

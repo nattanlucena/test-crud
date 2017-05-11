@@ -59,7 +59,7 @@ module.exports.signIn = (request, response) => {
 };
 
 /**
- * Create an manager in sing up and returns the token to the user be logged in
+ * Create an user.manager in sing up and returns the token to the user be logged in
  *
  * @param request
  * @param response

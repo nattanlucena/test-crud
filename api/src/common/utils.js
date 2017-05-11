@@ -22,11 +22,11 @@ function handleError(error) {
                     errorMessages[key] = error.errors[key].message;
                 }
             }
-            return {error: errorMessages}            
+            return {error: errorMessages}
         } else {
-            return {error: error.message}            
+            return {error: error.message}
         }
-    } else {        
+    } else {
         return error.message ? {error: error.message} : {error: error};
     }
 }
@@ -105,3 +105,23 @@ function validateEmail(email) {
     return regex.test(email);
 }
 module.exports.validateEmail = validateEmail;
+
+
+/**
+ * Generate query filter
+ *
+ * @param params
+ * @returns {{}}
+ */
+function queryFilter(params) {
+    let filter = {};
+
+    if (params.id) {
+        filter._id = params;
+    } else {
+        filter[params] = params;
+    }
+
+    return filter;
+}
+module.exports.queryFilter = queryFilter;

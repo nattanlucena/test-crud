@@ -7,7 +7,7 @@ import mochaMongoose from 'mocha-mongoose';
 import server from '../../../../bin/app';
 import * as config from '../../../../config/config';
 
-const API_BASE_PATH = '/api/manager/users/';
+const API_BASE_PATH = '/api/user.manager/users/';
 const TEST_DB_PATH = config.DB_HOST + config.DB_NAME;
 
 let expect = chai.expect;

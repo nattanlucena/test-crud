@@ -11,6 +11,7 @@ const logger = Logger.logger;
 const node_env = process.env.NODE_ENV;
 const file = path.join(__dirname, '../env', `.env.${node_env}`);
 
+
 //Load env vars
 let envConfig = dotenv.parse(fs.readFileSync(file));
 for (let key in envConfig) {
@@ -19,7 +20,6 @@ for (let key in envConfig) {
     }
 }
 
-
 /**
  *
  * Load project config setup
@@ -27,6 +27,9 @@ for (let key in envConfig) {
  */
 const config = {
     API_BASE_PATH: '/api',
+    APP_BASE_PATH: '/api/app',
+    MANAGER_BASE_PATH: '/api/manager',
+    ADMIN_BASE_PATH: '/api/admin',
 
     PORT: process.env.PORT || 3000,
     HOSTNAME: process.env.HOSTNAME || 'localhost',

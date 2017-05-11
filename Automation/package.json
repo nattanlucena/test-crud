@@ -1,0 +1,20 @@
+{
+  "name": "automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "startTests.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felipe Roque",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine-spec-reporter": "^4.1.0",
+    "protractor-html-screenshot-reporter": "0.0.21",
+    "protractor-jasmine2-html-reporter": "0.0.7",
+    "protractor-jasmine2-screenshot-reporter": "^0.3.5"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}

@@ -1,13 +1,13 @@
 <div class="container">
   <h1 class="section-title">Add new post</h1>
   <div class="row">
-    <form class="col s6 offset-s3">
+    <form class="col s6 offset-s3" action="savePost">
       <div class="input-field">
-        <input id="title" type="text" class="validate">
+        <input id="title" ng-model="$ctrl.form.title" type="text" class="validate">
         <label for="title">Title</label>
       </div>
       <div class="input-field">
-        <textarea id="content" class="materialize-textarea"></textarea>
+        <textarea id="content" ng-model="$ctrl.form.content" class="materialize-textarea"></textarea>
         <label for="content">Content</label>
       </div>
       <div class="input-field">

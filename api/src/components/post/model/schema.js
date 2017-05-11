@@ -16,12 +16,8 @@ let PostDBModel = new Schema({
 		content: {
 				type: String
 		},
-		category: {
-				type: Array
-		},
-		tags: {
-				type: Array
-		},
+		category: [],
+		tags: [],
 		created_at: {
 				type: Date,
 				default: Date.now

@@ -1,4 +1,4 @@
-let UserListFactory = function ($http) {
+let PostService = function ($http) {
 
   const API_BASE_PATH = 'http://localhost:5000/api';
 
@@ -9,8 +9,10 @@ let UserListFactory = function ($http) {
         method: 'GET',
         url: API_BASE_PATH + '/posts',
       }).then((data) => {
+        console.log(data)
         callback(null, data.data.data);
       }, (err) => {
+        console.log(err)
         callback(err);
       })
     },
@@ -30,4 +32,4 @@ let UserListFactory = function ($http) {
 
 };
 
-export default UserListFactory;
+export default PostService;

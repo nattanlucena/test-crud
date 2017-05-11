@@ -32,7 +32,7 @@ describe('Test-Crud: Teste Login ', function(){
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });
-    it('MAKE REGISTRATION WITH ONLY LOGIN', function(){
+    /*it('MAKE REGISTRATION WITH ONLY LOGIN', function(){
 
         console.log('MAKE REGISTRATION WITH ONLY LOGIN');
         console.log('Cadastro com usuário inválido.' +'\n' + 'Login: ' + 'admin');
@@ -81,6 +81,6 @@ describe('Test-Crud: Teste Login ', function(){
        page_home.inputTextEmail(email);
        page_home.inputTextCpf(utils.getRandomCpf());
        page_home.clickButtonSave();
-   });
+   });*/
 
 });

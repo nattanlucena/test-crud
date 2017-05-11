@@ -8,23 +8,33 @@ class UserListController {
    * @param UserListFactory
    * @param userListService
    */
-  constructor(UserListFactory, userListService, userListDirective) {
+  constructor(UserListFactory, userListService, $auth) {
     this.name = 'userList';
     this.UserListFactory = UserListFactory;
     this.userListService = userListService;
-    this.userListDirective = userListDirective;
+    this.$auth = $auth;
     this.listAll();
+  }
+  /**
+   Resposable function for not displaying the user logged in user list
+   */
+  filterEmail(list) {
+    return list.filter((obj) => {
+      return obj.email !== this.$auth.getPayload().email;
+    }); 
   }
 
   listAll() {
+
     this.UserListFactory.listUsers((err, data) => {
       if (err) {
         const errorMsg = `Unable to list users: ${err}`;
         Materialize.toast(errorMsg, 3500);
       } else {
-        this.userList = data;
-        this.userListService.set(data);
-        this.lengthListUser = data.length;
+        let result = this.filterEmail(data);
+        this.userList = result;
+        this.userListService.set(result);
+        this.lengthListUser = result.length;
       }
     });
   }

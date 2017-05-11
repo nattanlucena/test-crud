@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import loginComponent from './login.component';
+import AllFunctions from '../../function';
 
 let loginModule = angular.module('login', [
   uiRouter
@@ -21,8 +22,10 @@ let loginModule = angular.module('login', [
 
 .component('login', loginComponent)
 
+.factory('AllFunctions', AllFunctions)
+
 .name;
 
-loginComponent.controller.$inject = ['$auth', '$location'];
+loginComponent.controller.$inject = ['$auth', '$location', 'AllFunctions'];
 
 export default loginModule;

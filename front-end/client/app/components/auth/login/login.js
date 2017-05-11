@@ -1,7 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import loginComponent from './login.component';
-import AllFunctions from '../../function';
+import AllFunctions from '../../common/custom-alert-message';
 
 let loginModule = angular.module('login', [
   uiRouter

@@ -14,7 +14,7 @@ let userListModule = angular.module('userList', [
 .factory('userListService', userListService)
 .name;
 
-userListComponent.controller.$inject = ['userListFactory', 'userListService'];
+userListComponent.controller.$inject = ['userListFactory', 'userListService', '$auth'];
 UserListFactory.$inject = ['$http'];
 
 export default userListModule;

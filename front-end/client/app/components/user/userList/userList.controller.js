@@ -8,23 +8,33 @@ class UserListController {
    * @param UserListFactory
    * @param userListService
    */
-  constructor(UserListFactory, userListService, userListDirective) {
+  constructor(UserListFactory, userListService, $auth) {
     this.name = 'userList';
     this.UserListFactory = UserListFactory;
     this.userListService = userListService;
-    this.userListDirective = userListDirective;
+    this.$auth = $auth;
     this.listAll();
+  }
+  /**
+   Resposable function for not displaying the user logged in user list
+   */
+  filterEmail(list) {
+    return list.filter((obj) => {
+      return obj.email !== this.$auth.getPayload().email;
+    }); 
   }
 
   listAll() {
+
     this.UserListFactory.listUsers((err, data) => {
       if (err) {
         const errorMsg = `Unable to list users: ${err}`;
         Materialize.toast(errorMsg, 3500);
       } else {
-        this.userList = data;
-        this.userListService.set(data);
-        this.lengthListUser = data.length;
+        let result = this.filterEmail(data);
+        this.userList = result;
+        this.userListService.set(result);
+        this.lengthListUser = result.length;
       }
     });
   }
@@ -43,8 +53,8 @@ class UserListController {
       confirmButtonClass: 'btn btn-success',
       cancelButtonClass: 'btn btn-danger',
       buttonsStyling: false
-    }).then(function (confirm) {      
-        if (confirm) {          
+    }).then(function (confirm) {
+        if (confirm) {
             self.UserListFactory.userRemove(user.email, (err) => {
             if (err) {
               const errorMsg = `Unable to remove user: ${err}`;
@@ -58,7 +68,7 @@ class UserListController {
               self.listAll();
             }
            });
-        }   
+        }
       },function (dismiss) {
         // dismiss can be 'cancel', 'overlay',
         // 'close', and 'timer'
@@ -69,11 +79,11 @@ class UserListController {
             'error'
           )
         }
-    });    
+    });
   }
 
   userFilter(email) {
-    if (typeof email === 'undefined' || email === ''){
+    if (typeof email === 'undefined' || email === '' || email === this.$auth.getPayload().email){
       this.listAll();
     }else{
       this.UserListFactory.userFilter(email, (err, data) =>{
@@ -86,11 +96,11 @@ class UserListController {
             this.lengthListUser = 0;
           }else{
             this.userList = data.data;
-          }          
-          this.userListService.set(data);  
+          }
+          this.userListService.set(data);
         }
       });
-    } 
+    }
   }
 }
 

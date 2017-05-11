@@ -21,7 +21,6 @@ class LoginController {
   login(user) {
     this.$auth.login(user)
       .then((res) => {
-        console.log('Login: ', this.$auth.getPayload());
         this.$auth.setToken(res.data.token)
         swal({
           title: 'Welcome!',

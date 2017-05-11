@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="section-title">Add new post</h1>
   <div class="row">
-    <form class="col s6 offset-s3" action="savePost">
+    <form class="col s6 offset-s3" action="savePost" ng-submit="$ctrl.savePost($event, $ctrl.form)">
       <div class="input-field">
         <input id="title" ng-model="$ctrl.form.title" type="text" class="validate">
         <label for="title">Title</label>

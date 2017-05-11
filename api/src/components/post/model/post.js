@@ -3,6 +3,7 @@
  * Module dependencies
  */
 import Collection from './schema';
+import Post from './post';
 
 
 /**
@@ -36,11 +37,17 @@ module.exports.fetch = (query, options, callback) => {
 /**
  * Save a post in database
  *
- * @param post - Post to be saved
+ * @param data - Data from post to be saved
  * @param callback - First param: err, in case of error; Second param: the saved record
  */
-module.exports.save = (post, callback) => {
-    post.save({password: 0, __v: 0}, callback);
+module.exports.save = (data, callback) => {
+    try {
+        let post = new Post(data.title, data.content, data.category, data.tags, data.author);
+
+        UserModel.save(post.getDatabaseDoc(), callback);
+    } catch (err) {
+        return callback(err);
+    }
 };
 
 /**

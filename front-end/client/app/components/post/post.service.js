@@ -9,10 +9,8 @@ let PostService = function ($http) {
         method: 'GET',
         url: API_BASE_PATH + '/posts',
       }).then((data) => {
-        console.log(data)
         callback(null, data.data.data);
       }, (err) => {
-        console.log(err)
         callback(err);
       })
     },
@@ -21,6 +19,17 @@ let PostService = function ($http) {
       $http({
         method: 'GET',
         url: API_BASE_PATH + '/post/' + id,
+      }).then(function success(data) {
+        callback(null, data);
+      }, function error(err) {
+        callback(err);
+      })
+    },
+
+    addPost: (post, callback) => {
+      $http({
+        method: 'POST',
+        url: API_BASE_PATH + '/post',
       }).then(function success(data) {
         callback(null, data);
       }, function error(err) {

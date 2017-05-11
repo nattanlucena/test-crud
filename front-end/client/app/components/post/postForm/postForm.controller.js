@@ -1,3 +1,5 @@
+const swal = require('sweetalert2');
+
 class PostFormController {
   constructor(PostService) {
     this.PostService = PostService;
@@ -12,13 +14,11 @@ class PostFormController {
 
     /**
      * init input select script
-     * 
      */
     jQuery('select').material_select();
 
     /**
      * init chip script
-     * 
      */
     jQuery('.chips-placeholder').material_chip({
       placeholder: 'Enter a tag',
@@ -27,29 +27,49 @@ class PostFormController {
 
     /**
      * push added tag to array to be send
-     * @param e: Event
-     * @param chip: Object added
-     * 
+     * @param {Event} e 
+     * @param {Object} chip
      */
-    jQuery('.chips').on('chip.add', function(e, chip) {
-      this.form.tags.push(chip.tag);
-      return true;
+    jQuery('.chips').on('chip.add', (e, chip) => {
+      this.form.tags.push({tag: chip.tag});
     });
 
     /**
      * pop tag from tags
-     * @param e: Event
-     * @param chip: Object deleted
-     * 
+     * @param {Event} e
+     * @param {Object} chip
      */
-    jQuery('.chips').on('chip.delete', function(e, chip) {
+    jQuery('.chips').on('chip.delete', (e, chip) => {
       this.form.tags.pop(chip.tag);
       return true;
     });
   }
+  
+  /**
+   * Save Post ...
+   * @param {Event} e
+   */
+  savePost(e, post) {
+    e.preventDefault();
+    this.PostService.addPost(post, (err, res) => {
+      if (err.statusText !== 'OK') {
+        return swal({
+          title: 'Opss...',
+          type: 'error',
+          text: 'Check your infos and try again!',
+          showConfirmButton: false,
+          timer: 2000
+        }).catch(swal.noop);
+      }
 
-  savePost() {
-    
+      return swal({
+          title: 'Well Done!',
+          type: 'success',
+          text: 'Your post was published!',
+          showConfirmButton: false,
+          timer: 2000
+        }).catch(swal.noop);
+    })
   }
 }
 

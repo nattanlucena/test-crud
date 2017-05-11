@@ -4,6 +4,7 @@
  */
 import constants from '../../../common/constants';
 import * as utils from '../../../common/utils';
+import UserDBCollection from '../model';
 
 
 /**
@@ -13,23 +14,34 @@ class Post {
 
     /**
      * Constructor method
-     * @param title
-     * @param content
-     * @param category
-     * @param tags
+     * @param {String} title
+     * @param {String} content
+     * @param {Object[]} category
+     * @param {Object[]} tags
+     * @param {Object} author
      */
-    constructor(title, content, category, tags) {
+    constructor(title, content, category, tags, author) {
         this.title = title;
         this.content = content;
         this.category = category;
         this.tags = tags;
+        this.author = author;
     }
 
-    /*
-     Empty function
-    */
-    emptyFunction() {
-        
+    /**
+     * Returns a new Mongoose Model post
+     */
+    getDatabaseDoc() {
+        let self = this;
+        let Collection = UserDBCollection.getCollectionInstance();
+        return new Collection({
+            title: self.title,
+            content: self.contentemail,
+            tags: self.tags,
+            category: self.category,
+            author: self.author,
+            updated_at: Date.now()
+        });
     }
 }
 

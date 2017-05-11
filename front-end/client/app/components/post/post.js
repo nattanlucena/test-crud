@@ -1,7 +1,6 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import postComponent from './post.component';
-import PostService from './post.service';
 
 let postModule = angular.module('post', [
   uiRouter
@@ -21,8 +20,6 @@ let postModule = angular.module('post', [
 })
 
 .component('post', postComponent)
-
-.factory('PostService', ['$http', PostService])
 
 .name;
 

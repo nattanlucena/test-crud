@@ -19,9 +19,9 @@ import * as gridfs from '../../../common/gridfs-config';
 module.exports.getManagers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
-    //let params = { type: userType[1] };
+    let query = { type: userType[1] };
     let options = {__v: 0, password: 0, salt: 0};
-    model.fetch(request.params, options, (err, managers) => {
+    model.fetch(query, options, (err, managers) => {
         if (err) {
             return response.status(500).json(utils.handleError(err));
         } else {
@@ -39,9 +39,9 @@ module.exports.getManagers = (request, response) => {
 module.exports.getActiveManagers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
-    let params = {type: userType[1], is_active: true};
+    let query = {type: userType[1], is_active: true};
     let options = {__v: 0, password: 0, salt: 0};
-    model.fetch(params, options, (err, managers) => {
+    model.fetch(query, options, (err, managers) => {
         if (err) {
             return response.status(500).json(utils.handleError(err));
         } else {
@@ -90,7 +90,8 @@ module.exports.saveManager = (request, response) => {
 module.exports.findById = (request, response) => {
     utils.logInfo('HTTP Request :: findById function');
 
-    model.findOne(request.params, (err, user) => {
+    let query = {'_id': request.params.id};
+    model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
@@ -108,7 +109,8 @@ module.exports.findById = (request, response) => {
 module.exports.findByEmail = (request, response) => {
     utils.logInfo('HTTP Request :: findByEmail function');
 
-    model.findOne(request.params, (err, user) => {
+    let query = {'email': request.params.email};
+    model.findOne(query, (err, user) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
@@ -126,7 +128,8 @@ module.exports.findByEmail = (request, response) => {
 module.exports.updateManager = (request, response) => {
     utils.logInfo('HTTP Request :: updateManager function');
 
-    model.update(request.params, request.body, (err, updated) => {
+    let query = {'email': request.params.email};
+    model.update(query, request.body, (err, updated) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
@@ -149,8 +152,8 @@ module.exports.updateManager = (request, response) => {
 module.exports.removeManagerByEmail = (request, response) => {
     utils.logInfo('HTTP Request :: removeManagerByEmail function');
 
-    let params = request.params;
-    model.remove(params, (err, result) => {
+    let query = {'email': request.params.email};
+    model.remove(query, (err, result) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else if (!result){

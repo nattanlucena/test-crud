@@ -1,6 +1,6 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import authComponent from './auth.component';
+//import authCtrl from './auth.controller';
 import login from './login/login';
 import signup from './signup/signup';
 
@@ -9,8 +9,6 @@ let authModule = angular.module('auth', [
   login,
   signup
 ])
-
-.component('auth', authComponent)
 
 .name;
 

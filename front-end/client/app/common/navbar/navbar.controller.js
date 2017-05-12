@@ -1,19 +1,18 @@
-class NavbarController {
-  constructor($auth, $location) {
-    this.name = 'navbar';
-    this.$auth = $auth;
-    this.$location = $location;
+let navbarController = ($scope, $auth, $location) => {
+
+  $scope.isAuthenticated = () => {
+    return $auth.isAuthenticated();
   }
 
-  isAuthenticated() {
-    return this.$auth.isAuthenticated();
-  }
-
-  logout(e) {
+  /**
+   * Logout user
+   * @param {Event} e
+   */
+  $scope.logout = (e) => {
     e.preventDefault();
-    this.$location.path('/auth/login');
-    return this.$auth.logout();
+    $location.path('/auth/login');
+    return $auth.logout();
   }
 }
 
-export default NavbarController;
+export default navbarController;

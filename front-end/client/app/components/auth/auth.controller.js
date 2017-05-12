@@ -1,11 +1,5 @@
-class AuthController {
+let authCtrl = () => {
 
-  /**
-   * @constructor
-   */
-  constructor() {
-    this.name = 'auth';
-  }
 }
 
-export default AuthController;
+export default authCtrl;

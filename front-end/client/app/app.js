@@ -1,12 +1,16 @@
+// global imports
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import Common from './common/common';
 import Components from './components/components';
-import AppComponent from './app.component';
 import satellizer from 'satellizer';
 import uiMask from 'angular-ui-mask';
 import paginator from 'angular-utils-pagination';
 import 'normalize.css';
+
+// module imports
+import template from './app.html';
+import './app.scss';
 
 let app = angular.module('app', [
     uiRouter,
@@ -15,7 +19,7 @@ let app = angular.module('app', [
     Components,
     uiMask,
     paginator,
-  ]);
+]);
 
 app.config(['$locationProvider', '$authProvider', ($locationProvider, $authProvider) => {
     'ngInject';
@@ -36,9 +40,14 @@ app.config(['$locationProvider', '$authProvider', ($locationProvider, $authProvi
     // @see: https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions
     // #how-to-configure-your-server-to-work-with-html5mode
     $locationProvider.html5Mode(true).hashPrefix('!')
-  }]);
+}]);
 
-app.component('app', AppComponent);
+app.directive('app', [() => {
+    return {
+      restrict: 'E',
+      template,
+    };
+}]);
 
 app.run(['$transitions', '$location', '$q', ($transitions, $location, $q) => {
     $transitions.onStart({to: '*'}, (trans) => {
@@ -49,7 +58,7 @@ app.run(['$transitions', '$location', '$q', ($transitions, $location, $q) => {
 
       if (!auth.isAuthenticated() && to.restrict()) {
         deferred.reject("Authentication is required!");
-//      state.go('login') TODO: handle TransitionError
+        //state.go('login') TODO: handle TransitionError
         $location.path('/auth/login')
       } else {
         deferred.resolve();

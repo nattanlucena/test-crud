@@ -1,10 +1,13 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import loginComponent from './login.component';
+import loginCtrl from './login.controller';
+import template from './login.html';
 
 let loginModule = angular.module('login', [
   uiRouter
 ])
+
+// .factory() and .directive()
 
 .config(($stateProvider, $urlRouterProvider) => {
   'ngInject';
@@ -14,15 +17,10 @@ let loginModule = angular.module('login', [
   $stateProvider
     .state('login', {
       url: '/auth/login',
-      component: 'login',
+      template,
+      controller: ['$scope', '$auth', '$location', loginCtrl],
       restrict: () => { return false }
     });
-})
-
-.component('login', loginComponent)
-
-.name;
-
-loginComponent.controller.$inject = ['$auth', '$location'];
+}).name;
 
 export default loginModule;

@@ -14,7 +14,7 @@ describe('Test-Crud: Teste Login ', function(){
         browser.get(utils.path()+':3000/');
     });
 
-    /*it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
+    it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
 
         console.log('LOG IN TO APPLICATION WITH UNREGISTERED USER');
         console.log('Logando com dados não cadastrados:' + '\n' + 'Login: ' + 'admin' + '\n' + 'Password: ' + 'admin');
@@ -56,7 +56,7 @@ describe('Test-Crud: Teste Login ', function(){
         page_home.waitScreen();
         page_home.listEmailScreen(email);
         page_home.logout();
-    });*/
+    });
    it('LOGIN IN TO APPLICATION WITH DELETE USER', function(){
 
         console.log('LOGIN IN TO APPLICATION WITH DELETE USER');
@@ -65,7 +65,7 @@ describe('Test-Crud: Teste Login ', function(){
         page_home.clickDeleteUser(email);
         page_home.logout();
     });
-   /*it('DUPLICATE EMAIL SIGNUP', function(){
+   it('DUPLICATE EMAIL SIGNUP', function(){
        console.log('DUPLICATE EMAIL SIGNUP');
        var email = utils.getUserApplication();
        page_home.logout();
@@ -80,6 +80,6 @@ describe('Test-Crud: Teste Login ', function(){
        page_home.inputTextEmail(email);
        page_home.inputTextCpf(utils.getRandomCpf());
        page_home.clickButtonSave();
-   });*/
+   });
 
 });

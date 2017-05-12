@@ -15,8 +15,8 @@ const types = ['.jpg', '.jpeg', '.png'];
 const storage = multer.diskStorage({
     destination: './public/images/',
     filename: function (req, file, cb) {
-        let datetimestamp = Date.now();
-        let filename = file.fieldname + '-' + datetimestamp + '.' +
+        let dateTimestamp = Date.now();
+        let filename = file.fieldname + '-' + dateTimestamp + '.' +
             file.originalname.split('.')[file.originalname.split('.').length -1];
 
         cb(null, filename);

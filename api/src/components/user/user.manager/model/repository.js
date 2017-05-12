@@ -8,7 +8,6 @@ import * as gridfs from '../../../../common/gridfs-config';
 import * as utils from '../../../../common/utils';
 
 
-
 /**
  *  Get all users from database
  *  Returns a callback with two params: err and users
@@ -89,7 +88,7 @@ module.exports.findOne = (params, callback) =>{
  * Updates a user.manager
  *
  * @param params - HTTP param
- * @param data - user fields to update
+ * @param data - HTTP body - User fields to update;
  * @param options
  * @param callback
  */

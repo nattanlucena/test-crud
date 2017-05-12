@@ -1,9 +1,9 @@
 /*
  * Module dependencies
  */
-import mongoose from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
-import * as bcrypt from 'bcrypt';
+import mongoose         from 'mongoose';
+import uniqueValidator  from 'mongoose-unique-validator';
+import * as bcrypt      from 'bcrypt';
 
 const SALT_WORK_FACTOR = 10;
 

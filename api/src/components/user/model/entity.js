@@ -2,8 +2,8 @@
 /*
  Module dependencies
  */
-import constants from '../../../common/constants';
-import * as utils from '../../../common/utils';
+import constants    from '../../../common/constants';
+import * as utils   from '../../../common/utils';
 
 
 /**

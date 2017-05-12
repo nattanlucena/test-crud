@@ -7,15 +7,11 @@ import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cors from 'cors';
 import path from 'path';
-import mongoose from 'mongoose';
-import busBoyBodyParser from 'busboy-body-parser';
-// import multer from 'multer'
 import * as pathUtils from './common/path-utils';
-import * as utils from './common/path-utils';
 import * as config from '../config/config';
-let multipart = require('connect-multiparty');
+import * as dbConfig from '../config/db-config';
+
 const API_BASE_PATH = config.API_BASE_PATH;
-const DB_URI = config.DB_HOST + config.DB_NAME;
 
 let app = express();
 
@@ -23,7 +19,7 @@ let app = express();
  * Initialize express application
  *
  * @method init
- * @returns {Object} express app object
+ * @returns {Object} express user.app object
  */
 function init() {
     //
@@ -33,7 +29,7 @@ function init() {
     //
     initCrossDomain();
     //
-    initClientRoutes();    
+    initClientRoutes();
     //
     initApiRoutes();
     //
@@ -42,64 +38,36 @@ function init() {
     return app;
 }
 
-/*
+/**
  * Initialize application middleware.
  *
  * @method initMiddleware
- * @private
  */
-function initMiddleware() {
+let initMiddleware = () => {
     app.set('showStackError', true);
-    // app.use(busBoyBodyParser({'limit': '5b'}));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true
     }));
-    // app.use
     app.use(methodOverride());
     app.use(cors());
-}
+};
 
 /**
  * Initialize Database setup config
+ *
  * @method initDatabase
- * @private
  */
-function initDatabase() {
-    mongoose.Promise = global.Promise;
-
-    mongoose.connect(DB_URI);
-
-    mongoose.connection.on('once', function () {
-        console.log('Mongoose connected to ' + DB_URI);
-    });
-
-    // if the connection throws an error
-    mongoose.connection.on('error', function (err) {
-        console.log('Mongoose connection error: ' + err);
-    });
-
-    // when the connection is disconnected
-    mongoose.connection.on('disconnected', function () {
-        console.log('Mongoose disconnected');
-    });
-
-    // if the Node process ends, close the Mongoose connection
-    process.on('SIGINT', function() {
-        mongoose.connection.close(function () {
-            console.log('Mongoose disconnected through app termination');
-            process.exit(1);
-        });
-    });
-}
+let initDatabase = () => {
+    dbConfig.initDatabase();
+};
 
 /**
  * Configure CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests.
  *
  * @method initCrossDomain
- * @private
  */
-function initCrossDomain() {
+let initCrossDomain = () => {
     // setup CORS
     app.use(cors());
     app.use((req, res, next) => {
@@ -113,15 +81,14 @@ function initCrossDomain() {
         // Pass to next layer of middleware
         next();
     });
-}
+};
 
 /**
  * Configure client routes
  *
  * @method initClientRoutes
- * @private
  */
-function initClientRoutes() {
+let initClientRoutes = () => {
     app.get(API_BASE_PATH, (req, res) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
@@ -133,63 +100,28 @@ function initClientRoutes() {
         res.setHeader('Content-Type', 'text/html');
         res.end('<h3>WebApp!</h3>\n');
     });
-}
+};
 
 /**
  * Configure API routes
  *
  * @method initApiRoutes
- * @private
  */
-function initApiRoutes() {
+let initApiRoutes = () => {
     // Globbing routing files
     const ROUTES_PATH = './components/**/routes.js';
-    
-    pathUtils.getGlobbedPaths(path.join(__dirname, ROUTES_PATH)).forEach((routePath) => {    
+
+    pathUtils.getGlobbedPaths(path.join(__dirname, ROUTES_PATH)).forEach((routePath) => {
         require(path.resolve(routePath))(app);
     });
-}
+};
 
-
-/**
- * Initialize Database setup config
- * @method initDatabase
- * @private
- */
-function initDatabase() {
-    mongoose.Promise = global.Promise;
-
-    mongoose.connect(DB_URI);
-    let conn = mongoose.connection;
-
-    conn.on('once', function () {
-        console.log('Mongoose connected to ' + DB_URI);
-    });
-
-    // if the connection throws an error
-    conn.on('error', function (err) {
-        console.log('Mongoose connection error: ' + err);
-    });
-
-    // when the connection is disconnected
-    conn.on('disconnected', function () {
-        console.log('Mongoose disconnected');
-    });
-
-    // if the Node process ends, close the Mongoose connection
-    process.on('SIGINT', function() {
-        conn.close(function () {
-            console.log('Mongoose disconnected through app termination');
-            process.exit(1);
-        });
-    });
-}
 
 /**
  * Prevent uncaughtException error
  */
-function preventErrors() {
+let preventErrors = () => {
     require('./common/crash-error-handler');
-}
+};
 
 export default init;

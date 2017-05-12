@@ -2,10 +2,10 @@
 /*
  Module dependencies
  */
-import { User, Manager } from '../user';
+import { User, Manager }    from '../user';
 import * as tokenController from './token/controller';
-import * as utils from '../../common/utils';
-import * as constants from '../../common/constants';
+import * as utils           from '../../common/utils';
+import * as constants       from '../../common/constants';
 
 /**
  * Sign in with email and password and returns a generated
@@ -46,7 +46,7 @@ module.exports.signIn = (request, response) => {
 
                 user._id = undefined;
                 user.password = undefined;
-                
+
                 let result = {
                     data: user,
                     token: token
@@ -59,7 +59,7 @@ module.exports.signIn = (request, response) => {
 };
 
 /**
- * Create an manager in sing up and returns the token to the user be logged in
+ * Create an user.manager in sing up and returns the token to the user be logged in
  *
  * @param request
  * @param response

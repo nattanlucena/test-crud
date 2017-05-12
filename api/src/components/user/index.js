@@ -1,5 +1,5 @@
 const User = require('./model');
-const Manager = require('./manager/model');
-const AppUser = require('./app/model');
+const Manager = require('./user.manager/model');
+const AppUser = require('./user.app/model');
 
 export { User, Manager, AppUser };

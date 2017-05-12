@@ -29,7 +29,6 @@ class Manager extends User{
      * @param email
      * @param password
      * @param cpf
-     * @param address
      */
     constructor(name, email, password, cpf) {
         super(name, email, password);
@@ -78,7 +77,7 @@ class Manager extends User{
     validateFields() {
         super.validateEmail();
 
-        //validate manager fields
+        //validate user.manager fields
         this.validateRequiredFields();
     }
 
@@ -101,7 +100,7 @@ class Manager extends User{
             }
             /*
             if (!this.address){
-                exceptionMessage.push(constants.manager.ADDRESS_REQUIRED);
+                exceptionMessage.push(constants.user.manager.ADDRESS_REQUIRED);
             }
             */
         }

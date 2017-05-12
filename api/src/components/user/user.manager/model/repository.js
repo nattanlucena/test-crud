@@ -5,7 +5,7 @@
 import UserModel from '../../model/';
 import Manager from './entity';
 import * as gridfs from '../../../../common/gridfs-config';
-
+import * as utils from '../../../../common/utils';
 
 
 /**
@@ -21,13 +21,18 @@ module.exports.fetch = (query, options, callback) => {
 };
 
 /**
- * Save a manager in database
+ * Save a user.manager in database
  *
  * @param data - Data from user to be saved
  * @param file - User avatar file, if exists
  * @param callback - First param: err, in case of error; Second param: the saved record
  */
 module.exports.save = (data, file, callback) => {
+
+    if (typeof file === 'function') {
+        callback = file;
+    }
+
     try {
 
         let manager = new Manager(data.name, data.email, data.password, data.cpf);
@@ -42,11 +47,8 @@ module.exports.save = (data, file, callback) => {
             manager.setAddress(address);
         }
 
-        //If file is undefined or not passed as parameter
-        if (typeof file === 'function' || file === undefined) {
-            callback = typeof file === 'function' ? file : callback;
-            UserModel.save(manager.getDatabaseDoc(), callback);
-        } else {
+        //If file exists and it's an image
+        if (file && typeof file !== 'function') {
             delete data.password; //remove password field from metadata
 
             //Save file on gridfs
@@ -60,9 +62,10 @@ module.exports.save = (data, file, callback) => {
                         return callback(err);
                     }
                     manager.setAvatar(savedFile._id);
-                    UserModel.save(manager.getDatabaseDoc(), callback);
                 });
             });
+        } else {
+            UserModel.save(manager.getDatabaseDoc(), callback);
         }
     } catch (err) {
         return callback(err);
@@ -72,7 +75,7 @@ module.exports.save = (data, file, callback) => {
 /**
  * Find an user, given an email address
  *
- * @param query
+ * @param query - Search query
  * @param callback
  */
 module.exports.findOne = (query, callback) =>{
@@ -80,10 +83,10 @@ module.exports.findOne = (query, callback) =>{
 };
 
 /**
- * Updates a manager
+ * Updates a user.manager
  *
- * @param query
- * @param data - user fields to update
+ * @param query - Search query
+ * @param data - HTTP body - User fields to update;
  * @param options
  * @param callback
  */
@@ -92,9 +95,9 @@ module.exports.update = (query, data, options, callback) => {
 };
 
 /**
- * Delete a manager
+ * Delete a user.manager
  *
- * @param query
+ * @param query - Search query
  * @param callback
  */
 module.exports.remove = (query, callback) => {

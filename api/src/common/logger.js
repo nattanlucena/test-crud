@@ -1,4 +1,4 @@
-const bunyan = require('bunyan');
+import bunyan from 'bunyan';
 const name = 'logger';
 
 let logger = bunyan.createLogger({

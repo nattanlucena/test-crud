@@ -7,10 +7,11 @@ class LoginController {
    * @param $auth
    * @param $location
    */
-  constructor($auth, $location) {
+  constructor($auth, $location, AllFunctions) {
     this.name = 'login';
     this.$auth = $auth;
     this.$location = $location;
+    this.AllFunctions = AllFunctions;
   }
 
   /**
@@ -22,27 +23,33 @@ class LoginController {
     this.$auth.login(user)
       .then((res) => {
         this.$auth.setToken(res.data.token)
-        swal({
-          title: 'Welcome!',
+
+        let options = {
+          title: 'Welcome',
           text: 'You will be redirected!',
-          type: 'success',
           timer: 2000,
-          showConfirmButton: false
-        }).catch((reason) => {
-          // doesn't working with $location service
-          // TODO: this.$location.path('/home');
-          window.location.href = '/home';
-        })
-      })
-      .catch((res) => {
-        swal({
-          title: 'Opss...',
-          text: res.data.error,
-          type: 'error',
-          timer: 4000
-        }).catch((reason) => {
-          this.reset();
-        })
+          showButton: false
+        }
+
+        this.AllFunctions.successMessage(options, (err) => {
+          if (!err) {
+            window.location.href = '/home';
+          }
+        });
+      
+      }).catch((res) => {
+          let  options = {
+              title: 'Opss...',
+              text: res.data.error,
+              timer: 2000,
+              showButton: false
+            }
+
+          this.AllFunctions.errorMessage(options, (err) => {
+            if (!err) {
+              this.reset();
+            }
+          });  
       });
   } 
   

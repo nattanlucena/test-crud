@@ -5,6 +5,9 @@
       <li ng-if="$ctrl.isAuthenticated()">
         <a id="nav-link-to-home" ui-sref="home">Home</a>
       </li>
+      <li ng-if="$ctrl.isAuthenticated()">
+        <a id="nav-link-to-post" ui-sref="post">Posts</a>
+      </li>
       <li ng-if="!$ctrl.isAuthenticated()">
         <a id="nav-link-to-signup" ui-sref="signup">Signup</a>
       </li>

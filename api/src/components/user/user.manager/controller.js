@@ -1,4 +1,3 @@
-//https://developer.github.com/v3/
 'use strict';
 
 /*
@@ -20,9 +19,9 @@ import * as gridfs from '../../../common/gridfs-config';
 module.exports.getManagers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
-    let params = { type: userType[1] };
-    let options = {__v: 0, password: 0};
-    model.fetch(params, options, (err, managers) => {
+    //let params = { type: userType[1] };
+    let options = {__v: 0, password: 0, salt: 0};
+    model.fetch(request.params, options, (err, managers) => {
         if (err) {
             return response.status(500).json(utils.handleError(err));
         } else {
@@ -41,7 +40,8 @@ module.exports.getActiveManagers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
     let params = {type: userType[1], is_active: true};
-    model.fetch(params, (err, managers) => {
+    let options = {__v: 0, password: 0, salt: 0};
+    model.fetch(params, options, (err, managers) => {
         if (err) {
             return response.status(500).json(utils.handleError(err));
         } else {

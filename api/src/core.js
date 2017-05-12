@@ -29,7 +29,7 @@ function init() {
     //
     initCrossDomain();
     //
-    initClientRoutes();    
+    initClientRoutes();
     //
     initApiRoutes();
     //
@@ -43,7 +43,7 @@ function init() {
  *
  * @method initMiddleware
  */
-function initMiddleware() {
+let initMiddleware = () => {
     app.set('showStackError', true);
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -51,23 +51,23 @@ function initMiddleware() {
     }));
     app.use(methodOverride());
     app.use(cors());
-}
+};
 
 /**
  * Initialize Database setup config
  *
  * @method initDatabase
  */
-function initDatabase() {
+let initDatabase = () => {
     dbConfig.initDatabase();
-}
+};
 
 /**
  * Configure CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests.
  *
  * @method initCrossDomain
  */
-function initCrossDomain() {
+let initCrossDomain = () => {
     // setup CORS
     app.use(cors());
     app.use((req, res, next) => {
@@ -81,14 +81,14 @@ function initCrossDomain() {
         // Pass to next layer of middleware
         next();
     });
-}
+};
 
 /**
  * Configure client routes
  *
  * @method initClientRoutes
  */
-function initClientRoutes() {
+let initClientRoutes = () => {
     app.get(API_BASE_PATH, (req, res) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
@@ -100,28 +100,28 @@ function initClientRoutes() {
         res.setHeader('Content-Type', 'text/html');
         res.end('<h3>WebApp!</h3>\n');
     });
-}
+};
 
 /**
  * Configure API routes
  *
  * @method initApiRoutes
  */
-function initApiRoutes() {
+let initApiRoutes = () => {
     // Globbing routing files
     const ROUTES_PATH = './components/**/routes.js';
-    
-    pathUtils.getGlobbedPaths(path.join(__dirname, ROUTES_PATH)).forEach((routePath) => {    
+
+    pathUtils.getGlobbedPaths(path.join(__dirname, ROUTES_PATH)).forEach((routePath) => {
         require(path.resolve(routePath))(app);
     });
-}
+};
 
 
 /**
  * Prevent uncaughtException error
  */
-function preventErrors() {
+let preventErrors = () => {
     require('./common/crash-error-handler');
-}
+};
 
 export default init;

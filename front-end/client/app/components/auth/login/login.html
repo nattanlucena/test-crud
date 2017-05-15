@@ -8,20 +8,20 @@
     <div class="row">
       <div class="input-field col s6">
         <i class="material-icons prefix">account_circle</i>
-        <input id="email" type="email" ng-model="$ctrl.user.email" class="validate" required>
+        <input id="email" type="email" ng-model="user.email" class="validate" required>
         <label for="email">E-mail</label>
       </div>
       <div class="input-field col s6">
         <i class="material-icons prefix">lock</i>
-        <input id="password" ng-model="$ctrl.user.password" type="password" class="validate" required>
+        <input id="password" ng-model="user.password" type="password" class="validate" required>
         <label for="password">Password</label>
       </div>
       <div class="input-field col s12">
-        <button type="submit" class="waves-effect waves-light btn right" id="btn-login" ng-click="$ctrl.login($ctrl.user)">Login</button>
+        <button type="submit" class="waves-effect waves-light btn right" id="btn-login" ng-click="login(user)">Login</button>
       </div>
 
       <div class="input-field col s12">
-        <button type="submit" class="waves-effect waves-light btn right" id="btn-reset" ng-click="$ctrl.reset()">Reset</button>
+        <button type="submit" class="waves-effect waves-light btn right" id="btn-reset" ng-click="reset()">Reset</button>
       </div>
 
     </div>

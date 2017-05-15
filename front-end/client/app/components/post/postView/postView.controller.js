@@ -1,7 +1,5 @@
-class PostViewController {
-  constructor() {
-    this.name = 'postView';
-  }
+let PostViewCtrl = ($scope) => {
+  
 }
 
-export default PostViewController;
+export default PostViewCtrl;

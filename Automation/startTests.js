@@ -30,7 +30,7 @@ exports.config = {
     highlightDelay: 2000,
 
     multiCapabilities: [
-        {'browserName': 'chrome'},
+        {'browserName': 'firefox'},
     ],
 
     specs: [

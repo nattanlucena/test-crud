@@ -1,6 +1,8 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import postViewComponent from './postView.component';
+import template from './postView.html';
+import postViewCtrl from './postView.controller';
+import './postView.scss';
 
 let postViewModule = angular.module('postView', [
   uiRouter
@@ -14,12 +16,11 @@ let postViewModule = angular.module('postView', [
   $stateProvider
     .state('postView', {
       url: '/post/:id',
-      component: 'postView',
+      template,
+      controller: ['$scope', postViewCtrl],
       restrict: () => { return true }
     });
 })
-
-.component('postView', postViewComponent)
 
 .name;
 

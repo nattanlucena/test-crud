@@ -15,7 +15,7 @@ let signupModule = angular.module('signup', [
   $stateProvider
     .state('signup', {
       url: '/auth/signup',
-      controller: ['$auth', '$location', SignupCtrl],
+      controller: ['$scope', '$auth', '$location', SignupCtrl],
       template,
       restrict: () => { return false }
     });

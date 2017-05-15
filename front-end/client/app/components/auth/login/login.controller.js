@@ -8,9 +8,9 @@ let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
    * @param {Object} user
    */
   $scope.login = (user) => {
-    $scope.$auth.login(user)
+    $auth.login(user)
       .then((res) => {
-        $scope.$auth.setToken(res.data.token)
+        $auth.setToken(res.data.token)
 
         let options = {
           title: 'Welcome',

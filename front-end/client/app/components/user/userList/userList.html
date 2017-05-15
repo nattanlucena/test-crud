@@ -14,10 +14,10 @@
 
 </div>
 
-<ul class="collection">
+<ul class="collection" ng-init="listAll()">
   <li class="collection-item avatar" dir-paginate="list in userList |  itemsPerPage:3" id="line{{$index}}">
     <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
-    <span class="title"  >{{list.name}}</span>
+    <span class="title">{{list.name}}</span>
     <p>{{list.email}}</p>
     <a ng-click="userRemove(list)" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user" id="btn-close{{$index}}">
       <i class="material-icons"> delete</i>

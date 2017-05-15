@@ -1,10 +1,10 @@
-let UserFormCtrl = ($scope, UserFactory, userListService) => {
+let UserFormCtrl = ($scope, UserFactory, UserListService) => {
 	$scope.user = {};
 
 	$scope.save = () => {
-		$scope.UserFactory.saveUser($scope.user, (err, user) => {
+		UserFactory.saveUser($scope.user, (err, user) => {
 		  //TODO: handle error
-			$scope.lista = $scope.userListService.get();
+			$scope.lista = UserListService.get();
 			$scope.lista.push(user.data);
 		});
 		$scope.reset();

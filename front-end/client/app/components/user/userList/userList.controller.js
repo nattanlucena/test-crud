@@ -8,7 +8,7 @@ const swal = require('sweetalert2');
  * @param userListService
  * @param $auth
  */
-let UserListCtrl = ($scope, UserListFactory, userListService, $auth) => {
+let UserListCtrl = ($scope, UserListFactory, UserListService, $auth) => {
 
   /**
    * Resposable function for not displaying the user logged in user list
@@ -22,14 +22,14 @@ let UserListCtrl = ($scope, UserListFactory, userListService, $auth) => {
   }
 
   $scope.listAll = () => {
-    $scope.UserListFactory.listUsers((err, data) => {
+    UserListFactory.listUsers((err, data) => {
       if (err) {
         const errorMsg = `Unable to list users: ${err}`;
         Materialize.toast(errorMsg, 3500);
       } else {
         let result = $scope.filterEmail(data);
         $scope.userList = result;
-        $scope.userListService.set(result);
+        UserListService.set(result);
         $scope.lengthListUser = result.length;
       }
     });
@@ -50,7 +50,7 @@ let UserListCtrl = ($scope, UserListFactory, userListService, $auth) => {
       buttonsStyling: false
     }).then((confirm) => {
         if (confirm) {
-            $scope.UserListFactory.userRemove(user.email, (err) => {
+            UserListFactory.userRemove(user.email, (err) => {
             if (err) {
               const errorMsg = `Unable to remove user: ${err}`;
               Materialize.toast(errorMsg, 3500);
@@ -81,7 +81,7 @@ let UserListCtrl = ($scope, UserListFactory, userListService, $auth) => {
     if (typeof email === 'undefined' || email === '' || email === $auth.getPayload().email){
       $scope.listAll();
     }else{
-      $scope.UserListFactory.userFilter(email, (err, data) =>{
+      UserListFactory.userFilter(email, (err, data) =>{
         if (err){
           const errorMsg = `Could not fetch user: ${err}`;
           Materialize.toast(errorMsg, 3500);
@@ -92,7 +92,7 @@ let UserListCtrl = ($scope, UserListFactory, userListService, $auth) => {
           }else{
             $scope.userList = data.data;
           }
-          $scope.userListService.set(data);
+          UserListService.set(data);
         }
       });
     }

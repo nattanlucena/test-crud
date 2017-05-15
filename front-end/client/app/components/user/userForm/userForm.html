@@ -3,20 +3,25 @@
   <div class="row">
 
     <div class="input-field col s6">
-      <input id="name" type="text" class="validate" ng-model="user.name">
+      <input id="name" type="text" class="validate" required ng-model="user.name">
       <label for="name">Nome</label>
     </div>
 
     <div class="input-field col s6">
-      <input id="email" type="text" class="validate" ng-model="user.email">
+      <input id="email" type="text" class="validate" required ng-model="user.email">
       <label for="email">E-mail</label>
     </div>
 
     <div class="input-field col s6">
-      <input id="cpf" type="text" class="validate" ng-model="user.cpf" ui-mask="999.999.999-99" placeholder=" "
+      <input id="cpf" type="text" class="validate" required ng-model="user.cpf" ui-mask="999.999.999-99" placeholder=" "
              ui-mask-placeholder-char="_"/>
       <label for="cpf">Cpf</label>
     </div>
+
+    <div class="input-field col s6">
+        <input id="password" type="password" class="validate"  required ng-model="user.password">
+        <label for="password">Password</label>
+      </div>
 
     <div class="input-field file-field col m12 l8">
       <div class="btn btn-sm">

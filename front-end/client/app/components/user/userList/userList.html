@@ -2,12 +2,12 @@
 <div class="row">
   <div class="col s12 m8 12">
     <label>Search for:
-      <input id="search" type="search" ng-model="$ctrl.emailFilter">
+      <input id="search" type="search" ng-model="emailFilter">
     </label>
   </div>
 
   <div class="input-field col m4 l4">
-    <a class="waves-effect waves-light btn" id="btn-search" ng-click="$ctrl.userFilter($ctrl.emailFilter)">
+    <a class="waves-effect waves-light btn" id="btn-search" ng-click="userFilter(emailFilter)">
       <i class="material-icons right" >search</i>
     </a>
   </div>
@@ -15,16 +15,16 @@
 </div>
 
 <ul class="collection">
-  <li class="collection-item avatar" dir-paginate="list in $ctrl.userList |  itemsPerPage:3" id="line{{$index}}">
+  <li class="collection-item avatar" dir-paginate="list in userList |  itemsPerPage:3" id="line{{$index}}">
     <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
     <span class="title"  >{{list.name}}</span>
     <p>{{list.email}}</p>
-    <a ng-click="$ctrl.userRemove(list)" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user" id="btn-close{{$index}}">
+    <a ng-click="userRemove(list)" class="secondary-content tooltipped" data-position="top" data-delay="50" data-tooltip="Delete user" id="btn-close{{$index}}">
       <i class="material-icons"> delete</i>
     </a>
   </li>
 
-  <li class="animate-repeat" ng-if="$ctrl.lengthListUser === 0" id="result-search">
+  <li class="animate-repeat" ng-if="lengthListUser === 0" id="result-search">
         <strong>No results found...</strong>
   </li>
 

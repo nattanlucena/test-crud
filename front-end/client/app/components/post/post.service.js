@@ -1,33 +1,34 @@
-let UserListFactory = function ($http) {
+'use strict';
 
-  const API_BASE_PATH = 'http://localhost:5000/api';
+/**
+ * PostService to performs http requests to api
+ *
+ * @param $http
+ * @constructor
+ */
+let PostService = function ($http) {
+
+  const API_POST_BASE_PATH = 'http://localhost:5000/api/post';
+  const API_POSTS_BASE_PATH = 'http://localhost:5000/api/posts';
 
   return {
 
-    getPosts: (callback) => {
+    savePost: (post, callback) => {
       $http({
-        method: 'GET',
-        url: API_BASE_PATH + '/posts',
-      }).then((data) => {
-        callback(null, data.data.data);
-      }, (err) => {
-        callback(err);
+        method: 'POST',
+        url: API_POST_BASE_PATH,
+        data: post
       })
-    },
-
-    getPostByID: (id, callback) => {
-      $http({
-        method: 'GET',
-        url: API_BASE_PATH + '/post/' + id,
-      }).then(function success(data) {
-        callback(null, data);
-      }, function error(err) {
-        callback(err);
-      })
-    },
-
-  };
-
+        .then(
+          (success) => {
+            callback(null, success.data);
+          },
+          (error) => {
+            callback(error.data)
+          }
+        );
+    }
+  }
 };
 
-export default UserListFactory;
+export default PostService;

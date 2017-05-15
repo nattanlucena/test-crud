@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import signupComponent from './signup.component';
+import SignupCtrl from './signup.controller';
+import template from './signup.html';
 
 let signupModule = angular.module('signup', [
   uiRouter
@@ -14,15 +15,12 @@ let signupModule = angular.module('signup', [
   $stateProvider
     .state('signup', {
       url: '/auth/signup',
-      component: 'signup',
+      controller: ['$auth', '$location', SignupCtrl],
+      template,
       restrict: () => { return false }
     });
 })
 
-.component('signup', signupComponent)
-
 .name;
-
-signupComponent.controller.$inject = ['$auth', '$location'];
 
 export default signupModule;

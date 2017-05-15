@@ -1,28 +1,16 @@
 const swal = require('sweetalert2');
 
-class LoginController {
-  /**
-   * Constructor
-   *
-   * @param $auth
-   * @param $location
-   */
-  constructor($auth, $location, AllFunctions) {
-    this.name = 'login';
-    this.$auth = $auth;
-    this.$location = $location;
-    this.AllFunctions = AllFunctions;
-  }
+let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
+  $scope.AllFunctions = AllFunctions;
 
   /**
-   * Login method
-   *
-   * @param user
+   * login user and set token to request
+   * @param {Object} user
    */
-  login(user) {
-    this.$auth.login(user)
+  $scope.login = (user) => {
+    $scope.$auth.login(user)
       .then((res) => {
-        this.$auth.setToken(res.data.token)
+        $scope.$auth.setToken(res.data.token)
 
         let options = {
           title: 'Welcome',
@@ -31,31 +19,34 @@ class LoginController {
           showButton: false
         }
 
-        this.AllFunctions.successMessage(options, (err) => {
+        $scope.AllFunctions.successMessage(options, (err) => {
           if (!err) {
             window.location.href = '/home';
           }
         });
       
       }).catch((res) => {
-          let  options = {
+          let options = {
               title: 'Opss...',
               text: res.data.error,
               timer: 2000,
               showButton: false
             }
 
-          this.AllFunctions.errorMessage(options, (err) => {
+          $scope.AllFunctions.errorMessage(options, (err) => {
             if (!err) {
-              this.reset();
+              $scope.reset();
             }
           });  
       });
-  } 
-  
-  reset() {      
-   this.user = {email: null, password: null};
+  }
+
+  /**
+   * Reset inputs from login form
+   */
+  $scope.reset = () => {      
+    $scope.user = {email: null, password: null};
   }
 }
 
-export default LoginController;
+export default LoginCtrl;

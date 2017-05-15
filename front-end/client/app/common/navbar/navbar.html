@@ -2,20 +2,20 @@
   <div class="nav-wrapper">
     <a id="logo-link" ui-sref="home" class="brand-logo">Test CRUD</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li ng-if="$ctrl.isAuthenticated()">
+      <li ng-if="isAuthenticated()">
         <a id="nav-link-to-home" ui-sref="home">Home</a>
       </li>
-      <li ng-if="$ctrl.isAuthenticated()">
+      <li ng-if="isAuthenticated()">
         <a id="nav-link-to-post" ui-sref="post">Posts</a>
       </li>
-      <li ng-if="!$ctrl.isAuthenticated()">
+      <li ng-if="!isAuthenticated()">
         <a id="nav-link-to-signup" ui-sref="signup">Signup</a>
       </li>
-      <li ng-if="!$ctrl.isAuthenticated()">
+      <li ng-if="!isAuthenticated()">
         <a id="nav-link-to-login" ui-sref="login">Login</a>
       </li>
-      <li ng-if="$ctrl.isAuthenticated()">
-        <a id="nav-link-to-logout" ui-sref="logout" ng-click="$ctrl.logout($event)">Logout</a>
+      <li ng-if="isAuthenticated()">
+        <a id="nav-link-to-logout" ui-sref="logout" ng-click="logout($event)">Logout</a>
       </li>
     </ul>
   </div>

@@ -1,9 +1,15 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import postComponent from './post.component';
+import template from './post.html';
+import postCtrl from './post.controller';
+import PostService from './post.service';
+import PostForm from './postForm/postForm';
+import PostView from './postView/postView';
 
 let postModule = angular.module('post', [
-  uiRouter
+  uiRouter,
+  PostForm,
+  PostView,
 ])
 
 .config(($stateProvider, $urlRouterProvider) => {
@@ -14,12 +20,13 @@ let postModule = angular.module('post', [
   $stateProvider
     .state('post', {
       url: '/posts',
-      component: 'post',
+      template,
+      controller: [postCtrl],
       restrict: () => { return true }
     });
 })
 
-.component('post', postComponent)
+.factory('PostService', ['$http', PostService])
 
 .name;
 

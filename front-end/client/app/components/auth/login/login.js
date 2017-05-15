@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import loginComponent from './login.component';
+import loginCtrl from './login.controller';
+import template from './login.html';
 import AllFunctions from '../../common/custom-alert-message';
 
 let loginModule = angular.module('login', [
@@ -15,17 +16,14 @@ let loginModule = angular.module('login', [
   $stateProvider
     .state('login', {
       url: '/auth/login',
-      component: 'login',
+      template,
+      controller: ['$scope', '$auth', '$location', 'AllFunctions', loginCtrl],
       restrict: () => { return false }
     });
 })
 
-.component('login', loginComponent)
-
-.factory('AllFunctions', AllFunctions)
+.factory('AllFunctions', [AllFunctions])
 
 .name;
-
-loginComponent.controller.$inject = ['$auth', '$location', 'AllFunctions'];
 
 export default loginModule;

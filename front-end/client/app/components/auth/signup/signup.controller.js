@@ -1,33 +1,17 @@
 const swal = require('sweetalert2');
 
-class SignupController {
+let SignupCtrl = ($scope, $auth, $location) => {
+  $scope.user = {}
 
-  /**
-   * @constructor
-   *
-   * @param $auth
-   * @param $location
-   */
-  constructor($auth, $location) {
-    this.name = 'signup';
-    this.$auth = $auth;
-    this.$location = $location;
-    this.user = {};
-  }
-
-  /**
-   *
-   * @param user
-   */
-  register(user) {
-    this.$auth.signup(user)
+  $scope.register = (user) => {
+    $auth.signup(user)
       .then((success) => {
         let response = success.data;
         const msg = `User ${response.data.name} successfully created!`;
 
-        this.alert('Success', msg, 'success');
-        this.$auth.setToken(response.token);
-        this.$location.path('/home')
+        $scope.alert('Success', msg, 'success');
+        $auth.setToken(response.token);
+        $location.path('/home')
       })
       .catch((err) => {
         if (err.data) {
@@ -39,9 +23,9 @@ class SignupController {
           } else {
             msg = err.data.error;
           }
-          this.alert('Error', msg, 'error');
+          $scope.alert('Error', msg, 'error');
         } else {
-          this.alert('Error', err, 'error');
+          $scope.alert('Error', err, 'error');
         }
       });
   }
@@ -53,7 +37,7 @@ class SignupController {
    * @param type
    * @returns {*}
    */
-  alert(title, text, type) {
+  $scope.alert = (title, text, type) => {
     let timer = 'succes' ? 3500 : 2000;
     return swal({
       title: title,
@@ -64,10 +48,10 @@ class SignupController {
     }).catch(swal.noop);
   }
 
-  reset(){
-    this.user = {};
+  $scope.reset = () => {
+    $scope.user = {};
   }
 
 }
 
-export default SignupController;
+export default SignupCtrl;

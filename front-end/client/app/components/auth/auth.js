@@ -1,8 +1,8 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import authComponent from './auth.component';
 import login from './login/login';
 import signup from './signup/signup';
+import AuthService from './auth.service';
 
 let authModule = angular.module('auth', [
   uiRouter,
@@ -10,7 +10,7 @@ let authModule = angular.module('auth', [
   signup
 ])
 
-.component('auth', authComponent)
+.factory('AuthService', [AuthService])
 
 .name;
 

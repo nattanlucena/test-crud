@@ -7,29 +7,29 @@
     </div>
     <div class="row">
       <div class="input-field col s6">
-        <input id="name" type="text" class="validate" ng-model="$ctrl.user.name">
+        <input id="name" type="text" class="validate" ng-model="user.name">
         <label for="name">Nome</label>
       </div>
 
       <div class="input-field col s6">
-        <input id="email" type="email" class="validate" ng-model="$ctrl.user.email">
+        <input id="email" type="email" class="validate" ng-model="user.email">
         <label for="email">E-mail</label>
       </div>
 
       <div class="input-field col s6">
-        <input id="cpf" type="text" class="validate" ng-model="$ctrl.user.cpf" ui-mask="999.999.999-99" placeholder=" "  ui-mask-placeholder-char="_">
+        <input id="cpf" type="text" class="validate" ng-model="user.cpf" ui-mask="999.999.999-99" placeholder=" "  ui-mask-placeholder-char="_">
         <label for="cpf">CPF</label>
       </div>
 
       <div class="input-field col s6">
-        <input id="password" type="password" class="validate" ng-model="$ctrl.user.password">
+        <input id="password" type="password" class="validate" ng-model="user.password">
         <label for="password">Password</label>
       </div>
 
       <div class="input-field file-field col m12 l8">
         <div class="btn btn-sm">
           <span><i class="material-icons">file_upload</i>Photo</span>
-          <input type="file" ng-model="$ctrl.user.photo">
+          <input type="file" ng-model="user.photo">
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
@@ -37,11 +37,11 @@
       </div>
 
       <div class="input-field col m12 l4">
-        <button type="submit" class="waves-effect waves-light btn right" ng-click="$ctrl.register($ctrl.user)" id="btn-save">save</button>
+        <button type="submit" class="waves-effect waves-light btn right" ng-click="register(user)" id="btn-save">save</button>
       </div>
 
       <div class="input-field col m12 l4">
-        <button type="submit" ng-click="$ctrl.reset()" class="waves-effect waves-light btn right" id="btn-reset">reset</button>
+        <button type="submit" ng-click="reset()" class="waves-effect waves-light btn right" id="btn-reset">reset</button>
       </div>
     </div>
   </form>

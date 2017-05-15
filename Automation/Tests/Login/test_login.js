@@ -63,7 +63,6 @@ describe('Test-Crud: Teste Login ', function(){
         var email = utils.getUserApplication();
         page_home.waitScreen();
         page_home.clickDeleteUser(email);
-        page_home.listEmailScreen(email);
         page_home.logout();
     });
    it('DUPLICATE EMAIL SIGNUP', function(){
@@ -72,7 +71,7 @@ describe('Test-Crud: Teste Login ', function(){
        page_home.logout();
        utils.getDuplicateUserApplication(email);
    });
-   it('DUPLICATE EMAIL SIGNUP ON HOME SCREEN', function(){
+  it('DUPLICATE EMAIL SIGNUP ON HOME SCREEN', function(){
        console.log('DUPLICATE EMAIL SIGNUP ON HOME SCREEN');
        var email = utils.getUserApplication();
        page_home.waitScreen();

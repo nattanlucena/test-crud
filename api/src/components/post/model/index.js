@@ -1,1 +1,1 @@
-module.exports = require('./post.js');
+module.exports = require('./repository.js');

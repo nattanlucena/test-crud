@@ -1,8 +1,8 @@
-import * as config from '../../../config/config';
-import * as controller from './controller';
+import * as config      from '../../../config/config';
+import * as controller  from './controller';
 
-const API_BASE_PATH = config.API_BASE_PATH;
-const AUTH_BASE_PATH = API_BASE_PATH + '/auth/';
+const API_BASE_PATH     = config.API_BASE_PATH;
+const AUTH_BASE_PATH    = API_BASE_PATH + '/auth/';
 
 /**
  * Set auth module routes

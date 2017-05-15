@@ -2,6 +2,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import loginCtrl from './login.controller';
 import template from './login.html';
+import AllFunctions from '../../common/custom-alert-message';
 
 let loginModule = angular.module('login', [
   uiRouter
@@ -16,10 +17,12 @@ let loginModule = angular.module('login', [
     .state('login', {
       url: '/auth/login',
       template,
-      controller: ['$scope', '$auth', '$location', loginCtrl],
+      controller: ['$scope', '$auth', '$location', 'AllFunctions', loginCtrl],
       restrict: () => { return false }
     });
 })
+
+.factory('AllFunctions', [AllFunctions])
 
 .name;
 

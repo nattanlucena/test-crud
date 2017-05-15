@@ -1,45 +1,52 @@
 const swal = require('sweetalert2');
 
-let LoginCtrl = ($scope, $auth, $location) => {
-		
-		/**
-		 * login user and set token to request
-		 * @param {Object} user
-		 */
-		$scope.login = (user) => {
-			$auth.login(user)
-				.then((res) => {
-					$auth.setToken(res.data.token)
-					swal({
-						title: 'Welcome!',
-						text: 'You will be redirected!',
-						type: 'success',
-						timer: 2000,
-						showConfirmButton: false
-					}).catch((reason) => {
-						// doesn't working with $location service
-						// TODO: this.$location.path('/home');
-						window.location.href = '/home';
-					})
-				})
-				.catch((res) => {
-					swal({
-						title: 'Opss...',
-						text: res.data.error,
-						type: 'error',
-						timer: 4000
-					}).catch((reason) => {
-						$scope.reset();
-					})
-				});
-		} 
-  
-		/**
-		 * Reset inputs from login form
-		 */
-		$scope.reset = () => {      
-			$scope.user = {email: null, password: null};
-		}
-	}
+let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
+  $scope.AllFunctions = AllFunctions;
 
-	export default LoginCtrl;
+  /**
+   * login user and set token to request
+   * @param {Object} user
+   */
+  $scope.login = (user) => {
+    $scope.$auth.login(user)
+      .then((res) => {
+        $scope.$auth.setToken(res.data.token)
+
+        let options = {
+          title: 'Welcome',
+          text: 'You will be redirected!',
+          timer: 2000,
+          showButton: false
+        }
+
+        $scope.AllFunctions.successMessage(options, (err) => {
+          if (!err) {
+            window.location.href = '/home';
+          }
+        });
+      
+      }).catch((res) => {
+          let options = {
+              title: 'Opss...',
+              text: res.data.error,
+              timer: 2000,
+              showButton: false
+            }
+
+          $scope.AllFunctions.errorMessage(options, (err) => {
+            if (!err) {
+              $scope.reset();
+            }
+          });  
+      });
+  }
+
+  /**
+   * Reset inputs from login form
+   */
+  $scope.reset = () => {      
+    $scope.user = {email: null, password: null};
+  }
+}
+
+export default LoginCtrl;

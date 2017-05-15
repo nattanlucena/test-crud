@@ -14,6 +14,8 @@ function setAuthRoutes(app) {
 
     //App user signup
     app.post(AUTH_BASE_PATH + 'manager/signup', controller.signUp);
+
+    //app.get(AUTH_BASE_PATH + 'logout', controller.logout);
 }
 
 module.exports = setAuthRoutes;

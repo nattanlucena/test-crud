@@ -1,8 +1,9 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import userComponent from './user.component';
+import template from './user.html';
 import UserForm from './userForm/userForm';
 import userList from './userList/userList';
+import './user.scss';
 
 let userModule = angular.module('user', [
   uiRouter,
@@ -10,21 +11,12 @@ let userModule = angular.module('user', [
   userList
 ])
 
-.config(($stateProvider, $urlRouterProvider) => {
-  'ngInject';
-
-  $urlRouterProvider.otherwise('/');
-
-  $stateProvider
-    .state('user', {
-      url: '/user',
-      component: 'user',
-      restrict: () => { return true }
-    });
-})
-
-
-.component('user', userComponent)
+.directive('user', [() => {
+  return {
+    restrict: 'E',
+    template,
+  };
+}])
 
 .name;
 

@@ -7,9 +7,11 @@ import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cors from 'cors';
 import path from 'path';
+import passport from 'passport';
 import * as pathUtils from './common/path-utils';
 import * as config from '../config/config';
 import * as dbConfig from '../config/db-config';
+import { strategy } from './components/auth/token/strategy';
 
 const API_BASE_PATH = config.API_BASE_PATH;
 
@@ -22,6 +24,7 @@ let app = express();
  * @returns {Object} express user.app object
  */
 function init() {
+
     //
     initMiddleware();
     //
@@ -30,6 +33,10 @@ function init() {
     initCrossDomain();
     //
     initClientRoutes();
+    //
+    initPassport();
+    //
+    initPassportStrategy();
     //
     initApiRoutes();
     //
@@ -112,10 +119,24 @@ let initApiRoutes = () => {
     const ROUTES_PATH = './components/**/routes.js';
 
     pathUtils.getGlobbedPaths(path.join(__dirname, ROUTES_PATH)).forEach((routePath) => {
-        require(path.resolve(routePath))(app);
+        require(path.resolve(routePath))(app, passport);
     });
 };
 
+/**
+ * Initialize passport strategy to avoid non-authenticated users to call private functions
+ */
+let initPassport = () => {
+    app.use(passport.initialize());
+};
+
+
+/**
+ * Initialize jwt passport strategy
+ */
+let initPassportStrategy = () => {
+    strategy(passport);
+};
 
 /**
  * Prevent uncaughtException error

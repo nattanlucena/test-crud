@@ -1,8 +1,5 @@
 let PostFormCtrl = ($scope) => {
   
-  /**
-   * Init jQuery Plugins
-   */
   (($) => {
     $('select').material_select();
     $('.chips-placeholder').material_chip({

@@ -3,10 +3,6 @@ const swal = require('sweetalert2');
 let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
   $scope.AllFunctions = AllFunctions;
 
-  /**
-   * login user and set token to request
-   * @param {Object} user
-   */
   $scope.login = (user) => {
     $auth.login(user)
       .then((res) => {
@@ -41,9 +37,6 @@ let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
       });
   }
 
-  /**
-   * Reset inputs from login form
-   */
   $scope.reset = () => {      
     $scope.user = {email: null, password: null};
   }

@@ -5,6 +5,7 @@ import userFormCtrl from './userForm.controller';
 import UserFormFactory from './userForm.factory';
 import UserListService from '../userList/userList.service';
 import fileread from './userForm.directive';
+import './userForm.scss';
 
 let userFormModule = angular.module('userForm', [
   uiRouter,

@@ -1,4 +1,3 @@
-// global imports
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import Common from './common/common';
@@ -8,7 +7,6 @@ import uiMask from 'angular-ui-mask';
 import paginator from 'angular-utils-pagination';
 import 'normalize.css';
 
-// module imports
 import template from './app.html';
 import './app.scss';
 

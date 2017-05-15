@@ -5,12 +5,15 @@ import postCtrl from './post.controller';
 import PostService from './post.service';
 import PostForm from './postForm/postForm';
 import PostView from './postView/postView';
+import './post.scss';
 
 let postModule = angular.module('post', [
   uiRouter,
   PostForm,
   PostView,
 ])
+
+.factory('PostService', ['$http', PostService])
 
 .config(($stateProvider, $urlRouterProvider) => {
   'ngInject';
@@ -25,8 +28,6 @@ let postModule = angular.module('post', [
       restrict: () => { return true }
     });
 })
-
-.factory('PostService', ['$http', PostService])
 
 .name;
 

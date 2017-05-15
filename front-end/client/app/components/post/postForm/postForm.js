@@ -2,6 +2,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import template from './postForm.html';
 import postFormCtrl from './postForm.controller';
+import './postForm.scss';
 
 let postFormModule = angular.module('postForm', [
   uiRouter

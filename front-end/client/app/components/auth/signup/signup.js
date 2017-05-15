@@ -2,6 +2,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import SignupCtrl from './signup.controller';
 import template from './signup.html';
+import './signup.scss';
 
 let signupModule = angular.module('signup', [
   uiRouter

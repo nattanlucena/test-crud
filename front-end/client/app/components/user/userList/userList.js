@@ -4,6 +4,7 @@ import template from './userList.html';
 import userListCtrl from './userList.controller';
 import UserListFactory from './userList.factory';
 import UserListService from './userList.service';
+import './userList.scss';
 
 let userListModule = angular.module('userList', [
   uiRouter

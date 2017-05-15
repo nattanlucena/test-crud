@@ -1,11 +1,3 @@
-'use strict';
-
-/**
- * PostService to performs http requests to api
- *
- * @param $http
- * @constructor
- */
 let PostService = function ($http) {
 
   const API_POST_BASE_PATH = 'http://localhost:5000/api/post';

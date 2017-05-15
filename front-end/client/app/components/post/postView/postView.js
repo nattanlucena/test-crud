@@ -2,6 +2,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import template from './postView.html';
 import postViewCtrl from './postView.controller';
+import './postView.scss';
 
 let postViewModule = angular.module('postView', [
   uiRouter

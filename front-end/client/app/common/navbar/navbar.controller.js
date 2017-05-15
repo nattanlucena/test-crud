@@ -4,10 +4,6 @@ let navbarController = ($scope, $auth, $location) => {
     return $auth.isAuthenticated();
   }
 
-  /**
-   * Logout user
-   * @param {Event} e
-   */
   $scope.logout = (e) => {
     e.preventDefault();
     $location.path('/auth/login');

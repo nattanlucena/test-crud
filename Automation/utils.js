@@ -70,8 +70,6 @@ module.exports = {
 
         console.log('Iniciando cadastro na tela de Signup');
 
-        browser.sleep(1000);
-
         page_home.enterPageSignUp();
         page_signup.waitScreen();
         page_signup.clickButtonReset();
@@ -81,8 +79,7 @@ module.exports = {
         page_signup.inputTextPassword(password);
         page_signup.clickButtonSave();
         page_signup.validMenssageSucess('Success');
-
-        browser.sleep(1000);
+        page_signup.waitMenssageIsNotDisplayed();
 
         expect(browser.getCurrentUrl()).toBe(this.path() + ':3000/');
 
@@ -105,8 +102,6 @@ module.exports = {
 
         console.log('Iniciando cadastro com email duplicado na tela de Signup');
 
-        browser.sleep(1000);
-
         page_home.enterPageSignUp();
         page_signup.waitScreen();
         page_signup.clickButtonReset();
@@ -116,8 +111,7 @@ module.exports = {
         page_signup.inputTextPassword(password);
         page_signup.clickButtonSave();
         page_signup.validMenssageErro('Error');
-
-        browser.sleep(1000);
+        page_signup.waitMenssageIsNotDisplayed();
 
         console.log('Usuário com e-mail duplicado.');
 

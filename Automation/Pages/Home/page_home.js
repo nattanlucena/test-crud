@@ -7,7 +7,7 @@ let page_home = function(){
         element(by.id('btReset')).click();
     };
     this.enterPageLogin = function(){
-        let linkPageLogin = element(by.buttonText('Login'));
+        let linkPageLogin = element(by.id('nav-link-to-login'));
         linkPageLogin.click();
     };
     this.enterPageHome = function(){
@@ -66,7 +66,9 @@ let page_home = function(){
         expect(menssageOk).toBe(ok);
         element(by.buttonText('OK')).click();
     };
-
-
+    this.waitMenssageIsNotDisplayed = function(){
+        let EC = protractor.ExpectedConditions;
+        browser.wait(EC.invisibilityOf(element(by.id('swal2-title'))),3000);
+    };
 };
 module.exports = new page_home();

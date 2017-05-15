@@ -34,7 +34,6 @@ module.exports.save = (data, file, callback) => {
     }
 
     try {
-
         let manager = new Manager(data.name, data.email, data.password, data.cpf);
 
         if (data.address) {
@@ -46,24 +45,25 @@ module.exports.save = (data, file, callback) => {
             };
             manager.setAddress(address);
         }
-
         //If file exists and it's an image
         if (file && typeof file !== 'function') {
             delete data.password; //remove password field from metadata
 
             //Save file on gridfs
-            let writeStream = gridfs.writeStream(file, data);
-            gridfs.readStream(file, writeStream);
-
-            writeStream.on('close', (savedFile) => {
-                //Remove file from temp directory
-                gridfs.unlink(file, (err) => {
-                    if (err) {
-                        return callback(err);
-                    }
-                    manager.setAvatar(savedFile._id);
+            gridfs.writeStream(file, data).then((ws) => {
+                gridfs.readStream(file, ws);
+                ws.on('close', (savedFile) => {
+                    //Remove file from temp directory
+                    gridfs.unlink(file, (err) => {
+                        if (err) {
+                            return callback(err);
+                        }
+                        manager.setAvatar(savedFile._id);
+                        UserModel.save(manager.getDatabaseDoc(), callback);
+                    });
                 });
             });
+
         } else {
             UserModel.save(manager.getDatabaseDoc(), callback);
         }

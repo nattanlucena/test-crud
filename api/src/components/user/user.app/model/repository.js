@@ -17,7 +17,7 @@ module.exports.fetch = (callback) => {
 };
 
 /**
- * Save a user.manager in database
+ * Save a manager in database
  *
  * @param data - Data from user to be saved
  * @param callback - First param: err, in case of error; Second param: the saved record
@@ -43,7 +43,7 @@ module.exports.findOne = (query, callback) =>{
 };
 
 /**
- * Updates a user.manager
+ * Updates a manager
  *
  * @param query
  * @param data - user fields to update
@@ -54,7 +54,7 @@ module.exports.update = (query, data, callback) => {
 };
 
 /**
- * Delete a user.manager
+ * Delete an user.manager
  *
  * @param query
  * @param callback

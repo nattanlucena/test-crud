@@ -26,6 +26,7 @@ for (let key in envConfig) {
  *
  */
 const config = {
+
     API_BASE_PATH: '/api',
     APP_BASE_PATH: '/api/app',
     MANAGER_BASE_PATH: '/api/manager',
@@ -36,6 +37,10 @@ const config = {
 
     DB_NAME: process.env.DB_NAME || 'default',
     DB_HOST: process.env.DB_HOST || 'mongodb://127.0.0.1/',
+
+    secret: {
+        KEY: process.env.SECRET_KEY || '**@&#((#**'
+    },
 
     logger: {
         level: logger.level,

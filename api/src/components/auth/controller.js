@@ -90,6 +90,17 @@ module.exports.signUp = (request, response) => {
     });
 };
 
+
+/**
+ * Verify if user's token is valid
+ *
+ * @param passport
+ */
+module.exports.isAuthenticated = (passport) => {
+    return tokenController.authenticateToken(passport);
+};
+
+
 /**
  * Validate an user to login
  *

@@ -4,6 +4,7 @@
 import * as config from '../../../config/config';
 import * as appUserController from './user.app/controller';
 import * as managerController from './user.manager/controller';
+import { isAuthenticated } from '../auth/controller';
 
 const APP_USER_BASE_PATH = config.APP_BASE_PATH + '/users/';
 const MANAGER_USER_BASE_PATH = config.MANAGER_BASE_PATH + '/users/';
@@ -14,12 +15,14 @@ const MANAGER_USER_BASE_PATH = config.MANAGER_BASE_PATH + '/users/';
  * Set user Module routes
  *
  * @param app
+ * @param passport
  */
-function setUserRoutes(app) {
+function setUserRoutes(app, passport) {
+
     ////////////////////////////////
     //user.app routes
     ////////////////////////////////
-    app.get(APP_USER_BASE_PATH, appUserController.getUsers);
+    app.get(APP_USER_BASE_PATH, isAuthenticated(passport), appUserController.getUsers);
 
     app.get(APP_USER_BASE_PATH + 'id/:id', appUserController.findById);
 
@@ -35,7 +38,7 @@ function setUserRoutes(app) {
     ////////////////////////////////
     //user.manager routes
     ////////////////////////////////
-    app.get(MANAGER_USER_BASE_PATH, managerController.getManagers);
+    app.get(MANAGER_USER_BASE_PATH, isAuthenticated(passport), managerController.getManagers);
 
     app.get(MANAGER_USER_BASE_PATH + 'id/:id', managerController.findById);
 

@@ -1,6 +1,6 @@
 const swal = require('sweetalert2');
 
-let loginCtrl = ($scope, $auth, $location) => {
+let LoginCtrl = ($scope, $auth, $location) => {
 		
 		/**
 		 * login user and set token to request
@@ -42,4 +42,4 @@ let loginCtrl = ($scope, $auth, $location) => {
 		}
 	}
 
-	export default loginCtrl;
+	export default LoginCtrl;

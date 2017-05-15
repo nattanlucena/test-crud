@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import homeComponent from './home.component';
+import template from './home.html';
+import homeCtrl from './home.controller';
 
 let homeModule = angular.module('home', [
   uiRouter
@@ -14,12 +15,11 @@ let homeModule = angular.module('home', [
   $stateProvider
     .state('home', {
       url: '/',
-      component: 'home',
+      template,
+      controller: [homeCtrl],
       restrict: () => { return true }
     });
 })
-
-.component('home', homeComponent)
 
 .name;
 

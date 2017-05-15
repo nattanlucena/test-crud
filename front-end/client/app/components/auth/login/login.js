@@ -7,8 +7,6 @@ let loginModule = angular.module('login', [
   uiRouter
 ])
 
-// .factory() and .directive()
-
 .config(($stateProvider, $urlRouterProvider) => {
   'ngInject';
 
@@ -21,6 +19,8 @@ let loginModule = angular.module('login', [
       controller: ['$scope', '$auth', '$location', loginCtrl],
       restrict: () => { return false }
     });
-}).name;
+})
+
+.name;
 
 export default loginModule;

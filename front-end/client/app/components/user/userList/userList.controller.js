@@ -1,46 +1,41 @@
 const swal = require('sweetalert2');
 
-class UserListController {
+/**
+ * @constructor
+ *
+ * @param $scope
+ * @param UserListFactory
+ * @param userListService
+ * @param $auth
+ */
+let UserListCtrl = ($scope, UserListFactory, userListService, $auth) => {
 
   /**
-   * @constructor
-   *
-   * @param UserListFactory
-   * @param userListService
+   * Resposable function for not displaying the user logged in user list
+   * 
+   * @param {Object} list
    */
-  constructor(UserListFactory, userListService, $auth) {
-    this.name = 'userList';
-    this.UserListFactory = UserListFactory;
-    this.userListService = userListService;
-    this.$auth = $auth;
-    this.listAll();
-  }
-  /**
-   Resposable function for not displaying the user logged in user list
-   */
-  filterEmail(list) {
+  $scope.filterEmail = (list) => {
     return list.filter((obj) => {
-      return obj.email !== this.$auth.getPayload().email;
+      return obj.email !== $auth.getPayload().email;
     }); 
   }
 
-  listAll() {
-
-    this.UserListFactory.listUsers((err, data) => {
+  $scope.listAll = () => {
+    $scope.UserListFactory.listUsers((err, data) => {
       if (err) {
         const errorMsg = `Unable to list users: ${err}`;
         Materialize.toast(errorMsg, 3500);
       } else {
-        let result = this.filterEmail(data);
-        this.userList = result;
-        this.userListService.set(result);
-        this.lengthListUser = result.length;
+        let result = $scope.filterEmail(data);
+        $scope.userList = result;
+        $scope.userListService.set(result);
+        $scope.lengthListUser = result.length;
       }
     });
   }
 
-  userRemove(user) {
-    let self = this;
+  $scope.userRemove = (user) => {
     swal({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -53,9 +48,9 @@ class UserListController {
       confirmButtonClass: 'btn btn-success',
       cancelButtonClass: 'btn btn-danger',
       buttonsStyling: false
-    }).then(function (confirm) {
+    }).then((confirm) => {
         if (confirm) {
-            self.UserListFactory.userRemove(user.email, (err) => {
+            $scope.UserListFactory.userRemove(user.email, (err) => {
             if (err) {
               const errorMsg = `Unable to remove user: ${err}`;
               Materialize.toast(errorMsg, 3500);
@@ -65,7 +60,7 @@ class UserListController {
                 'Your file has been deleted.',
                 'success'
               )
-              self.listAll();
+              $scope.listAll();
             }
            });
         }
@@ -82,26 +77,26 @@ class UserListController {
     });
   }
 
-  userFilter(email) {
-    if (typeof email === 'undefined' || email === '' || email === this.$auth.getPayload().email){
-      this.listAll();
+  $scope.userFilter = (email) => {
+    if (typeof email === 'undefined' || email === '' || email === $auth.getPayload().email){
+      $scope.listAll();
     }else{
-      this.UserListFactory.userFilter(email, (err, data) =>{
+      $scope.UserListFactory.userFilter(email, (err, data) =>{
         if (err){
           const errorMsg = `Could not fetch user: ${err}`;
           Materialize.toast(errorMsg, 3500);
         } else {
           if (data.data.data === null){
-            this.userList = {};
-            this.lengthListUser = 0;
+            $scope.userList = {};
+            $scope.lengthListUser = 0;
           }else{
-            this.userList = data.data;
+            $scope.userList = data.data;
           }
-          this.userListService.set(data);
+          $scope.userListService.set(data);
         }
       });
     }
   }
 }
 
-export default UserListController;
+export default UserListCtrl;

@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import userFormComponent from './userForm.component';
+import template from './userForm.html';
+import userFormCtrl from './userForm.controller';
 import userFormFactory from './userForm.factory';
 import userListService from '../userList/userListService';
 import fileread from './userForm.directive';
@@ -9,16 +10,18 @@ let userFormModule = angular.module('userForm', [
   uiRouter,
 ])
 
-.component('userForm', userFormComponent)
+.directive('fileread', [fileread])
+.directive('userForm', [() => {
+  return {
+    restrict: 'E',
+    template,
+    controller: ['userFormFactory', 'userListService', userFormCtrl],
+  }
+}])
 
-.factory('userFormFactory', userFormFactory)
-
-.directive('fileread', fileread)
+.factory('userFormFactory', ['$http', userFormFactory])
 
 .name;
-
-userFormComponent.controller.$inject = ['userFormFactory', 'userListService']; 
-userFormFactory.$inject = ['$http'];
 
 export default userFormModule;    
 

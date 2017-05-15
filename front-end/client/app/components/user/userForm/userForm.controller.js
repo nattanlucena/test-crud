@@ -1,33 +1,29 @@
-class UserFormController {
+let UserFormCtrl = ($scope, UserFactory, userListService) => {
+	$scope.user = {};
 
-	constructor(UserFactory, userListService) {
-	this.UserFactory = UserFactory;
-	this.userListService = userListService;
-	};
-
-	save() {
-		this.UserFactory.saveUser(this.user, (err, user) => {
-		  //TODO: tratar erro
-			this.lista = this.userListService.get();
-			this.lista.push(user.data);
+	$scope.save = () => {
+		$scope.UserFactory.saveUser($scope.user, (err, user) => {
+		  //TODO: handle error
+			$scope.lista = $scope.userListService.get();
+			$scope.lista.push(user.data);
 		});
-		this.reset();
+		$scope.reset();
 	}
 
-	reset(){
-		this.user = {};
-		this.photoName = '';
+	$scope.reset = () => {
+		$scope.user = {};
+		$scope.photoName = '';
 	}
 
-	validaPhoto(){
+	$scope.validaPhoto = () => {
 		let array = ['jpeg', 'png', 'jpg'];
 		let extension = this.user.photo.name.split(".");
 
 		if (array.indexOf(extension[extension.length -1]) == -1){
 			Materialize.toast('Invalid file extension!', 3500);
-			this.photoName = '';
+			$scope.photoName = '';
 		}
 	}
 
 }
-export default UserFormController;
+export default UserFormCtrl;

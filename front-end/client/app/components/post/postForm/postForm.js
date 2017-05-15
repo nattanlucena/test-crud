@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import postFormComponent from './postForm.component';
+import template from './postForm.html';
+import postFormCtrl from './postForm.controller';
 
 let postFormModule = angular.module('postForm', [
   uiRouter
@@ -14,12 +15,11 @@ let postFormModule = angular.module('postForm', [
   $stateProvider
     .state('postForm', {
       url: '/post',
-      component: 'postForm',
+      template,
+      controller: ['$scope', postFormCtrl],
       restrict: () => { return true }
     });
 })
-
-.component('postForm', postFormComponent)
 
 .name;
 

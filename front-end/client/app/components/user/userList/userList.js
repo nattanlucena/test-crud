@@ -1,20 +1,24 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import userListComponent from './userList.component';
+import userListCtrl from './userList.controller';
 import UserListFactory from './userList.factory';
-import userListService from './userListService';
-
+import UserListService from './userListService';
 
 let userListModule = angular.module('userList', [
   uiRouter
 ])
 
-.component('userList', userListComponent)
-.factory('userListFactory', UserListFactory)
-.factory('userListService', userListService)
-.name;
+.directive('userList', [() => {
+  return {
+    restrict: 'E',
+    template,
+    controller: ['$scope', 'UserListFactory', 'userListService', '$auth', userListCtrl]
+  }
+}])
 
-userListComponent.controller.$inject = ['userListFactory', 'userListService', '$auth'];
-UserListFactory.$inject = ['$http'];
+.factory('userListFactory', ['$http', UserListFactory])
+.factory('UserListService', [UserListService]) // TODO: Rename this service.
+
+.name;
 
 export default userListModule;

@@ -17,8 +17,8 @@ let clearDB = mochaMongoose(TEST_DB_PATH, {noClear: true});
 /**
  * Runs all unit tests for user module
  */
-describe('USER Module', function () {
-    
+describe('USER::APP Module', function () {
+
     /*
      * Runs before all tests
      */
@@ -147,5 +147,5 @@ describe('USER Module', function () {
 
             });
     });
-    
+
 });

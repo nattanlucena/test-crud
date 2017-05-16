@@ -27,8 +27,9 @@ describe('Test-Crud: Teste Login ', function(){
 
         console.log('Mensagem de erro: '+ 'Opss...');
 
-        page_login.validMenssageErro('Opss...');
-        page_login.confirmOk();
+        page_login.validMenssageErro('Invalid email or password');
+        page_login.waitMenssageIsNotDisplayed();
+
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });
@@ -44,8 +45,9 @@ describe('Test-Crud: Teste Login ', function(){
 
         console.log('Mensagem de erro: '+ 'Opss...');
 
-        page_login.validMenssageErro('Opss...');
-        page_login.confirmOk();
+        page_login.validMenssageErro('Invalid email or password');
+        page_login.waitMenssageIsNotDisplayed();
+
         expect(browser.getCurrentUrl()).toBe(utils.path() + ':3000/auth/login');
 
     });
@@ -56,6 +58,8 @@ describe('Test-Crud: Teste Login ', function(){
         page_home.waitScreen();
         page_home.listEmailScreen(email);
         page_home.logout();
+        page_home.waitMenssageIsNotDisplayed();
+
     });
    it('LOGIN IN TO APPLICATION WITH DELETE USER', function(){
 
@@ -63,16 +67,17 @@ describe('Test-Crud: Teste Login ', function(){
         var email = utils.getUserApplication();
         page_home.waitScreen();
         page_home.clickDeleteUser(email);
-        page_home.listEmailScreen(email);
         page_home.logout();
+        page_home.waitMenssageIsNotDisplayed();
     });
    it('DUPLICATE EMAIL SIGNUP', function(){
        console.log('DUPLICATE EMAIL SIGNUP');
        var email = utils.getUserApplication();
+       page_login.waitMenssageIsNotDisplayed();
        page_home.logout();
        utils.getDuplicateUserApplication(email);
    });
-   it('DUPLICATE EMAIL SIGNUP ON HOME SCREEN', function(){
+  it('DUPLICATE EMAIL SIGNUP ON HOME SCREEN', function(){
        console.log('DUPLICATE EMAIL SIGNUP ON HOME SCREEN');
        var email = utils.getUserApplication();
        page_home.waitScreen();
@@ -82,5 +87,4 @@ describe('Test-Crud: Teste Login ', function(){
        page_home.inputTextCpf(utils.getRandomCpf());
        page_home.clickButtonSave();
    });
-
 });

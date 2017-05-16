@@ -7,7 +7,7 @@ import glob from 'glob';
 /**
  * Get files by glob patterns
  */
-function getGlobbedPaths(globPatterns, excludes) {
+let getGlobbedPaths = (globPatterns, excludes) => {
     // URL paths regex
     let urlRegex = new RegExp('^(?:[a-z]+:)?\/\/', 'i');
 
@@ -43,6 +43,6 @@ function getGlobbedPaths(globPatterns, excludes) {
     }
 
     return output;
-}
+};
 
-exports.getGlobbedPaths = getGlobbedPaths;
+module.exports.getGlobbedPaths = getGlobbedPaths;

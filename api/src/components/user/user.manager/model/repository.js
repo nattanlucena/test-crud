@@ -8,17 +8,15 @@ import * as gridfs from '../../../../common/gridfs-config';
 import * as utils from '../../../../common/utils';
 
 
-
 /**
  *  Get all users from database
  *  Returns a callback with two params: err and users
  *
- * @param params - HTTP param
+ * @param query - Search query
  * @param options
  * @param callback - First param: err, in case of error; Second param: records from DB
  */
-module.exports.fetch = (params, options, callback) => {
-    let query = utils.queryFilter(params);
+module.exports.fetch = (query, options, callback) => {
     UserModel.fetch(query, options, callback);
 };
 
@@ -36,7 +34,6 @@ module.exports.save = (data, file, callback) => {
     }
 
     try {
-
         let manager = new Manager(data.name, data.email, data.password, data.cpf);
 
         if (data.address) {
@@ -48,24 +45,25 @@ module.exports.save = (data, file, callback) => {
             };
             manager.setAddress(address);
         }
-
         //If file exists and it's an image
         if (file && typeof file !== 'function') {
             delete data.password; //remove password field from metadata
 
             //Save file on gridfs
-            let writeStream = gridfs.writeStream(file, data);
-            gridfs.readStream(file, writeStream);
-
-            writeStream.on('close', (savedFile) => {
-                //Remove file from temp directory
-                gridfs.unlink(file, (err) => {
-                    if (err) {
-                        return callback(err);
-                    }
-                    manager.setAvatar(savedFile._id);
+            gridfs.writeStream(file, data).then((ws) => {
+                gridfs.readStream(file, ws);
+                ws.on('close', (savedFile) => {
+                    //Remove file from temp directory
+                    gridfs.unlink(file, (err) => {
+                        if (err) {
+                            return callback(err);
+                        }
+                        manager.setAvatar(savedFile._id);
+                        UserModel.save(manager.getDatabaseDoc(), callback);
+                    });
                 });
             });
+
         } else {
             UserModel.save(manager.getDatabaseDoc(), callback);
         }
@@ -77,35 +75,32 @@ module.exports.save = (data, file, callback) => {
 /**
  * Find an user, given an email address
  *
- * @param params - HTTP param
+ * @param query - Search query
  * @param callback
  */
-module.exports.findOne = (params, callback) =>{
-    let query = utils.queryFilter(params);
+module.exports.findOne = (query, callback) =>{
     UserModel.findOne(query, callback);
 };
 
 /**
  * Updates a user.manager
  *
- * @param params - HTTP param
- * @param data - user fields to update
+ * @param query - Search query
+ * @param data - HTTP body - User fields to update;
  * @param options
  * @param callback
  */
-module.exports.update = (params, data, options, callback) => {
-    let query = utils.queryFilter(params);
+module.exports.update = (query, data, options, callback) => {
     UserModel.update(query, data, options, callback);
 };
 
 /**
  * Delete a user.manager
  *
- * @param params - HTTP param
+ * @param query - Search query
  * @param callback
  */
-module.exports.remove = (params, callback) => {
-    let query = utils.queryFilter(params);
+module.exports.remove = (query, callback) => {
     UserModel.remove(query, callback);
 };
 

@@ -1,7 +1,5 @@
-class PostController {
-  constructor() {
-    this.name = 'post';
-  }
+let PostCtrl = () => {
+  
 }
 
-export default PostController;
+export default PostCtrl;

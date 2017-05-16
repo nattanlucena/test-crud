@@ -1,11 +1,5 @@
-class HomeController {
-  
-  /**
-   * @constructor
-   */
-  constructor() {
-    this.name = 'home';
-  }
+let homeCtrl = () => {
+
 }
 
-export default HomeController;
+export default homeCtrl;

@@ -52,9 +52,12 @@ function init() {
  */
 let initMiddleware = () => {
     app.set('showStackError', true);
-    app.use(bodyParser.json());
+    app.use(bodyParser.json({
+        limit: '50mb'
+    }));
     app.use(bodyParser.urlencoded({
-        extended: true
+        extended: true,
+        limit: '50mb'
     }));
     app.use(methodOverride());
     app.use(cors());

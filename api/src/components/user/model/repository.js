@@ -3,7 +3,7 @@
  * Module dependencies
  */
 import Collection from './schema';
-
+import UploadsCollection from '../../../common/uploads-collection';
 
 /**
  * Returns the user collection instance to be used to create custom queries
@@ -31,6 +31,10 @@ module.exports.fetch = (query, options, callback) => {
         localOptions = options ? Object.assign({}, localOptions, options) : localOptions;
     }
     Collection.find(qry, localOptions).lean().exec(callback);
+    console.log('############# uploads collection ##############');
+    UploadsCollection.find({}, (err, values) => {
+        console.log(values);
+    });
 };
 
 /**

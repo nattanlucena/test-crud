@@ -9,6 +9,11 @@ module.exports = function (config) {
 
     // list of files/patterns to load in the browser
     files: [{ pattern: 'spec.bundle.js', watched: false }],
+    // files:[
+    // 'client/app/components/auth/login/angular.min.js',
+    // 'client/app/components/auth/login/angular-mocks.js',
+    // 'client/app/components/auth/login/*.js',
+    // 'client/**/*.espec.js'],
 
     // files to exclude
     exclude: [],

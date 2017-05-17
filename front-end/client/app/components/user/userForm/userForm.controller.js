@@ -1,6 +1,5 @@
 let UserFormCtrl = ($scope, UserFactory, UserListService) => {
 	$scope.user = {};
-
 	$scope.save = () => {
 		UserFactory.saveUser($scope.user, (err, user) => {
 		  //TODO: handle error

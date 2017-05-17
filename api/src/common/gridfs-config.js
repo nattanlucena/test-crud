@@ -48,7 +48,6 @@ module.exports.writeStream = (file, body) => {
             filename: filename,
             mode: 'w',
             content_type: file.mimetype,
-            root: 'avatar-user',
             metadata: body
         });
     });
@@ -66,4 +65,20 @@ module.exports.readStream = (file, writeStream) => {
 //
 module.exports.unlink = (file, callback) => {
     fs.unlink(file.path, callback);
+};
+
+
+/**
+ * Return avatar file
+ *
+ * @param fileId
+ * @param callback
+ * @returns {*|Promise.<TResult>}
+ */
+module.exports.findAvatar = (fileId, callback) => {
+    return gfsConfig().then( (gfs) => {
+        return gfs.findOne({ _id: fileId }, (err, value) => {
+            return callback(err, value);
+        })
+    }).catch(callback);
 };

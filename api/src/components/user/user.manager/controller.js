@@ -67,7 +67,7 @@ module.exports.saveManager = (request, response) => {
         }
 
         let file = request.file || undefined;
-
+        console.log(file);
         model.save(request.body, file, (err, manager) => {
             if (err) {
                 return response.status(500).json(utils.handleError(err))
@@ -96,7 +96,22 @@ module.exports.findById = (request, response) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json(utils.handleData(user));
+            if (user && user.avatar) {
+                const gfs = require('../../../common/gridfs-config');
+                gfs.findAvatar(user.avatar, (err, avatar) => {
+                    if (err) {
+                        return response.status(500).json(utils.handleError(err))
+                    }
+
+                    if (avatar) {
+
+                    } else {
+                        return response.json(utils.handleData(user));
+                    }
+                });
+            } else {
+                return response.json(utils.handleData(user));
+            }
         }
     });
 };

@@ -2,10 +2,11 @@
 /*
     Module dependencies
  */
+import fs from 'fs';
+
 import mongoose from 'mongoose';
 import GridFs from 'gridfs-stream';
 import multer from 'multer';
-import fs from 'fs';
 import path from 'path';
 
 GridFs.mongo = mongoose.mongo;
@@ -22,12 +23,11 @@ const getConnection = async function () {
 // let gfs =
 async function gfsConfig()  {
     let conn = await getConnection();
-    let gridfs = GridFs(conn.db);
 
-    return gridfs;
+    return GridFs(conn.db);
 }
 
-module.exports.upload = multer({
+export const upload = multer({
     dest: './public/images/tmp/',
     limits: { fileSize: maxSize },
     fileFilter: (req, file, cb) => {
@@ -39,7 +39,7 @@ module.exports.upload = multer({
 }).single('file');
 
 //
-module.exports.writeStream = (file, body) => {
+export const writeStream = (file, body) => {
     let datetimestamp = Date.now();
     let filename = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
 
@@ -54,7 +54,7 @@ module.exports.writeStream = (file, body) => {
 };
 
 //
-module.exports.readStream = (file, writeStream) => {
+export const readStream = (file, writeStream) => {
     try{
         fs.createReadStream(file.path).pipe(writeStream);
     } catch (err) {
@@ -62,8 +62,8 @@ module.exports.readStream = (file, writeStream) => {
     }
 };
 
-//
-module.exports.unlink = (file, callback) => {
+//Remove temporary file
+export const unlink = (file, callback) => {
     fs.unlink(file.path, callback);
 };
 
@@ -75,7 +75,7 @@ module.exports.unlink = (file, callback) => {
  * @param callback
  * @returns {*|Promise.<TResult>}
  */
-module.exports.findAvatar = (fileId, callback) => {
+export const findAvatar = (fileId, callback) => {
     return gfsConfig().then( (gfs) => {
         return gfs.findOne({ _id: fileId }, (err, value) => {
             return callback(err, value);

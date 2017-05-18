@@ -67,7 +67,7 @@ module.exports.saveManager = (request, response) => {
         }
 
         let file = request.file || undefined;
-        console.log(file);
+
         model.save(request.body, file, (err, manager) => {
             if (err) {
                 return response.status(500).json(utils.handleError(err))

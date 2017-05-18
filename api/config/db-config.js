@@ -9,7 +9,7 @@ import { logInfo, logError } from '../src/common/utils';
 
 const DB_URI = config.DB_HOST + config.DB_NAME;
 
-module.exports.initDatabase = () => {
+export const initDatabase = () => {
     mongoose.Promise = global.Promise;
 
     mongoose.connect(DB_URI);

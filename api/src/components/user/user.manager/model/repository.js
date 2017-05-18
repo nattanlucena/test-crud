@@ -32,14 +32,16 @@ module.exports.save = (data, file, callback) => {
 
     try {
         let manager = new Manager(data.name, data.email, data.password, data.cpf);
-
         if (data.address) {
             setUserAddress(manager, data.address);
         }
+
         //If file exists and it's an image
         if (file && typeof file !== 'function') {
             delete data.password;
+            delete data.address;
             const metadata = {...data};
+
             UserModel.saveAvatar(file, metadata, (err, avatar) => {
                 if (err) {
                     return callback(err);
@@ -63,13 +65,13 @@ module.exports.save = (data, file, callback) => {
  * @param address
  */
 let setUserAddress = (manager, address) => {
-    // let userAddress = {
-    //     street: address.street,
-    //     city: address.city,
-    //     state: address.state,
-    //     postal: address.postal
-    // };
-    manager.setAddress(address);
+    let userAddress = {
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        postal: address.postal
+    };
+    manager.setAddress(userAddress);
 };
 
 /**

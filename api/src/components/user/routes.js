@@ -38,7 +38,7 @@ function setUserRoutes(app, passport) {
     ////////////////////////////////
     //user.manager routes
     ////////////////////////////////
-    app.get(MANAGER_USER_BASE_PATH, isAuthenticated(passport), managerController.getManagers);
+    app.get(MANAGER_USER_BASE_PATH, managerController.getManagers);
 
     app.get(MANAGER_USER_BASE_PATH + 'id/:id', managerController.findById);
 

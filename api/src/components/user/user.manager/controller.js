@@ -6,7 +6,7 @@
 import userType from '../model/user-type';
 import model from './model/';
 import * as utils from '../../../common/utils';
-import * as constants from '../../../common/constants'
+import { constants } from '../../../common/constants'
 import * as gridfs from '../../../common/gridfs-config';
 
 
@@ -150,7 +150,7 @@ export const updateManager = (request, response) => {
             return response.status(500).json(utils.handleError(err))
         } else {
             if (!updated) {
-                const err = constants.user.USER_NOT_FOUND;
+                const err = constants.user.manager.error.MANAGER_NOT_FOUND;
                 return response.status(404).json(utils.handleError(err));
             } else {
                 return response.json(utils.handleData(updated));
@@ -173,7 +173,7 @@ export const removeManagerByEmail = (request, response) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else if (!result){
-            const err = constants.user.USER_NOT_FOUND;
+            const err = constants.user.manager.error.MANAGER_NOT_FOUND;
             return response.status(404).json(utils.handleError(err));
         } else {
             //Returns an empty json and http response status code 204

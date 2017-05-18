@@ -40,6 +40,8 @@ function setUserRoutes(app, passport) {
     ////////////////////////////////
     app.get(MANAGER_USER_BASE_PATH, managerController.getManagers);
 
+    app.get(MANAGER_USER_BASE_PATH + 'active/', managerController.getActiveManagers);
+
     app.get(MANAGER_USER_BASE_PATH + 'id/:id', managerController.findById);
 
     app.get(MANAGER_USER_BASE_PATH + 'email/:email', managerController.findByEmail);

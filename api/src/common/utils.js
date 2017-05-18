@@ -18,6 +18,7 @@ export const handleError = (error) => {
             let errorMessages = {};
             for (let key in error.errors) {
                 if (error.errors.hasOwnProperty(key)) {
+                    console.log()
                     errorMessages[key] = error.errors[key].message;
                 }
             }

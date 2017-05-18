@@ -5,6 +5,7 @@ let UserFactory = function ($http) {
   return {
 
     saveUser: (user, callback) => {
+      console.log('Chegou no metodo');
       $http({
         method: 'POST',
         url: API_BASE_PATH,

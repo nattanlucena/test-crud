@@ -6,6 +6,9 @@ let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
   $scope.login = (user) => {
     $auth.login(user)
       .then((res) => {
+        console.log(res)
+        console.log(res)
+
         $auth.setToken(res.data.token)
 
         let options = {
@@ -20,7 +23,7 @@ let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
             window.location.href = '/home';
           }
         });
-      
+
       }).catch((res) => {
           let options = {
               title: 'Opss...',
@@ -33,11 +36,11 @@ let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
             if (!err) {
               $scope.reset();
             }
-          });  
+          });
       });
   }
 
-  $scope.reset = () => {      
+  $scope.reset = () => {
     $scope.user = {email: null, password: null};
   }
 }

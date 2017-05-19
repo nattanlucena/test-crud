@@ -46,10 +46,16 @@ exports.config = {
     jasmineNodeOpts: {
         showColors: true,
         defaultTimeoutInterval: 1000000
-    }
-    ,
+    },
 
-    onPrepare: function () {
+    'chromeOptions': {
+        'args': ['show-fps-counter=true'],
+        'mobileEmulation': {
+            'deviceName': 'Apple iPhone 6'
+        }
+    },
+
+    onPrepare: function() {
 
         browser.driver.manage().window().maximize();
 

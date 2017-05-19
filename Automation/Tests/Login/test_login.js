@@ -7,6 +7,7 @@ describe('Test-Crud: Teste Login ', function(){
     var page_login = require('../../Pages/Login/page_login.js');
     var page_home = require('../../Pages/Home/page_home.js');
     var page_signup = require('../../Pages/Signup/page_signup.js');
+    var page_posts = require('../../Pages/Posts/page_posts.js');
     var utils = require('../../utils.js');
 
 
@@ -14,7 +15,7 @@ describe('Test-Crud: Teste Login ', function(){
         browser.get(utils.path()+':3000/');
     });
 
-    it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
+    /*it('LOG IN TO APPLICATION WITH UNREGISTERED USER', function(){
 
         console.log('LOG IN TO APPLICATION WITH UNREGISTERED USER');
         console.log('Logando com dados não cadastrados:' + '\n' + 'Login: ' + 'admin' + '\n' + 'Password: ' + 'admin');
@@ -86,5 +87,18 @@ describe('Test-Crud: Teste Login ', function(){
        page_home.inputTextEmail(email);
        page_home.inputTextCpf(utils.getRandomCpf());
        page_home.clickButtonSave();
-   });
+   });*/
+    it('Teste', function(){
+
+        console.log('Teste');
+        var email = utils.getUserApplication();
+        page_home.waitScreen();
+        page_posts.enterPagePosts();
+        page_posts.actionAddPosts();
+        page_posts.inputTextTitle('Felipe Linduh');
+        page_posts.inputTextContent('Teste post');
+        // page_home.logout();
+        // page_home.waitMenssageIsNotDisplayed();
+
+    });
 });

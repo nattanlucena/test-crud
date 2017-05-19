@@ -3,3 +3,4 @@
 node_modules/
 npm-debug.log
 Automation/ReportJasmine/
+api/public/images/tmp/

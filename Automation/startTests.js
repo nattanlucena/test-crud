@@ -37,6 +37,7 @@ exports.config = {
 
     specs: [
         //'Tests/Home/test_home.js',
+        'Tests/_Setup/_setup',
         'Tests/Login/test_login.js'
         //'Tests/Signup/test_signup.js',
     ],

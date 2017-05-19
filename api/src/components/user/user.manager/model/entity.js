@@ -5,7 +5,7 @@
 import User from '../../model/entity';
 import UserType from '../../model/user-type';
 import UserDBCollection from '../../model';
-import constants from '../../../../common/constants';
+import { constants } from '../../../../common/constants';
 
 
 /**
@@ -92,11 +92,11 @@ class Manager extends User{
 
         let exceptionMessage;
         if (!this.name && !this.email && !this.cpf && !this.address) {
-            exceptionMessage = constants.manager.ALL_REQUIRED_FIELDS;
+            exceptionMessage = constants.user.manager.error.ALL_REQUIRED_FIELDS;
         } else  {
             // exceptionMessage = [];
             if (!this.cpf){
-                exceptionMessage = constants.manager.CPF_REQUIRED;
+                exceptionMessage = constants.user.manager.error.CPF_REQUIRED;
             }
             /*
             if (!this.address){

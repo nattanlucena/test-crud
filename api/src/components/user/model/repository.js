@@ -3,6 +3,8 @@
  * Module dependencies
  */
 import Collection from './schema';
+import * as gridfs from '../../../common/gridfs-config';
+
 
 
 /**
@@ -112,4 +114,25 @@ module.exports.remove = (query, callback) => {
  */
 module.exports.comparePassword = (user, plainText, callback) => {
     user.comparePassword(plainText, callback);
+};
+
+
+/**
+ * Save an user avatar
+ *
+ * @param file - Avatar
+ * @param metadata - Avatar metadata
+ * @param callback
+ */
+module.exports.saveAvatar = (file, metadata, callback) => {
+    //Save file on gridfs
+    gridfs.writeStream(file, metadata).then((ws) => {
+        gridfs.readStream(file, ws);
+        ws.on('close', (savedFile) => {
+            //Remove file from temp directory
+            gridfs.unlink(file, (err) => {
+                callback(err, savedFile);
+            });
+        });
+    }).catch(callback);
 };

@@ -4,7 +4,7 @@
  */
 import mongoose from 'mongoose';
 
-import * as config from '../config/config';
+import * as config          from '../config/config';
 import { logInfo, logError } from '../src/common/utils';
 
 const DB_URI = config.DB_HOST + config.DB_NAME;

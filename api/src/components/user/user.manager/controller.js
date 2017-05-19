@@ -3,11 +3,11 @@
 /*
  * Module dependencies
  */
-import userType from '../model/user-type';
-import model from './model/';
-import * as utils from '../../../common/utils';
-import { constants } from '../../../common/constants'
-import * as gridfs from '../../../common/gridfs-config';
+import userType         from '../model/user-type';
+import model            from './model/';
+import * as utils       from '../../../common/utils';
+import { constants }    from '../../../common/constants'
+import * as gridfs      from '../../../common/gridfs-config';
 
 
 

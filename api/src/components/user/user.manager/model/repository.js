@@ -2,8 +2,8 @@
 /*
  * Module dependencies
  */
-import UserModel from '../../model/';
-import Manager from './entity';
+import UserModel    from '../../model/';
+import Manager      from './entity';
 
 /**
  *  Get all users from database

@@ -1,12 +1,12 @@
 "use strict";
 /*
- Module dependencies
+    Module dependencies
  */
-import multer from 'multer';
-import path from 'path';
+import multer   from 'multer';
+import path     from 'path';
 
-const maxSize = 1000 * 1000 * 20;
-const types = ['.jpg', '.jpeg', '.png'];
+const maxSize   = 1000 * 1000 * 20;
+const types     = ['.jpg', '.jpeg', '.png'];
 
 
 /**

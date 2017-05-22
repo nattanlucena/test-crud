@@ -5,6 +5,8 @@
 import mongoose from 'mongoose';
 
 import * as config from '../config/config';
+import * as db_setup from '../../../test-crud/api/config/automation/db_setup';
+
 import { logInfo, logError } from '../src/common/utils';
 
 const DB_URI = config.DB_HOST + config.DB_NAME;
@@ -16,6 +18,9 @@ export const initDatabase = () => {
 
     mongoose.connection.on('open', () =>  {
         // console.log(mongoose.connection)
+        if (process.env.NODE_ENV === 'automation-tests') {
+            db_setup.initAutomationDatabase();
+        }
         logInfo('Mongoose connected to ' + DB_URI);
     });
 

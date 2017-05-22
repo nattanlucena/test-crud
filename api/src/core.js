@@ -12,7 +12,6 @@ import * as pathUtils from './common/path-utils';
 import * as config from '../config/config';
 import * as dbConfig from '../config/db-config';
 import { strategy } from './components/auth/token/strategy';
-import automation from './common/automation/config';
 
 const API_BASE_PATH = config.API_BASE_PATH;
 
@@ -29,12 +28,7 @@ function init() {
     //
     initMiddleware();
     //
-    if (process.env.NODE_ENV === 'automation-tests') {
-        //
-        automationConfig();
-    } else {
-        initDatabase();
-    }
+    initDatabase();
     //
     initCrossDomain();
     //
@@ -150,12 +144,6 @@ let initPassportStrategy = () => {
  */
 let preventErrors = () => {
     require('./common/crash-error-handler');
-};
-
-let automationConfig = () => {
-    if (process.env.NODE_ENV === 'automation-tests') {
-        automation.initDatabaseAutomation();
-    }
 };
 
 export default init;

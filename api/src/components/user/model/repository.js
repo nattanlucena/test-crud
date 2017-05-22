@@ -46,6 +46,15 @@ module.exports.save = (user, callback) => {
 };
 
 /**
+ * Insert many users
+ * @param users - Array of users
+ * @param callback
+ */
+module.exports.saveMany = (users, callback) => {
+    Collection.insertMany(users, callback);
+};
+
+/**
  * Find an user, given an email address
  *
  * @param query

@@ -5,7 +5,7 @@ import { User } from '../../src/components/user';
 
 export const initAutomationDatabase = () => {
     // let userCollection = db.users;
-
+    console.log(new Date());
     if (mongoose.connection.db) {
         mongoose.connection.db.dropDatabase((err) => {
             if (err) {
@@ -19,5 +19,6 @@ export const initAutomationDatabase = () => {
         if (err) {
             console.log(err);
         }
+        console.log(new Date());
     });
 };

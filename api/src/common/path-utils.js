@@ -1,8 +1,8 @@
 /**
  * Module dependencies.
  */
-import * as _ from 'lodash';
-import glob from 'glob';
+import * as _   from 'lodash';
+import glob     from 'glob';
 
 /**
  * Get files by glob patterns

@@ -1,11 +1,11 @@
 /*
     Module dependencies
  */
-import * as config from '../../../config/config';
-import * as controller from './controller';
+import * as config      from '../../../config/config';
+import * as controller  from './controller';
 
-const POSTS_BASE_PATH = config.API_BASE_PATH + '/posts/';
-const POST_BASE_PATH = config.API_BASE_PATH + '/post/';
+const POSTS_BASE_PATH   = config.API_BASE_PATH + '/posts/';
+const POST_BASE_PATH    = config.API_BASE_PATH + '/post/';
 
 
 /**

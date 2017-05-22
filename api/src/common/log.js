@@ -2,8 +2,8 @@
 /*
     Module dependencies
  */
-import chalk from 'chalk';
-import moment from 'moment';
+import chalk    from 'chalk';
+import moment   from 'moment';
 
 //Enable colors
 chalk.enabled = true;

@@ -1,4 +1,8 @@
+/*
+    Module dependencies
+ */
 import bunyan from 'bunyan';
+
 const name = 'logger';
 
 let logger = bunyan.createLogger({

@@ -2,8 +2,8 @@
 /*
  Module dependencies
  */
-import constants    from '../../../common/constants';
-import * as utils   from '../../../common/utils';
+import { constants }    from '../../../common/constants';
+import { validateEmail }   from '../../../common/utils';
 
 
 /**
@@ -41,9 +41,9 @@ class User {
 
         let exceptionMessage;
         if (!this.name && !this.email) {
-            exceptionMessage = constants.user.NAME_AND_EMAIL_REQUIRED;
+            exceptionMessage = constants.user.error.NAME_AND_EMAIL_REQUIRED;
         } else if (!this.name || !this.email) {
-            exceptionMessage = !this.name ? constants.user.NAME_REQUIRED : constants.user.EMAIL_REQUIRED;
+            exceptionMessage = !this.name ? constants.user.error.NAME_REQUIRED :constants.user.error.EMAIL_REQUIRED;
         }
 
         if (exceptionMessage) {
@@ -56,8 +56,8 @@ class User {
      */
     validateEmail() {
         let email = this.email;
-        if (!utils.validateEmail(email)) {
-            const message = constants.user.INVALID_EMAIL_ADDRESS;
+        if (!validateEmail(email)) {
+            const message = constants.user.error.INVALID_EMAIL_ADDRESS;
             throw new UserValidationException(message);
         }
     }

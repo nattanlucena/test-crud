@@ -3,11 +3,12 @@
 /*
  * Module dependencies
  */
-import userType from '../model/user-type';
-import model from './model/';
-import * as utils from '../../../common/utils';
-import * as constants from '../../../common/constants'
-import * as gridfs from '../../../common/gridfs-config';
+import userType         from '../model/user-type';
+import model            from './model/';
+import * as utils       from '../../../common/utils';
+import { constants }    from '../../../common/constants'
+import * as gridfs      from '../../../common/gridfs-config';
+
 
 
 /**
@@ -16,7 +17,7 @@ import * as gridfs from '../../../common/gridfs-config';
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.getManagers = (request, response) => {
+export const getManagers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
     let query = { type: userType[1] };
@@ -36,7 +37,7 @@ module.exports.getManagers = (request, response) => {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.getActiveManagers = (request, response) => {
+export const getActiveManagers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
     let query = {type: userType[1], is_active: true};
@@ -57,7 +58,7 @@ module.exports.getActiveManagers = (request, response) => {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.saveManager = (request, response) => {
+export const saveManager = (request, response) => {
     utils.logInfo('HTTP Request :: saveUser function');
 
     gridfs.upload(request, response, (err) => {
@@ -88,7 +89,7 @@ module.exports.saveManager = (request, response) => {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.findById = (request, response) => {
+export const findById = (request, response) => {
     utils.logInfo('HTTP Request :: findById function');
 
     let query = {'_id': request.params.id};
@@ -96,10 +97,35 @@ module.exports.findById = (request, response) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            return response.json(utils.handleData(user));
+            if (user) {
+                if (user.avatar) {
+                    findUserAvatar((err, avatar) => {
+                        if (err) {
+                            return response.status(500).json(utils.handleError(err))
+                        }
+                        //Load user avatar
+                        return response.json(utils.handleData(user));
+                    });
+                } else {
+                    return response.json(utils.handleData(user));
+                }
+            } else {
+                return response.json(utils.handleData(user));
+            }
         }
     });
 };
+
+
+/**
+ * Find the user's avatar
+ * @param user
+ * @param callback
+ */
+function findUserAvatar(user, callback) {
+    gridfs.findAvatar(user.avatar, callback);
+}
+
 
 /**
  * Returns the user by their email
@@ -107,7 +133,7 @@ module.exports.findById = (request, response) => {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.findByEmail = (request, response) => {
+export const findByEmail = (request, response) => {
     utils.logInfo('HTTP Request :: findByEmail function');
 
     let query = {'email': request.params.email};
@@ -126,7 +152,7 @@ module.exports.findByEmail = (request, response) => {
  * @param request - HTTP request
  * @param response - HTTP response
  */
-module.exports.updateManager = (request, response) => {
+export const updateManager = (request, response) => {
     utils.logInfo('HTTP Request :: updateManager function');
 
     let query = {'email': request.params.email};
@@ -135,7 +161,7 @@ module.exports.updateManager = (request, response) => {
             return response.status(500).json(utils.handleError(err))
         } else {
             if (!updated) {
-                const err = constants.user.USER_NOT_FOUND;
+                const err = constants.user.manager.error.MANAGER_NOT_FOUND;
                 return response.status(404).json(utils.handleError(err));
             } else {
                 return response.json(utils.handleData(updated));
@@ -150,7 +176,7 @@ module.exports.updateManager = (request, response) => {
  * @param request - HTTP request
  * @param response - HTTP response
 */
-module.exports.removeManagerByEmail = (request, response) => {
+export const removeManagerByEmail = (request, response) => {
     utils.logInfo('HTTP Request :: removeManagerByEmail function');
 
     let query = {'email': request.params.email};
@@ -158,7 +184,7 @@ module.exports.removeManagerByEmail = (request, response) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else if (!result){
-            const err = constants.user.USER_NOT_FOUND;
+            const err = constants.user.manager.error.MANAGER_NOT_FOUND;
             return response.status(404).json(utils.handleError(err));
         } else {
             //Returns an empty json and http response status code 204

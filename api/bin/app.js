@@ -3,19 +3,22 @@
 /**
  * Module dependencies
  */
-import app from '../src/core';
-import http from 'http';
-import * as config from '../config/config';
-import * as utils from '../src/common/utils';
-import cluster from 'cluster';
-import os from 'os';
 
-const numCpus = os.cpus().length;
+import http         from 'http';
+import cluster      from 'cluster';
+import os           from 'os';
 
-const server = http.Server(app());
-const PORT = config.PORT;
-const HOSTNAME = config.HOSTNAME;
-const INITIALIZE_MESSAGE = 'API running on http://' + HOSTNAME + ':' + PORT;
+import app          from '../src/core';
+import * as config  from '../config/config';
+import * as utils   from '../src/common/utils';
+
+
+const numCpus       = os.cpus().length;
+
+const server                = http.Server(app());
+const PORT                  = config.PORT;
+const HOSTNAME              = config.HOSTNAME;
+const INITIALIZE_MESSAGE    = 'API running on http://' + HOSTNAME + ':' + PORT;
 
 
 // //USE PM2

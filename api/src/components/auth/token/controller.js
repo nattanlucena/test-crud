@@ -1,7 +1,7 @@
 "use strict";
 
-import * as jwt from 'jsonwebtoken';
-import * as config from '../../../../config/config';
+import * as jwt     from 'jsonwebtoken';
+import * as config  from '../../../../config/config';
 
 module.exports.createToken = (payload) => {
     let secret = config.secret.KEY;

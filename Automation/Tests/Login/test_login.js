@@ -4,12 +4,20 @@
 
 describe('Test-Crud: Teste Login ', function(){
 
-    var page_login = require('../../Pages/Login/page_login.js');
-    var page_home = require('../../Pages/Home/page_home.js');
-    var page_signup = require('../../Pages/Signup/page_signup.js');
-    var page_posts = require('../../Pages/Posts/page_posts.js');
-    var utils = require('../../utils.js');
+    let initDatabase = require('../../ConfigDB/db_setup');
 
+    let page_login = require('../../Pages/Login/page_login.js');
+    let page_home = require('../../Pages/Home/page_home.js');
+    let page_signup = require('../../Pages/Signup/page_signup.js');
+    let page_posts = require('../../Pages/Posts/page_posts.js');
+    let utils = require('../../utils.js');
+    let dbUsers = require('../../ConfigDB/user-factory');
+
+
+    beforeAll(function() {
+        console.log('beforeall');
+        initDatabase();
+    });
 
     beforeEach(function(){
         browser.get(utils.path()+':3000/');
@@ -88,7 +96,7 @@ describe('Test-Crud: Teste Login ', function(){
        page_home.inputTextCpf(utils.getRandomCpf());
        page_home.clickButtonSave();
    });*/
-    it('Teste', function(){
+    /*it('Teste', function(){
 
         console.log('Teste');
         var email = utils.getUserApplication();
@@ -100,5 +108,10 @@ describe('Test-Crud: Teste Login ', function(){
         // page_home.logout();
         // page_home.waitMenssageIsNotDisplayed();
 
+    });*/
+    it('Teste conexão', function(){
+        let users = [];
+        users = dbUsers.generateUsers();
+        console.log(users);
     });
 });

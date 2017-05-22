@@ -28,7 +28,8 @@ module.exports = function (config) {
       require("karma-mocha"),
       require("karma-mocha-reporter"),
       require("karma-sourcemap-loader"),
-      require("karma-webpack")
+      require("karma-webpack"),
+      require("karma-htmlfile-reporter")
     ],
 
     // preprocess matching files before serving them to the browser
@@ -52,7 +53,7 @@ module.exports = function (config) {
     },
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'html', 'progress'],
 
     // web server port
     port: 9876,
@@ -65,13 +66,25 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
 
     // toggle whether to watch files and rerun tests upon incurring changes
-    autoWatch: false,
+    autoWatch: true,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
     // if true, Karma runs tests once and exits
-    singleRun: true
+    singleRun: true,
+
+    htmlReporter: {
+      outputFile: '../Automation/Reporters/units-tests.html',
+
+      // Optional
+      pageTitle: 'Unit Tests',
+      subPageTitle: 'Unit Tests',
+      groupSuites: true,
+      useCompactStyle: true,
+      useLegacyStyle: true
+    }
+
   });
 };

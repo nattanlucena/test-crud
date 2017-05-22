@@ -1,18 +1,17 @@
 import UserFormModule from './userForm'
 import UserFormController from './userForm.controller';
 import UserFormTemplate from './userForm.html';
-// import UserFactory from './userForm.factory';
-// import UserListService from '../userList/userList.service';
+
 
 describe('UserForm', () => {
    
-    let $scope, UserFactory, UserListService, controller;
+    let $scope, controller, UserFactory, UserListService;
 
     beforeEach(window.module(UserFormModule));
-    beforeEach(inject(function($controller, $rootScope) {
+    beforeEach(inject(($controller, $rootScope) => {
         $scope = $rootScope.$new(); // this is what you missed out
-        // UserFactory = UserFactory;
-        // UserListService = UserListService;
+        //UserFactory = UserFactory;
+       // UserListService = UserListService;
         
         controller = $controller(UserFormController, {
             $scope,
@@ -40,7 +39,7 @@ describe('UserForm', () => {
         expect($scope.user.password).to.equal(undefined);
     });
 
-    it('Save User', () =>{ 
+    xit('Save User', () =>{ 
         let listLenght = $scope.lista.length;
         console.log('Tamanho lista: ', listLenght);
         $scope.user = {email:'ericke@uol.com', password: 123};

@@ -36,7 +36,6 @@ exports.config = {
     ],
 
     specs: [
-        'Tests/_Setup/_setup',
         'Tests/Login/test_login.js'
     ],
 

@@ -11,13 +11,8 @@ describe('Test-Crud: Teste Login ', function(){
     let page_signup = require('../../Pages/Signup/page_signup.js');
     let page_posts = require('../../Pages/Posts/page_posts.js');
     let utils = require('../../utils.js');
-    let dbUsers = require('../../ConfigDB/user-factory');
+    let dbUsers = require('../../../api/config/automation/user-factory');
 
-
-    beforeAll(function() {
-        console.log('beforeall');
-        initDatabase();
-    });
 
     beforeEach(function(){
         browser.get(utils.path()+':3000/');

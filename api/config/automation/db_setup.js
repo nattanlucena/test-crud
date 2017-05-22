@@ -17,9 +17,7 @@ export const initAutomationDatabase = () => {
     let users = userFactory.generateUsers();
     User.saveMany(users, function(err) {
         if (err) {
-            throw err;
+            console.log(err);
         }
     });
-
-
 };

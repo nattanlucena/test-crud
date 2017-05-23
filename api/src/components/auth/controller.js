@@ -15,7 +15,7 @@ import { constants }        from '../../common/constants';
  * @param response - HTTP response
  * @returns {Object} - {data: user, token: token}
  */
-module.exports.signIn = (request, response) => {
+export const signIn = (request, response) => {
     let body = request.body;
 
     /*
@@ -63,12 +63,11 @@ module.exports.signIn = (request, response) => {
  * @param request
  * @param response
  */
-module.exports.signUp = (request, response) => {
+export const signUp = (request, response) => {
     utils.logInfo('HTTP request :: signUp method');
 
     let body = request.body;
     Manager.save(body, (err, manager) => {
-
         if (err) {
             return response.status(401).send(utils.handleError(err));
         }
@@ -95,7 +94,7 @@ module.exports.signUp = (request, response) => {
  *
  * @param passport
  */
-module.exports.isAuthenticated = (passport) => {
+export const isAuthenticated = (passport) => {
     return tokenController.authenticateToken(passport);
 };
 
@@ -107,10 +106,8 @@ module.exports.isAuthenticated = (passport) => {
  * @param plainPassword
  * @param callback
  */
-function validateUser(user, plainPassword, callback) {
-
+let validateUser = (user, plainPassword, callback) => {
     if (!user) {
-        const err = new Error(constants.auth.INVALID_EMAIL_OR_PASSWORD);
         return callback(constants.auth.error.INVALID_EMAIL_OR_PASSWORD);
     }
 
@@ -124,7 +121,7 @@ function validateUser(user, plainPassword, callback) {
             return callback(constants.auth.error.INVALID_EMAIL_OR_PASSWORD);
         }
     });
-}
+};
 
 /**
  * Generate token and returns the token and the user to http response
@@ -133,7 +130,7 @@ function validateUser(user, plainPassword, callback) {
  * @param callback
  * @returns {*}
  */
-function generateToken(user, callback) {
+let generateToken = (user, callback) => {
     try {
         let payload = {
             id: user._id,
@@ -148,4 +145,4 @@ function generateToken(user, callback) {
     } catch (err) {
         return callback(err);
     }
-}
+};

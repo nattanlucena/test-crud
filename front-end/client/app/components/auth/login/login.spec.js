@@ -1,17 +1,21 @@
 import LoginModule from './login'
 import LoginController from './login.controller';
-import LoginComponent from './login.component';
 import LoginTemplate from './login.html';
+//import AllFunctions from '../../common/custom-alert-message';
+
 
 describe('Login', () => {
-  let $rootScope, makeController;
+  
+  let $rootScope, makeController,controller;
 
   beforeEach(window.module(LoginModule));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
+  
     makeController = () => {
-      return new LoginController();
-    };
+     return new LoginController(AllFunctions);
+
+   };
   }));
 
   describe('Module', () => {
@@ -20,30 +24,27 @@ describe('Login', () => {
 
   describe('Controller', () => {
     // controller specs
-    it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
+    it('Reset User', () => { // erase if removing this.name from the controller
       let controller = makeController();
-      expect(controller).to.have.property('name');
+      console.log('Controller', controller);
+      LoginController.user = {email: 'ericke@uol.com.br', password: 123};
+      controller.reset();
+      expect(LoginController.user.email).tobe(null);
     });
-  });
 
-  describe('Template', () => {
-    // template specs
-    // tip: use regex to ensure correct bindings are used e.g., {{  }}
-    it('has name in template [REMOVE]', () => {
-      expect(LoginTemplate).to.match(/{{\s?\$ctrl\.name\s?}}/g);
-    });
-  });
+  //   it('Login User', () => { // erase if removing this.name from the controller
+  //     let controller = makeController();
+  //     let user = {email: 'ericke@uol.com.br', password: 123};
+  //     LoginController.login(user);
+  //    // expect(controller.user.email).tobe(null);
+  //   });
 
-  describe('Component', () => {
-      // component/directive specs
-      let component = LoginComponent;
+   });
 
-      it('includes the intended template',() => {
-        expect(component.template).to.equal(LoginTemplate);
-      });
+  // describe('Template', () => {
+  //   // template specs
+  //   // tip: use regex to ensure correct bindings are used e.g., {{  }}
+  // });
 
-      it('invokes the right controller', () => {
-        expect(component.controller).to.equal(LoginController);
-      });
-  });
+  
 });

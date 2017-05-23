@@ -1,3 +1,6 @@
+/*
+    Module dependencies
+ */
 import * as config      from '../../../config/config';
 import * as controller  from './controller';
 

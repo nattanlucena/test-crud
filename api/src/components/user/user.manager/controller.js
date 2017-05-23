@@ -3,11 +3,12 @@
 /*
  * Module dependencies
  */
-import userType from '../model/user-type';
-import model from './model/';
-import * as utils from '../../../common/utils';
-import { constants } from '../../../common/constants'
-import * as gridfs from '../../../common/gridfs-config';
+import userType         from '../model/user-type';
+import model            from './model/';
+import * as utils       from '../../../common/utils';
+import { constants }    from '../../../common/constants'
+import * as gridfs      from '../../../common/gridfs-config';
+
 
 
 /**
@@ -96,25 +97,35 @@ export const findById = (request, response) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            if (user && user.avatar) {
-                const gfs = require('../../../common/gridfs-config');
-                gfs.findAvatar(user.avatar, (err, avatar) => {
-                    if (err) {
-                        return response.status(500).json(utils.handleError(err))
-                    }
-
-                    if (avatar) {
-
-                    } else {
+            if (user) {
+                if (user.avatar) {
+                    findUserAvatar((err, avatar) => {
+                        if (err) {
+                            return response.status(500).json(utils.handleError(err))
+                        }
+                        //Load user avatar
                         return response.json(utils.handleData(user));
-                    }
-                });
+                    });
+                } else {
+                    return response.json(utils.handleData(user));
+                }
             } else {
                 return response.json(utils.handleData(user));
             }
         }
     });
 };
+
+
+/**
+ * Find the user's avatar
+ * @param user
+ * @param callback
+ */
+function findUserAvatar(user, callback) {
+    gridfs.findAvatar(user.avatar, callback);
+}
+
 
 /**
  * Returns the user by their email

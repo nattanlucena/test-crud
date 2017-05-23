@@ -2,17 +2,18 @@
 /*
     Module dependencies
  */
-import fs from 'fs';
+import fs       from 'fs';
 
 import mongoose from 'mongoose';
-import GridFs from 'gridfs-stream';
-import multer from 'multer';
-import path from 'path';
+import GridFs   from 'gridfs-stream';
+import multer   from 'multer';
+import path     from 'path';
 
-GridFs.mongo = mongoose.mongo;
+GridFs.mongo    = mongoose.mongo;
 
-const maxSize = 1000 * 1000 * 20;
-const types = ['.jpg', '.jpeg', '.png'];
+const maxSize   = 1000 * 1000 * 20;
+const types     = ['.jpg', '.jpeg', '.png'];
+
 
 const getConnection = async function () {
     return new Promise((resolve) => {

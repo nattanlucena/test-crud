@@ -1,13 +1,13 @@
 /*
     Module dependencies
  */
-import * as config from '../../../config/config';
-import * as appUserController from './user.app/controller';
-import * as managerController from './user.manager/controller';
-import { isAuthenticated } from '../auth/controller';
+import * as config              from '../../../config/config';
+import * as appUserController   from './user.app/controller';
+import * as managerController   from './user.manager/controller';
+import { isAuthenticated }      from '../auth/controller';
 
-const APP_USER_BASE_PATH = config.APP_BASE_PATH + '/users/';
-const MANAGER_USER_BASE_PATH = config.MANAGER_BASE_PATH + '/users/';
+const APP_USER_BASE_PATH        = config.APP_BASE_PATH + '/users/';
+const MANAGER_USER_BASE_PATH    = config.MANAGER_BASE_PATH + '/users/';
 // const ADMIN_USER_BASE_PATH = config.ADMIN_BASE_PATH + '/users/';
 
 

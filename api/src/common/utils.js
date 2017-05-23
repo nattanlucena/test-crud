@@ -18,7 +18,6 @@ export const handleError = (error) => {
             let errorMessages = {};
             for (let key in error.errors) {
                 if (error.errors.hasOwnProperty(key)) {
-                    console.log()
                     errorMessages[key] = error.errors[key].message;
                 }
             }
@@ -27,7 +26,12 @@ export const handleError = (error) => {
             return {error: error.message}
         }
     } else {
-        return error.message ? {error: error.message} : {error: error};
+        const has = Object.prototype.hasOwnProperty;
+        if ( (has.call(error, 'code') && has.call(error, 'message'))) {
+            return {error: {code: error.code , message: error.message }  };
+        } else {
+            return { error: error.message  };
+        }
     }
 };
 

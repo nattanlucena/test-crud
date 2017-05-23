@@ -2,10 +2,10 @@
 /*
  Module dependencies
  */
-import User from '../../model/entity';
-import UserType from '../../model/user-type';
+import User             from '../../model/entity';
+import UserType         from '../../model/user-type';
 import UserDBCollection from '../../model';
-import { constants } from '../../../../common/constants';
+import { constants }    from '../../../../common/constants';
 
 
 /**

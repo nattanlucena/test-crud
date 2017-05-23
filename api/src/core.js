@@ -2,18 +2,19 @@
 /*
     Module dependencies
  */
-import express from 'express';
-import bodyParser from 'body-parser';
-import methodOverride from 'method-override';
-import cors from 'cors';
-import path from 'path';
-import passport from 'passport';
-import * as pathUtils from './common/path-utils';
-import * as config from '../config/config';
-import * as dbConfig from '../config/db-config';
-import { strategy } from './components/auth/token/strategy';
+import express          from 'express';
+import bodyParser       from 'body-parser';
+import methodOverride   from 'method-override';
+import cors             from 'cors';
+import path             from 'path';
+import passport         from 'passport';
 
-const API_BASE_PATH = config.API_BASE_PATH;
+import * as pathUtils   from './common/path-utils';
+import * as config      from '../config/config';
+import { initDatabase }    from '../config/db-config';
+import { strategy }     from './components/auth/token/strategy';
+
+const API_BASE_PATH     = config.API_BASE_PATH;
 
 let app = express();
 
@@ -28,7 +29,7 @@ function init() {
     //
     initMiddleware();
     //
-    initDatabase();
+    initDatabaseConfig();
     //
     initCrossDomain();
     //
@@ -64,10 +65,10 @@ let initMiddleware = () => {
 /**
  * Initialize Database setup config
  *
- * @method initDatabase
+ * @method initDatabaseConfig
  */
-let initDatabase = () => {
-    dbConfig.initDatabase();
+let initDatabaseConfig = () => {
+    initDatabase();
 };
 
 /**

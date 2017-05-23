@@ -5,13 +5,15 @@ module.exports = function (config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['jasmine','mocha', 'chai'],
 
     // list of files/patterns to load in the browser
     files: [
       { pattern: 'spec.bundle.js', watched: false },
       //'node_modules/**/angular.js',
-      //'node_modules/**/angular-mocks.js'
+      //'node_modules/**/angular-mocks.js',
+      //'client/**/*factory.js',
+      //'client/**/*service.js',
     ],
     // files:[
     // 'client/app/components/auth/login/angular.min.js',
@@ -29,7 +31,8 @@ module.exports = function (config) {
       require("karma-mocha-reporter"),
       require("karma-sourcemap-loader"),
       require("karma-webpack"),
-      require("karma-htmlfile-reporter")
+      require("karma-htmlfile-reporter"),
+      require('karma-jasmine')
     ],
 
     // preprocess matching files before serving them to the browser
@@ -66,7 +69,7 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
 
     // toggle whether to watch files and rerun tests upon incurring changes
-    autoWatch: true,
+    autoWatch: false,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
@@ -76,7 +79,7 @@ module.exports = function (config) {
     singleRun: true,
 
     htmlReporter: {
-      outputFile: '../Automation/Reporters/units-tests.html',
+      outputFile: 'client/Reporters/units-tests-' + new Date() + '.html',
 
       // Optional
       pageTitle: 'Unit Tests',

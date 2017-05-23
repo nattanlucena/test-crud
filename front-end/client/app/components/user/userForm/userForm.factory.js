@@ -5,14 +5,15 @@ let UserFactory = function ($http) {
   return {
 
     saveUser: (user, callback) => {
-      console.log('Chegou no metodo');
       $http({
         method: 'POST',
         url: API_BASE_PATH,
         data: user
       }).then(function success(data) {
+        console.log('1');
         callback(null, data.data);
       }, function error(err) {
+        console.log('Erro2:', err);
         callback(err);
       });
     }

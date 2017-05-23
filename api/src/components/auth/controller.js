@@ -5,7 +5,7 @@
 import { User, Manager }    from '../user';
 import * as tokenController from './token/controller';
 import * as utils           from '../../common/utils';
-import * as constants       from '../../common/constants';
+import { constants }        from '../../common/constants';
 
 /**
  * Sign in with email and password and returns a generated
@@ -22,7 +22,7 @@ module.exports.signIn = (request, response) => {
      * Checks if email and password are empty
      */
     if (!body.hasOwnProperty('email') || !body.hasOwnProperty('password')) {
-        const err = new Error(constants.auth.INVALID_EMAIL_OR_PASSWORD);
+        const err = new Error(constants.auth.error.INVALID_EMAIL_OR_PASSWORD);
 
         return response.status(401).send(utils.handleError(err));
     }
@@ -111,7 +111,7 @@ module.exports.isAuthenticated = (passport) => {
 function validateUser(user, plainPassword, callback) {
 
     if (!user) {
-        const err = new Error(constants.auth.INVALID_EMAIL_OR_PASSWORD);
+        const err = new Error(constants.auth.error.INVALID_EMAIL_OR_PASSWORD);
         return callback(err);
     }
 
@@ -122,7 +122,7 @@ function validateUser(user, plainPassword, callback) {
         if (isMatch) {
             return callback(null, user);
         } else {
-            const err = new Error(constants.auth.INVALID_EMAIL_OR_PASSWORD);
+            const err = new Error(constants.auth.error.INVALID_EMAIL_OR_PASSWORD);
             return callback(err);
         }
     });

@@ -4,7 +4,7 @@
 module.exports = {
     generateUsers : function() {
         let users = [];
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 2; i++) {
             let user = {
                 "name": "user" + i,
                 "email": "user" + i + "@gmail.com",
@@ -13,7 +13,6 @@ module.exports = {
             };
             users.push(user);
         }
-
         return users;
     }
 };

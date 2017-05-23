@@ -25,6 +25,7 @@ let LoginCtrl = ($scope, $auth, $location, AllFunctions) => {
         });
 
       }).catch((res) => {
+      console.log(res);
           let options = {
               title: 'Opss...',
               text: res.data.error,

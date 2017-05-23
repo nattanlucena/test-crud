@@ -6,7 +6,7 @@
         "serve": "node dist/app.js",
         "start": "sh ./scripts/start-dev.sh",
         "test:server": "./scripts/tests-api.sh",
-        "test:automation": "./scripts/automation.sh",
+        "test:automation": "sh ./scripts/automation.sh",
         "start:prod": "sh ./scripts/start-prod.sh"
     },
     "dependencies": {

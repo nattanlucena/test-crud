@@ -6,9 +6,8 @@
 import userType         from '../model/user-type';
 import model            from './model/';
 import * as utils       from '../../../common/utils';
-import { constants }    from '../../../common/constants'
+import {constants}    from '../../../common/constants'
 import * as gridfs      from '../../../common/gridfs-config';
-
 
 
 /**
@@ -20,14 +19,14 @@ import * as gridfs      from '../../../common/gridfs-config';
 export const getManagers = (request, response) => {
     utils.logInfo('HTTP Request :: getUsers function');
 
-    let query = { type: userType[1] };
+    let query = {type: userType[1]};
     let options = {__v: 0, password: 0, salt: 0};
     model.fetch(query, options, (err, managers) => {
         if (err) {
             return response.status(500).json(utils.handleError(err));
-        } else {
-            return response.json(utils.handleData(managers));
         }
+
+        return response.json(utils.handleData(managers));
     });
 };
 
@@ -45,9 +44,9 @@ export const getActiveManagers = (request, response) => {
     model.fetch(query, options, (err, managers) => {
         if (err) {
             return response.status(500).json(utils.handleError(err));
-        } else {
-            return response.json(utils.handleData(managers));
         }
+
+        return response.json(utils.handleData(managers));
     });
 };
 
@@ -72,13 +71,14 @@ export const saveManager = (request, response) => {
         model.save(request.body, file, (err, manager) => {
             if (err) {
                 return response.status(500).json(utils.handleError(err))
-            } else {
-                manager.password = undefined;
-                manager.salt = undefined;
-                manager.__v = undefined;
-
-                return response.status(201).json(utils.handleData(manager));
             }
+
+            manager.password = undefined;
+            manager.salt = undefined;
+            manager.__v = undefined;
+
+            return response.status(201).json(utils.handleData(manager));
+
         });
     });
 };
@@ -94,24 +94,26 @@ export const findById = (request, response) => {
 
     let query = {'_id': request.params.id};
     model.findOne(query, (err, user) => {
+
         if (err) {
             return response.status(500).json(utils.handleError(err))
         } else {
-            if (user) {
-                if (user.avatar) {
-                    findUserAvatar((err, avatar) => {
-                        if (err) {
-                            return response.status(500).json(utils.handleError(err))
-                        }
-                        //Load user avatar
-                        return response.json(utils.handleData(user));
-                    });
-                } else {
-                    return response.json(utils.handleData(user));
-                }
-            } else {
+
+            if (!user) {
                 return response.json(utils.handleData(user));
             }
+
+            if (user.avatar) {
+                findUserAvatar((err, avatar) => {
+                    if (err) {
+                        return response.status(500).json(utils.handleError(err))
+                    }
+                    //Load user avatar
+                    return response.json(utils.handleData(user));
+                });
+            }
+
+            return response.json(utils.handleData(user));
         }
     });
 };
@@ -138,11 +140,13 @@ export const findByEmail = (request, response) => {
 
     let query = {'email': request.params.email};
     model.findOne(query, (err, user) => {
+
         if (err) {
             return response.status(500).json(utils.handleError(err))
-        } else {
-            return response.json(utils.handleData(user));
         }
+
+        return response.json(utils.handleData(user));
+
     });
 };
 
@@ -159,14 +163,14 @@ export const updateManager = (request, response) => {
     model.update(query, request.body, (err, updated) => {
         if (err) {
             return response.status(500).json(utils.handleError(err))
-        } else {
-            if (!updated) {
-                const err = constants.user.manager.error.MANAGER_NOT_FOUND;
-                return response.status(404).json(utils.handleError(err));
-            } else {
-                return response.json(utils.handleData(updated));
-            }
         }
+        if (!updated) {
+            return response.status(404).json(utils.handleError(constants.user.manager.error.MANAGER_NOT_FOUND));
+        }
+
+        return response.json(utils.handleData(updated));
+
+
     });
 };
 
@@ -175,20 +179,23 @@ export const updateManager = (request, response) => {
  *
  * @param request - HTTP request
  * @param response - HTTP response
-*/
+ */
 export const removeManagerByEmail = (request, response) => {
     utils.logInfo('HTTP Request :: removeManagerByEmail function');
 
     let query = {'email': request.params.email};
     model.remove(query, (err, result) => {
+
         if (err) {
             return response.status(500).json(utils.handleError(err))
-        } else if (!result){
-            const err = constants.user.manager.error.MANAGER_NOT_FOUND;
-            return response.status(404).json(utils.handleError(err));
-        } else {
-            //Returns an empty json and http response status code 204
-            return response.status(204).json({});
         }
+
+        if (!result) {
+            return response.status(404).json(utils.handleError(constants.user.manager.error.MANAGER_NOT_FOUND));
+        }
+
+        //Returns an empty json and http response status code 204
+        return response.status(204).json({});
+
     });
 };

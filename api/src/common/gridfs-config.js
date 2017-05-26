@@ -15,19 +15,21 @@ const maxSize   = 1000 * 1000 * 20;
 const types     = ['.jpg', '.jpeg', '.png'];
 
 
+//Get current database connection
 const getConnection = async function () {
     return new Promise((resolve) => {
         resolve(mongoose.connection);
     });
 };
 
-// let gfs =
+// Set GridFs config
 async function gfsConfig()  {
     let conn = await getConnection();
 
     return GridFs(conn.db);
 }
 
+//Save file in disk
 export const upload = multer({
     dest: './public/images/tmp/',
     limits: { fileSize: maxSize },

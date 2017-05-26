@@ -13,26 +13,27 @@ import * as Log from './log';
 export const handleError = (error) => {
     logError(error);
 
-    if (error instanceof Error) {
-        if (error.errors) {
-            let errorMessages = {};
-            for (let key in error.errors) {
-                if (error.errors.hasOwnProperty(key)) {
-                    errorMessages[key] = error.errors[key].message;
-                }
-            }
-            return {error: errorMessages}
-        } else {
-            return {error: error.message}
-        }
-    } else {
+    if (!(error instanceof Error)) {
         const has = Object.prototype.hasOwnProperty;
         if ( (has.call(error, 'code') && has.call(error, 'message'))) {
-            return {error: {code: error.code , message: error.message }  };
+            return { error: {code: error.code , message: error.message }  };
         } else {
             return { error: error.message  };
         }
     }
+
+    if ( !error.errors) {
+        return { error: error.message };
+    }
+
+    let errorMessages = {};
+    for (let key in error.errors) {
+        if (error.errors.hasOwnProperty(key)) {
+            errorMessages[key] = error.errors[key].message;
+        }
+    }
+
+    return { error: errorMessages };
 };
 
 /**
@@ -110,7 +111,14 @@ export const validateEmail = (email) => {
  */
 export const queryFilter = (params) => {
     let filter = {};
-    if (typeof params === 'object') {
+
+    if ( !(typeof params === 'object')) {
+        if (params.id) {
+            filter._id = params;
+        } else {
+            filter[params] = params;
+        }
+    } else {
         if (Object.keys(params).length) {
             Object.keys(params).forEach((key) => {
                 if (key === 'id')  {
@@ -119,13 +127,7 @@ export const queryFilter = (params) => {
                     filter[key] = params[key];
                 }
             });
-        } else {
-            return filter;
         }
-    } else if (params.id) {
-        filter._id = params;
-    } else {
-        filter[params] = params;
     }
 
     return filter;

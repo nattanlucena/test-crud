@@ -1,3 +1,6 @@
+/*
+    Module dependencies
+ */
 import joi from 'joi';
 
 const envVarsSchema = joi.object({

@@ -2,7 +2,8 @@
 /*
  * Module dependencies
  */
-import Collection from './schema';
+import Collection from "./schema";
+import * as gridfs from "../../../common/gridfs-config";
 
 
 /**
@@ -24,7 +25,7 @@ module.exports.getCollectionInstance = () => {
  */
 module.exports.fetch = (query, options, callback) => {
     let qry = query || {};
-    let localOptions = { __v: 0, password: 0 };
+    let localOptions = {__v: 0, password: 0};
     if (typeof options === 'function') {
         callback = options;
     } else {
@@ -50,7 +51,7 @@ module.exports.save = (user, callback) => {
  * @param options - query options
  * @param callback
  */
-module.exports.findOne = (query, options, callback) =>{
+module.exports.findOne = (query, options, callback) => {
     let localOptions = {__v: 0};
     if (typeof options === 'function') {
         callback = options;
@@ -86,7 +87,7 @@ module.exports.update = (query, data, options, callback) => {
     }
 
     //Update fields
-    Object.keys(data).forEach( (key) => {
+    Object.keys(data).forEach((key) => {
         updateFields[key] = data[key];
     });
 
@@ -112,4 +113,25 @@ module.exports.remove = (query, callback) => {
  */
 module.exports.comparePassword = (user, plainText, callback) => {
     user.comparePassword(plainText, callback);
+};
+
+
+/**
+ * Save an user avatar
+ *
+ * @param file - Avatar
+ * @param metadata - Avatar metadata
+ * @param callback
+ */
+module.exports.saveAvatar = (file, metadata, callback) => {
+    //Save file on gridfs
+    gridfs.writeStream(file, metadata).then((ws) => {
+        gridfs.readStream(file, ws);
+        ws.on('close', (savedFile) => {
+            //Remove file from temp directory
+            gridfs.unlink(file, (err) => {
+                callback(err, savedFile);
+            });
+        });
+    }).catch(callback);
 };

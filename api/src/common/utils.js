@@ -10,86 +10,85 @@ import * as Log from './log';
  * @param error
  * @returns {*}
  */
-let handleError = (error) => {
+export const handleError = (error) => {
     logError(error);
 
-    if (error instanceof Error) {
-        if (error.errors) {
-            let errorMessages = {};
-            for (let key in error.errors) {
-                if (error.errors.hasOwnProperty(key)) {
-                    errorMessages[key] = error.errors[key].message;
-                }
-            }
-            return {error: errorMessages}
+    if (!(error instanceof Error)) {
+        const has = Object.prototype.hasOwnProperty;
+        if ( (has.call(error, 'code') && has.call(error, 'message'))) {
+            return { error: {code: error.code , message: error.message }  };
         } else {
-            return {error: error.message}
+            return { error: error.message  };
         }
-    } else {
-        return error.message ? {error: error.message} : {error: error};
     }
+
+    if ( !error.errors) {
+        return { error: error.message };
+    }
+
+    let errorMessages = {};
+    for (let key in error.errors) {
+        if (error.errors.hasOwnProperty(key)) {
+            errorMessages[key] = error.errors[key].message;
+        }
+    }
+
+    return { error: errorMessages };
 };
-module.exports.handleError = handleError;
 
 /**
  * Manipulate messages to be returned in http response
  * @param msg
  * @returns {*}
  */
-let handleMessage = (msg) => ({message: msg});
-module.exports.handleMessage = handleMessage;
+export const handleMessage = (msg) => ({message: msg});
 
 /**
  * Manipulate messages to be returned in http response
  * @param data
  * @returns {*}
  */
-let handleData = (data) => ({data: data});
-module.exports.handleData = handleData;
+export const handleData = (data) => ({data: data});
 
 /**
  * Print the error message in console
  * @param error
  */
-let logError = (error) => {
+export const logError = (error) => {
     if (process.env.NODE_ENV === 'development') {
         Log.error(error);
     }
 };
-module.exports.logError = logError;
 
 /**
  * Print the info message in console
  * @param message
  */
-function logInfo(message) {
+export const logInfo = (message) => {
     if (process.env.NODE_ENV === 'development') {
         Log.info(message);
     }
-}
-module.exports.logInfo = logInfo;
+};
 
 /**
  * Print the debug message in console
  * @param message
  */
-let logDebug = (message) => {
+export const logDebug = (message) => {
     if (process.env.NODE_ENV === 'development') {
         Log.debug(message);
     }
 };
-module.exports.logDebug = logDebug;
 
 /**
  * Print the debug message in console
  * @param message
  */
-let logWarn = (message) => {
+export const logWarn = (message) =>{
     if (process.env.NODE_ENV === 'development') {
         Log.warn(message);
     }
 };
-module.exports.logWarn = logWarn;
 
 /**
  *  Validate email address function. If matchs, it returns true. If not, returns false
@@ -97,14 +96,12 @@ module.exports.logWarn = logWarn;
  * @param email
  * @returns {boolean}
  */
-let validateEmail = (email) => {
+export const validateEmail = (email) => {
     const EMAIL_REGEX = '^[a-zA-Z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
     let regex = new RegExp(EMAIL_REGEX);
 
     return regex.test(email);
 };
-module.exports.validateEmail = validateEmail;
-
 
 /**
  * Generate query filter
@@ -112,9 +109,16 @@ module.exports.validateEmail = validateEmail;
  * @param params
  * @returns {{}}
  */
-let queryFilter = (params) => {
+export const queryFilter = (params) => {
     let filter = {};
-    if (typeof params === 'object') {
+
+    if ( !(typeof params === 'object')) {
+        if (params.id) {
+            filter._id = params;
+        } else {
+            filter[params] = params;
+        }
+    } else {
         if (Object.keys(params).length) {
             Object.keys(params).forEach((key) => {
                 if (key === 'id')  {
@@ -123,15 +127,8 @@ let queryFilter = (params) => {
                     filter[key] = params[key];
                 }
             });
-        } else {
-            return filter;
         }
-    } else if (params.id) {
-        filter._id = params;
-    } else {
-        filter[params] = params;
     }
 
     return filter;
 };
-module.exports.queryFilter = queryFilter;

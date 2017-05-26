@@ -2,12 +2,12 @@
 /*
     Module dependencies
  */
-import passportJWT from 'passport-jwt';
-import * as config from '../../../../config/config';
-import {User} from '../../user/'
+import passportJWT  from 'passport-jwt';
+import * as config  from '../../../../config/config';
+import {User}       from '../../user/'
 
-const ExtractJWT = passportJWT.ExtractJwt;
-const JwtStrategy = passportJWT.Strategy;
+const ExtractJWT    = passportJWT.ExtractJwt;
+const JwtStrategy   = passportJWT.Strategy;
 
 module.exports.strategy = (passport) => {
 

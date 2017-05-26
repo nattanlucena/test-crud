@@ -2,11 +2,8 @@
 /*
  * Module dependencies
  */
-import UserModel from '../../model/';
-import Manager from './entity';
-import * as gridfs from '../../../../common/gridfs-config';
-import * as utils from '../../../../common/utils';
-
+import UserModel    from '../../model/';
+import Manager      from './entity';
 
 /**
  *  Get all users from database
@@ -34,42 +31,51 @@ module.exports.save = (data, file, callback) => {
     }
 
     try {
-        let manager = new Manager(data.name, data.email, data.password, data.cpf);
 
+        let manager = new Manager(data.name, data.email, data.password, data.cpf);
         if (data.address) {
-            let address = {
-                street: data.street,
-                city: data.city,
-                state: data.state,
-                postal: data.postal
-            };
-            manager.setAddress(address);
+            setUserAddress(manager, data.address);
         }
+
         //If file exists and it's an image
         if (file && typeof file !== 'function') {
-            delete data.password; //remove password field from metadata
 
-            //Save file on gridfs
-            gridfs.writeStream(file, data).then((ws) => {
-                gridfs.readStream(file, ws);
-                ws.on('close', (savedFile) => {
-                    //Remove file from temp directory
-                    gridfs.unlink(file, (err) => {
-                        if (err) {
-                            return callback(err);
-                        }
-                        manager.setAvatar(savedFile._id);
-                        UserModel.save(manager.getDatabaseDoc(), callback);
-                    });
-                });
+            delete data.password;
+            delete data.address;
+            const metadata = {...data};
+
+            UserModel.saveAvatar(file, metadata, (err, avatar) => {
+                if (err) {
+                    return callback(err);
+                }
+                manager.setAvatar(avatar._id);
+
+                return UserModel.save(manager.getDatabaseDoc(), callback);
             });
 
-        } else {
-            UserModel.save(manager.getDatabaseDoc(), callback);
         }
+
+        return UserModel.save(manager.getDatabaseDoc(), callback);
+
     } catch (err) {
         return callback(err);
     }
+};
+
+/**
+ * Set user address
+ *
+ * @param manager
+ * @param address
+ */
+let setUserAddress = (manager, address) => {
+    let userAddress = {
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        postal: address.postal
+    };
+    manager.setAddress(userAddress);
 };
 
 /**

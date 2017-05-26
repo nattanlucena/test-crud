@@ -1,15 +1,16 @@
 /*
     Module dependencies
  */
-import fs from 'fs';
-import path from 'path';
-import dotenv from 'dotenv';
-import bunyan from 'bunyan';
-import Logger from './logConfig';
+import fs       from 'fs';
 
-const logger = Logger.logger;
-const node_env = process.env.NODE_ENV;
-const file = path.join(__dirname, '../env', `.env.${node_env}`);
+import path     from 'path';
+import dotenv   from 'dotenv';
+import bunyan   from 'bunyan';
+import Logger   from './logConfig';
+
+const logger    = Logger.logger;
+const node_env  = process.env.NODE_ENV;
+const file      = path.join(__dirname, '../env', `.env.${node_env}`);
 
 
 //Load env vars

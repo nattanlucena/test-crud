@@ -2,8 +2,8 @@
 /*
     Module dependencies
  */
-import chalk from 'chalk';
-import moment from 'moment';
+import chalk    from 'chalk';
+import moment   from 'moment';
 
 //Enable colors
 chalk.enabled = true;
@@ -27,7 +27,9 @@ module.exports = {
         process.stdout.write(formattedMsg)
     },
     error: (msg) => {
-        let formattedMsg = chalk.bold.red(getFormattedData() + ' [ERROR] ' + msg + '\n');
+
+        let localMsg = typeof msg === 'object' ? JSON.stringify(msg): msg;
+        let formattedMsg = chalk.bold.red(getFormattedData() + ' [ERROR] ' + localMsg + '\n');
         process.stderr.write(formattedMsg)
     }
 };

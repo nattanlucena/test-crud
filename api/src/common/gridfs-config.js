@@ -2,32 +2,35 @@
 /*
     Module dependencies
  */
+import fs       from 'fs';
+
 import mongoose from 'mongoose';
-import GridFs from 'gridfs-stream';
-import multer from 'multer';
-import fs from 'fs';
-import path from 'path';
+import GridFs   from 'gridfs-stream';
+import multer   from 'multer';
+import path     from 'path';
 
-GridFs.mongo = mongoose.mongo;
+GridFs.mongo    = mongoose.mongo;
 
-const maxSize = 1000 * 1000 * 20;
-const types = ['.jpg', '.jpeg', '.png'];
+const maxSize   = 1000 * 1000 * 20;
+const types     = ['.jpg', '.jpeg', '.png'];
 
+
+//Get current database connection
 const getConnection = async function () {
     return new Promise((resolve) => {
         resolve(mongoose.connection);
     });
 };
 
-// let gfs =
+// Set GridFs config
 async function gfsConfig()  {
     let conn = await getConnection();
-    let gridfs = GridFs(conn.db);
 
-    return gridfs;
+    return GridFs(conn.db);
 }
 
-module.exports.upload = multer({
+//Save file in disk
+export const upload = multer({
     dest: './public/images/tmp/',
     limits: { fileSize: maxSize },
     fileFilter: (req, file, cb) => {
@@ -39,7 +42,7 @@ module.exports.upload = multer({
 }).single('file');
 
 //
-module.exports.writeStream = (file, body) => {
+export const writeStream = (file, body) => {
     let datetimestamp = Date.now();
     let filename = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
 
@@ -48,14 +51,13 @@ module.exports.writeStream = (file, body) => {
             filename: filename,
             mode: 'w',
             content_type: file.mimetype,
-            root: 'avatar-user',
             metadata: body
         });
     });
 };
 
 //
-module.exports.readStream = (file, writeStream) => {
+export const readStream = (file, writeStream) => {
     try{
         fs.createReadStream(file.path).pipe(writeStream);
     } catch (err) {
@@ -63,7 +65,23 @@ module.exports.readStream = (file, writeStream) => {
     }
 };
 
-//
-module.exports.unlink = (file, callback) => {
+//Remove temporary file
+export const unlink = (file, callback) => {
     fs.unlink(file.path, callback);
+};
+
+
+/**
+ * Return avatar file
+ *
+ * @param fileId
+ * @param callback
+ * @returns {*|Promise.<TResult>}
+ */
+export const findAvatar = (fileId, callback) => {
+    return gfsConfig().then( (gfs) => {
+        return gfs.findOne({ _id: fileId }, (err, value) => {
+            return callback(err, value);
+        })
+    }).catch(callback);
 };

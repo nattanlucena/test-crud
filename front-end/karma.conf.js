@@ -5,10 +5,21 @@ module.exports = function (config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['jasmine','mocha', 'chai'],
 
     // list of files/patterns to load in the browser
-    files: [{ pattern: 'spec.bundle.js', watched: false }],
+    files: [
+      { pattern: 'spec.bundle.js', watched: false },
+      //'node_modules/**/angular.js',
+      //'node_modules/**/angular-mocks.js',
+      //'client/**/*factory.js',
+      //'client/**/*service.js',
+    ],
+    // files:[
+    // 'client/app/components/auth/login/angular.min.js',
+    // 'client/app/components/auth/login/angular-mocks.js',
+    // 'client/app/components/auth/login/*.js',
+    // 'client/**/*.espec.js'],
 
     // files to exclude
     exclude: [],
@@ -19,7 +30,9 @@ module.exports = function (config) {
       require("karma-mocha"),
       require("karma-mocha-reporter"),
       require("karma-sourcemap-loader"),
-      require("karma-webpack")
+      require("karma-webpack"),
+      require("karma-htmlfile-reporter"),
+      require('karma-jasmine')
     ],
 
     // preprocess matching files before serving them to the browser
@@ -43,7 +56,7 @@ module.exports = function (config) {
     },
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'html', 'progress'],
 
     // web server port
     port: 9876,
@@ -63,6 +76,18 @@ module.exports = function (config) {
     browsers: ['Chrome'],
 
     // if true, Karma runs tests once and exits
-    singleRun: true
+    singleRun: true,
+
+    htmlReporter: {
+      outputFile: 'client/Reporters/units-tests-' + new Date() + '.html',
+
+      // Optional
+      pageTitle: 'Unit Tests',
+      subPageTitle: 'Unit Tests',
+      groupSuites: true,
+      useCompactStyle: true,
+      useLegacyStyle: true
+    }
+
   });
 };

@@ -1,13 +1,17 @@
 let UserFormCtrl = ($scope, UserFactory, UserListService) => {
 	$scope.user = {};
+	$scope.lista = [];
 
 	$scope.save = () => {
-		UserFactory.saveUser($scope.user, (err, user) => {
-		  //TODO: handle error
+	   UserFactory.saveUser($scope.user, (err, user) => {
+		  	if (err) {
+		  	    Materialize.toast('Opss...! ' + err, 3500);	
+		  	}
 			$scope.lista = UserListService.get();
 			$scope.lista.push(user.data);
+			$scope.reset();
 		});
-		$scope.reset();
+	   
 	}
 
 	$scope.reset = () => {

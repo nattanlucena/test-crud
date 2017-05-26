@@ -59,6 +59,7 @@ class Manager extends User{
     getDatabaseDoc() {
         let self = this;
         let Collection = UserDBCollection.getCollectionInstance();
+
         return new Collection({
             name: self.name,
             email: self.email,

@@ -31,6 +31,7 @@ module.exports.save = (data, file, callback) => {
     }
 
     try {
+
         let manager = new Manager(data.name, data.email, data.password, data.cpf);
         if (data.address) {
             setUserAddress(manager, data.address);
@@ -38,6 +39,7 @@ module.exports.save = (data, file, callback) => {
 
         //If file exists and it's an image
         if (file && typeof file !== 'function') {
+
             delete data.password;
             delete data.address;
             const metadata = {...data};
@@ -47,12 +49,14 @@ module.exports.save = (data, file, callback) => {
                     return callback(err);
                 }
                 manager.setAvatar(avatar._id);
-                UserModel.save(manager.getDatabaseDoc(), callback);
-            })
 
-        } else {
-            UserModel.save(manager.getDatabaseDoc(), callback);
+                return UserModel.save(manager.getDatabaseDoc(), callback);
+            });
+
         }
+
+        return UserModel.save(manager.getDatabaseDoc(), callback);
+
     } catch (err) {
         return callback(err);
     }

@@ -16,14 +16,14 @@ export const handleError = (error) => {
     if (!(error instanceof Error)) {
         const has = Object.prototype.hasOwnProperty;
         if ( (has.call(error, 'code') && has.call(error, 'message'))) {
-            return {error: {code: error.code , message: error.message }  };
+            return { error: {code: error.code , message: error.message }  };
         } else {
             return { error: error.message  };
         }
     }
 
     if ( !error.errors) {
-        return {error: error.message}
+        return { error: error.message };
     }
 
     let errorMessages = {};
@@ -33,7 +33,7 @@ export const handleError = (error) => {
         }
     }
 
-    return {error: errorMessages};
+    return { error: errorMessages };
 };
 
 /**
